@@ -1,563 +1,839 @@
-Actor_ID,Settlement_ID,Sector_ID
-2,1,1
-1,1,1
-56,1,1
-2,1,2
-56,1,2
-2,1,3
-56,1,3
-2,1,4
-56,1,4
-40,1,5
-2,1,5
-51,1,5
-1,1,5
-56,1,5
-55,1,5
-14,1,5
-40,1,6
-2,1,6
-30,1,6
-20,1,6
-46,1,7
-6,1,7
-2,1,7
-30,1,7
-20,1,7
-46,1,8
-6,1,8
-2,1,9
-56,1,9
-2,1,10
-12,1,10
-8,1,10
-2,2,1
-1,2,1
-56,2,1
-2,2,2
-56,2,2
-2,2,3
-56,2,3
-4,2,4
-2,2,4
-56,2,4
-46,2,5
-4,2,5
-2,2,5
-5,2,5
-31,2,5
-51,2,5
-1,2,5
-56,2,5
-14,2,5
-2,2,6
-5,2,6
-30,2,6
-14,2,6
-4,2,7
-2,2,7
-30,2,7
-20,2,7
-46,2,8
-6,2,8
-36,2,8
-2,2,9
-51,2,9
-56,2,9
-2,2,10
-12,2,10
-8,2,10
-46,2,11
-2,2,11
-51,2,11
-34,2,11
-22,2,11
-2,3,1
-21,3,1
-2,3,2
-21,3,2
-2,3,3
-21,3,3
-46,3,4
-2,3,4
-21,3,4
-46,3,5
-2,3,5
-5,3,5
-31,3,5
-51,3,5
-1,3,5
-25,3,5
-21,3,5
-2,3,6
-5,3,6
-30,3,6
-25,3,6
-14,3,6
-4,3,7
-2,3,7
-30,3,7
-20,3,7
-14,3,7
-46,3,8
-6,3,8
-2,3,9
-51,3,9
-34,3,9
-56,3,9
-2,3,10
-12,3,10
-8,3,10
-2,3,11
-51,3,11
-34,3,11
-38,3,11
-38,3,13
-2,4,1
-21,4,1
-2,4,2
-21,4,2
-2,4,3
-21,4,3
-2,4,4
-21,4,4
-2,4,5
-5,4,5
-31,4,5
-51,4,5
-1,4,5
-25,4,5
-21,4,5
-2,4,6
-5,4,6
-30,4,6
-25,4,6
-14,4,6
-4,4,7
-2,4,7
-30,4,7
-20,4,7
-14,4,7
-46,4,8
-6,4,8
-2,4,9
-51,4,9
-34,4,9
-56,4,9
-2,4,10
-12,4,10
-8,4,10
-2,4,11
-51,4,11
-34,4,11
-38,4,11
-50,4,13
-21,4,13
-56,5,1
-56,5,2
-56,5,3
-56,5,4
-42,5,5
-31,5,5
-34,5,5
-1,5,5
-56,5,5
-2,5,6
-5,5,6
-30,5,6
-25,5,6
-14,5,6
-4,5,7
-2,5,7
-30,5,7
-20,5,7
-14,5,7
-46,5,8
-6,5,8
-2,5,9
-51,5,9
-34,5,9
-56,5,9
-2,5,10
-12,5,10
-34,5,11
-2,5,12
-1,5,12
-56,5,12
-56,5,13
-50,5,13
-42,5,14
-2,5,14
-31,5,14
-34,5,14
-1,5,14
-30,5,14
-56,5,14
-56,6,1
-56,6,2
-56,6,3
-56,6,4
-42,6,5
-1,6,5
-56,6,5
-25,6,5
-14,6,5
-2,6,6
-5,6,6
-30,6,6
-25,6,6
-14,6,6
-4,6,7
-2,6,7
-30,6,7
-20,6,7
-14,6,7
-46,6,8
-6,6,8
-56,6,9
-21,6,9
-2,6,10
-12,6,10
-38,6,11
-2,6,12
-1,6,12
-56,6,12
-38,6,13
-56,6,13
-18,6,13
-42,6,14
-2,6,14
-31,6,14
-34,6,14
-1,6,14
-30,6,14
-56,6,14
-56,7,1
-56,7,2
-56,7,3
-56,7,4
-21,7,4
-42,7,5
-31,7,5
-1,7,5
-56,7,5
-21,7,5
-2,7,6
-5,7,6
-30,7,6
-25,7,6
-14,7,6
-4,7,7
-2,7,7
-30,7,7
-20,7,7
-14,7,7
-46,7,8
-6,7,8
-56,7,9
-21,7,9
-2,7,10
-12,7,10
-31,7,11
-38,7,11
-22,7,11
-2,7,12
-1,7,12
-56,7,12
-21,7,12
-56,7,13
-21,7,13
-42,7,14
-2,7,14
-31,7,14
-1,7,14
-30,7,14
-56,7,14
-21,7,14
-2,8,1
-8,8,1
-2,8,2
-8,8,2
-2,8,3
-8,8,3
-2,8,4
-8,8,4
-2,8,5
-8,8,5
-6,8,7
-2,8,7
-8,8,7
-6,8,8
-2,8,8
-41,8,8
-2,8,9
-8,8,9
-2,8,10
-12,8,10
-2,8,11
-51,8,11
-8,8,11
-2,8,12
-2,8,13
-15,8,13
-8,8,13
-2,8,14
-15,8,14
-14,8,14
-8,8,14
-14,9,5
-12,9,10
-12,10,10
-2,11,1
-1,11,1
-21,11,1
-2,11,2
-21,11,2
-2,11,3
-21,11,3
-2,11,4
-21,11,4
-2,11,5
-1,11,5
-21,11,5
-6,11,8
-2,11,8
-21,11,8
-46,11,9
-2,11,9
-21,11,9
-2,11,10
-12,11,10
-8,11,10
-63,11,11
-2,12,1
-1,12,1
-21,12,1
-2,12,2
-21,12,2
-2,12,3
-21,12,3
-2,12,4
-21,12,4
-40,12,5
-2,12,5
-5,12,5
-51,12,5
-1,12,5
-21,12,5
-46,12,8
-6,12,8
-2,12,8
-21,12,8
-2,12,9
-51,12,9
-21,12,9
-2,12,10
-12,12,10
-8,12,10
-38,12,11
-38,12,13
-2,13,1
-1,13,1
-21,13,1
-2,13,2
-21,13,2
-2,13,3
-21,13,3
-40,13,4
-2,13,4
-3,13,4
-44,13,5
-42,13,5
-40,13,5
-2,13,5
-5,13,5
-51,13,5
-29,13,5
-1,13,5
-3,13,5
-21,13,5
-17,13,5
-4,13,9
-2,13,9
-51,13,9
-21,13,9
-2,13,10
-41,13,10
-12,13,10
-8,13,10
-47,13,11
-4,13,11
-2,13,11
-37,13,11
-51,13,11
-38,13,11
-3,13,11
-44,13,13
-2,13,13
-49,13,13
-38,13,13
-3,13,13
-7,13,13
-21,13,13
-19,13,13
-42,13,14
-2,13,14
-41,13,14
-53,13,14
-1,13,14
-30,13,14
-21,13,14
-2,14,1
-1,14,1
-2,14,2
-2,14,3
-2,14,4
-40,14,5
-2,14,5
-5,14,5
-51,14,5
-1,14,5
-25,14,5
-2,14,9
-51,14,9
-2,14,10
-1,14,10
-12,14,10
-1,15,1
-2,15,2
-1,15,2
-2,15,3
-2,15,4
-51,15,4
-25,15,4
-42,15,5
-40,15,5
-4,15,5
-2,15,5
-5,15,5
-31,15,5
-51,15,5
-1,15,5
-32,15,5
-25,15,5
-2,15,10
-12,15,10
-2,15,11
-31,15,11
-51,15,11
-2,15,12
-8,15,12
-2,15,13
-31,15,13
-21,15,13
-2,15,14
-31,15,14
-35,15,14
-2,16,1
-1,16,1
-2,16,2
-2,16,3
-4,16,4
-2,16,4
-34,16,4
-10,16,4
-46,16,5
-42,16,5
-4,16,5
-2,16,5
-5,16,5
-31,16,5
-34,16,5
-1,16,5
-25,16,5
-15,16,5
-10,16,5
-46,16,11
-4,16,11
-51,16,11
-34,16,11
-25,16,11
-21,16,11
-31,16,13
-41,16,13
-51,16,13
-38,16,13
-18,16,13
-42,16,14
-2,16,14
-5,16,14
-1,16,14
-25,16,14
-15,16,14
-2,17,1
-1,17,1
-2,17,2
-1,17,2
-2,17,3
-56,17,3
-2,17,4
-56,17,4
-4,17,5
-2,17,5
-1,17,5
-56,17,5
-2,17,11
-46,17,13
-60,18,5
-14,18,5
-42,18,11
-4,18,11
-5,18,11
-63,18,12
-63,18,13
-22,18,13
-14,18,13
-15,18,14
-60,19,4
-60,19,5
-14,19,5
-4,19,11
-63,19,12
-63,19,13
-15,19,14
-40,20,1
-1,20,1
-1,20,2
-40,20,4
-46,20,5
-40,20,5
-5,20,5
-51,20,5
-1,20,5
-25,20,5
-46,20,13
-18,20,13
-40,20,14
-25,20,14
-2,21,1
-2,21,2
-49,21,4
-18,21,4
-2,21,5
-5,21,5
-49,21,5
-26,21,5
-18,21,5
-16,21,5
-56,21,12
-26,21,12
-49,21,13
-56,21,13
-50,21,13
-26,21,13
-18,21,13
-14,21,14
-21,22,3
-21,22,4
-21,22,5
-63,22,12
-21,22,13
-2,22,14
-21,22,14
-15,22,14
+Actor_Name,Actor_ID,Settlement_Name,Settlement_ID,Sector Name,Sector_ID
+OPM,1,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+OPM,1,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+OPM,1,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+OPM,1,Boroli,4,"CP, Community Based and Psychosocial",1
+OPM,1,Nyumanzi,5,"CP, Community Based and Psychosocial",1
+OPM,1,"Ayilo I,II",6,"CP, Community Based and Psychosocial",1
+OPM,1,Kuluba CP,8,"CP, Community Based and Psychosocial",1
+OPM,1,Ocea RC (Rhino),9,"CP, Community Based and Psychosocial",1
+OPM,1,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+OPM,1,Imvepi Settlement,11,"CP, Community Based and Psychosocial",1
+OPM,1,Elegu CP,14,"CP, Community Based and Psychosocial",1
+OPM,1,Palorinya Settlement,15,"CP, Community Based and Psychosocial",1
+OPM,1,Kiryandongo TC,21,"CP, Community Based and Psychosocial",1
+OPM,1,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+UNHCR,2,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+UNHCR,2,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+UNHCR,2,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+UNHCR,2,Kyangwali,7,"CP, Community Based and Psychosocial",1
+UNHCR,2,Kuluba CP,8,"CP, Community Based and Psychosocial",1
+UNHCR,2,Ocea RC (Rhino),9,"CP, Community Based and Psychosocial",1
+UNHCR,2,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+UNHCR,2,Palabek Settlement,12,"CP, Community Based and Psychosocial",1
+UNHCR,2,Elegu CP,14,"CP, Community Based and Psychosocial",1
+UNHCR,2,Palorinya Settlement,15,"CP, Community Based and Psychosocial",1
+UNHCR,2,Kiryandongo TC,21,"CP, Community Based and Psychosocial",1
+UNHCR,2,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+IAS,3,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+UNICEF,4,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+UNICEF,4,Palorinya Settlement,15,"CP, Community Based and Psychosocial",1
+UNICEF,4,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+UNFPA,5,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+UNFPA,5,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+UNFPA,5,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+UNFPA,5,Ocea RC (Rhino),9,"CP, Community Based and Psychosocial",1
+UNFPA,5,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+UNFPA,5,Imvepi Settlement,11,"CP, Community Based and Psychosocial",1
+UNFPA,5,Palabek Settlement,12,"CP, Community Based and Psychosocial",1
+UNFPA,5,Kiryandongo TC,21,"CP, Community Based and Psychosocial",1
+UNFPA,5,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+AAH,8,Kyangwali,7,"CP, Community Based and Psychosocial",1
+ACORD,12,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+ACORD,12,Nyumanzi,5,"CP, Community Based and Psychosocial",1
+ACORD,12,Elegu CP,14,"CP, Community Based and Psychosocial",1
+AVSI,14,Palabek Settlement,12,"CP, Community Based and Psychosocial",1
+CARE,15,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+CARE,15,Imvepi Settlement,11,"CP, Community Based and Psychosocial",1
+Caritas,16,Palabek Settlement,12,"CP, Community Based and Psychosocial",1
+DRC,19,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+DRC,19,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+DRC,19,"Ayilo I,II",6,"CP, Community Based and Psychosocial",1
+DRC,19,Kuluba CP,8,"CP, Community Based and Psychosocial",1
+DRC,19,Ocea RC (Rhino),9,"CP, Community Based and Psychosocial",1
+DRC,19,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+IAU,21,Kiryandongo TC,21,"CP, Community Based and Psychosocial",1
+IAU,21,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+IRC,22,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+IRC,22,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+IRC,22,Nyumanzi,5,"CP, Community Based and Psychosocial",1
+IRC,22,Imvepi Settlement,11,"CP, Community Based and Psychosocial",1
+IRC,22,Kiryandongo TC,21,"CP, Community Based and Psychosocial",1
+IRC,22,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+CESVI,23,Palabek Settlement,12,"CP, Community Based and Psychosocial",1
+RICE,26,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+TPO,28,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+TPO,28,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+TPO,28,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+TPO,28,Boroli,4,"CP, Community Based and Psychosocial",1
+TPO,28,"Ayilo I,II",6,"CP, Community Based and Psychosocial",1
+TPO,28,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+OBK,29,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+PLAN,31,Boroli,4,"CP, Community Based and Psychosocial",1
+TUTAPONA,36,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+TUTAPONA,36,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+TUTAPONA,36,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+URCS,37,Ocea RC (Rhino),9,"CP, Community Based and Psychosocial",1
+URCS,37,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+URCS,37,Imvepi Settlement,11,"CP, Community Based and Psychosocial",1
+URCS,37,Elegu CP,14,"CP, Community Based and Psychosocial",1
+URCS,37,Kiryandongo TC,21,"CP, Community Based and Psychosocial",1
+URCS,37,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+WCC,39,Boroli,4,"CP, Community Based and Psychosocial",1
+WCC,39,Nyumanzi,5,"CP, Community Based and Psychosocial",1
+WCC,39,"Ayilo I,II",6,"CP, Community Based and Psychosocial",1
+WCC,39,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+WCC,39,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+WHH,41,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+WTU,42,Ocea RC (Rhino),9,"CP, Community Based and Psychosocial",1
+WVI,43,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+WVI,43,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+WVI,43,Imvepi Settlement,11,"CP, Community Based and Psychosocial",1
+OXFAM,46,Palabek Settlement,12,"CP, Community Based and Psychosocial",1
+SCI,48,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+SCI,48,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+SCI,48,"Mungula I, II",3,"CP, Community Based and Psychosocial",1
+SCI,48,Kuluba CP,8,"CP, Community Based and Psychosocial",1
+SCI,48,Ocea RC (Rhino),9,"CP, Community Based and Psychosocial",1
+SCI,48,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+SCI,48,Imvepi Settlement,11,"CP, Community Based and Psychosocial",1
+SCI,48,Elegu CP,14,"CP, Community Based and Psychosocial",1
+SCI,48,Kiryandongo TC,21,"CP, Community Based and Psychosocial",1
+SCI,48,Kiryandongo Settlement,22,"CP, Community Based and Psychosocial",1
+WCH,49,"Ayilo I,II",6,"CP, Community Based and Psychosocial",1
+FCA,52,Elegu CP,14,"CP, Community Based and Psychosocial",1
+LWF,53,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+LWF,53,Boroli,4,"CP, Community Based and Psychosocial",1
+LWF,53,Nyumanzi,5,"CP, Community Based and Psychosocial",1
+LWF,53,"Ayilo I,II",6,"CP, Community Based and Psychosocial",1
+LWF,53,Palabek Settlement,12,"CP, Community Based and Psychosocial",1
+LWF,53,Elegu CP,14,"CP, Community Based and Psychosocial",1
+LWF,53,Palorinya Settlement,15,"CP, Community Based and Psychosocial",1
+IsraAID,81,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1
+IsraAID,81,"Maaji I,II, III",2,"CP, Community Based and Psychosocial",1
+OPM,1,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+OPM,1,Rwamwanja,16,"CP, Community Based and Psychosocial",1
+OPM,1,Nyakabande TC,17,"CP, Community Based and Psychosocial",1
+UNHCR,2,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+UNHCR,2,Rwamwanja,16,"CP, Community Based and Psychosocial",1
+UNHCR,2,Nyakabande TC,17,"CP, Community Based and Psychosocial",1
+UNICEF,4,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+ADRA,10,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+ACORD,12,Rwamwanja,16,"CP, Community Based and Psychosocial",1
+ARC,13,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+ARC,13,Kyaka II settlement,20,"CP, Community Based and Psychosocial",1
+DRC,19,Kyaka II settlement,20,"CP, Community Based and Psychosocial",1
+IRC,22,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+TPO,28,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+PLAN,31,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+TUTAPONA,36,Rwamwanja,16,"CP, Community Based and Psychosocial",1
+TUTAPONA,36,Nakivale Settlement,18,"CP, Community Based and Psychosocial",1
+WCC,39,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+WCC,39,Rwamwanja,16,"CP, Community Based and Psychosocial",1
+WVI,43,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+SCI,48,Nyakabande TC,17,"CP, Community Based and Psychosocial",1
+WCH,49,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+LWF,53,Rwamwanja,16,"CP, Community Based and Psychosocial",1
+HIJRA,56,Nakivale Settlement,18,"CP, Community Based and Psychosocial",1
+ICRC/URC,68,Rwamwanja,16,"CP, Community Based and Psychosocial",1
+ICRC/URC,68,Nyakabande TC,17,"CP, Community Based and Psychosocial",1
+ICRC/URC,68,Nakivale Settlement,18,"CP, Community Based and Psychosocial",1
+ICRC/URC,68,Oruchinga,19,"CP, Community Based and Psychosocial",1
+ICRC/URC,68,Kyaka II settlement,20,"CP, Community Based and Psychosocial",1
+HIJRA/CAFOMI,69,Nyakabande TC,17,"CP, Community Based and Psychosocial",1
+UNFPA (GBV),90,Bidibidi Settlement,13,"CP, Community Based and Psychosocial",1
+OPM,1,Boroli,4,SGBV,2
+OPM,1,Nyumanzi,5,SGBV,2
+OPM,1,"Ayilo I,II",6,SGBV,2
+OPM,1,Rhino settlement,10,SGBV,2
+OPM,1,Bidibidi Settlement,13,SGBV,2
+UNHCR,2,Boroli,4,SGBV,2
+UNHCR,2,Nyumanzi,5,SGBV,2
+UNHCR,2,"Ayilo I,II",6,SGBV,2
+UNHCR,2,Kyangwali,7,SGBV,2
+UNHCR,2,Rhino settlement,10,SGBV,2
+UNHCR,2,Bidibidi Settlement,13,SGBV,2
+UNHCR,2,Kiryandongo Settlement,22,SGBV,2
+HIAS,93,Kampala District,23,SGBV,2
+UNFPA,5,Bidibidi Settlement,13,SGBV,2
+UNFPA,5,Kampala District,23,SGBV,2
+AAH,8,Kyangwali,7,SGBV,2
+ACORD,12,Kyangwali,7,SGBV,2
+ACORD,12,Palabek Settlement,12,SGBV,2
+ARC,13,Kyangwali,7,SGBV,2
+ARC,13,Bidibidi Settlement,13,SGBV,2
+ARC,13,Nakivale Settlement,18,SGBV,2
+ARC,13,Oruchinga,19,SGBV,2
+DRC,19,"Maaji I,II, III",2,SGBV,2
+DRC,19,"Mungula I, II",3,SGBV,2
+DRC,19,"Ayilo I,II",6,SGBV,2
+DRC,19,Kuluba CP,8,SGBV,2
+DRC,19,Rhino settlement,10,SGBV,2
+DRC,19,Kyaka II settlement,20,SGBV,2
+IAU,21,Kiryandongo TC,21,SGBV,2
+IAU,21,Kiryandongo Settlement,22,SGBV,2
+IAU,21,Kampala District,23,SGBV,2
+IRC,22,Imvepi Settlement,11,SGBV,2
+IRC,22,Bidibidi Settlement,13,SGBV,2
+MTI,27,Boroli,4,SGBV,2
+MTI,27,Nyumanzi,5,SGBV,2
+MTI,27,"Ayilo I,II",6,SGBV,2
+MTI,27,Rhino settlement,10,SGBV,2
+TPO,28,Boroli,4,SGBV,2
+TPO,28,Nyumanzi,5,SGBV,2
+TPO,28,"Ayilo I,II",6,SGBV,2
+TPO,28,Kiryandongo Settlement,22,SGBV,2
+UNWOMEN,30,Kampala District,23,SGBV,2
+PLAN,31,Boroli,4,SGBV,2
+PLAN,31,Nyumanzi,5,SGBV,2
+RMF,32,Kiryandongo Settlement,22,SGBV,2
+URCS,37,Imvepi Settlement,11,SGBV,2
+WCC,39,Boroli,4,SGBV,2
+WCC,39,Nyumanzi,5,SGBV,2
+WCC,39,"Ayilo I,II",6,SGBV,2
+WCC,39,Rhino settlement,10,SGBV,2
+WCC,39,Bidibidi Settlement,13,SGBV,2
+WCC,39,Kampala District,23,SGBV,2
+PCAF,50,Rhino settlement,10,SGBV,2
+LWF,53,Pagirinya Settlement,1,SGBV,2
+LWF,53,Boroli,4,SGBV,2
+LWF,53,Nyumanzi,5,SGBV,2
+LWF,53,"Ayilo I,II",6,SGBV,2
+LWF,53,Elegu CP,14,SGBV,2
+LWF,53,Palorinya Settlement,15,SGBV,2
+HIJRA,56,Nyakabande TC,17,SGBV,2
+Government_,59,Rhino settlement,10,SGBV,2
+AHA,62,Kyaka II settlement,20,SGBV,2
+Arua Regional Hospital,65,Rhino settlement,10,SGBV,2
+LWF,53,Rwamwanja,16,SGBV,2
+AHA,62,Rwamwanja,16,SGBV,2
+UNFPA/ACORD,70,Rwamwanja,16,SGBV,2
+UNHCR,2,Pagirinya Settlement,1,Education,3
+UNHCR,2,"Maaji I,II, III",2,Education,3
+UNHCR,2,"Ayilo I,II",6,Education,3
+UNHCR,2,Bidibidi Settlement,13,Education,3
+UNHCR,2,Elegu CP,14,Education,3
+UNHCR,2,Rwamwanja,16,Education,3
+UNHCR,2,Kiryandongo TC,21,Education,3
+IAS,3,Rhino settlement,10,Education,3
+UNICEF,4,Palorinya Settlement,15,Education,3
+UNICEF,4,Nakivale Settlement,18,Education,3
+UNICEF,4,Kiryandongo Settlement,22,Education,3
+UNFPA,5,Palorinya Settlement,15,Education,3
+AAH,8,"Ayilo I,II",6,Education,3
+AVSI,14,Imvepi Settlement,11,Education,3
+DRC,19,Kiryandongo Settlement,22,Education,3
+FRC,20,Nyumanzi,5,Education,3
+FRC,20,Palabek Settlement,12,Education,3
+FRC,20,Elegu CP,14,Education,3
+IRC,22,Kiryandongo Settlement,22,Education,3
+TPO,28,Nyumanzi,5,Education,3
+TPO,28,Kiryandongo TC,21,Education,3
+PLAN,31,Pagirinya Settlement,1,Education,3
+PLAN,31,"Maaji I,II, III",2,Education,3
+PLAN,31,"Mungula I, II",3,Education,3
+PLAN,31,Elegu CP,14,Education,3
+PLAN,31,Kiryandongo Settlement,22,Education,3
+NRC,35,Pagirinya Settlement,1,Education,3
+NRC,35,"Maaji I,II, III",2,Education,3
+NRC,35,Boroli,4,Education,3
+NRC,35,Nyumanzi,5,Education,3
+NRC,35,Kuluba CP,8,Education,3
+WCC,39,Palorinya Settlement,15,Education,3
+WCC,39,Nakivale Settlement,18,Education,3
+WTU,42,Pagirinya Settlement,1,Education,3
+WTU,42,"Maaji I,II, III",2,Education,3
+WTU,42,"Mungula I, II",3,Education,3
+WTU,42,Boroli,4,Education,3
+WTU,42,Nyumanzi,5,Education,3
+WTU,42,Imvepi Settlement,11,Education,3
+WTU,42,Palabek Settlement,12,Education,3
+WTU,42,Bidibidi Settlement,13,Education,3
+WTU,42,Elegu CP,14,Education,3
+WTU,42,Palorinya Settlement,15,Education,3
+WTU,42,Rwamwanja,16,Education,3
+WTU,42,Nakivale Settlement,18,Education,3
+WTU,42,Oruchinga,19,Education,3
+WTU,42,Kyaka II settlement,20,Education,3
+WTU,42,Kiryandongo TC,21,Education,3
+WTU,42,Kiryandongo Settlement,22,Education,3
+WVI,43,Elegu CP,14,Education,3
+WVI,43,Kiryandongo Settlement,22,Education,3
+SCI,48,Pagirinya Settlement,1,Education,3
+SCI,48,"Maaji I,II, III",2,Education,3
+SCI,48,"Ayilo I,II",6,Education,3
+SCI,48,Elegu CP,14,Education,3
+SCI,48,Rwamwanja,16,Education,3
+SCI,48,Nyakabande TC,17,Education,3
+SCI,48,Kiryandongo TC,21,Education,3
+SCI,48,Kiryandongo Settlement,22,Education,3
+Government_,59,Kiryandongo TC,21,Education,3
+IsraAID,81,Pagirinya Settlement,1,Education,3
+IsraAID,81,"Maaji I,II, III",2,Education,3
+UNICEF,4,Ocea RC (Rhino),9,Education,3
+PLAN,31,Ocea RC (Rhino),9,Education,3
+TAN,34,Ocea RC (Rhino),9,Education,3
+ZOA,44,Ocea RC (Rhino),9,Education,3
+SCI,48,Ocea RC (Rhino),9,Education,3
+Arua district,60,Ocea RC (Rhino),9,Education,3
+NRC,35,Ocea RC (Rhino),9,Education,3
+WTU/UNHCR,71,Ocea RC (Rhino),9,Education,3
+UNHCR,2,"Maaji I,II, III",2,WASH ,4
+UNHCR,2,"Mungula I, II",3,WASH ,4
+UNHCR,2,Kyangwali,7,WASH ,4
+UNHCR,2,Elegu CP,14,WASH ,4
+UNHCR,2,Rwamwanja,16,WASH ,4
+UNHCR,2,Nakivale Settlement,18,WASH ,4
+UNHCR,2,Oruchinga,19,WASH ,4
+UNHCR,2,Kyaka II settlement,20,WASH ,4
+UNHCR,2,Kiryandongo TC,21,WASH ,4
+UNHCR,2,Kiryandongo Settlement,22,WASH ,4
+DRC,19,"Mungula I, II",3,WASH ,4
+DRC,19,Nyumanzi,5,WASH ,4
+DRC,19,Kyaka II settlement,20,WASH ,4
+IAU,21,Kiryandongo TC,21,WASH ,4
+RLP,92,Kampala District,23,SGBV,2
+NRC,35,Nyumanzi,5,WASH ,4
+LWF,53,"Ayilo I,II",6,WASH ,4
+ARC,13,Nakivale Settlement,18,WASH ,4
+WMI,40,Elegu CP,14,WASH ,4
+Isingiro district water authorities,86,Nakivale Settlement,18,WASH ,4
+URCS,37,"Mungula I, II",3,WASH ,4
+LWF,53,Boroli,4,WASH ,4
+WVI,43,Rwamwanja,16,WASH ,4
+LWF,53,Nyumanzi,5,WASH ,4
+HIJRA,56,Oruchinga,19,WASH ,4
+DRC,19,Kiryandongo Settlement,22,WASH ,4
+Kamwenge district water authorities,97,Rwamwanja,16,WASH ,4
+NRC,35,"Ayilo I,II",6,WASH ,4
+Isingiro district water authorities,86,Oruchinga,19,WASH ,4
+UNHCR,2,Pagirinya Settlement,1,WASH ,4
+UNHCR,2,Kuluba CP,8,WASH ,4
+UNHCR,2,Ocea RC (Rhino),9,WASH ,4
+UNHCR,2,Rhino settlement,10,WASH ,4
+UNHCR,2,Imvepi Settlement,11,WASH ,4
+UNHCR,2,Palabek Settlement,12,WASH ,4
+UNHCR,2,Bidibidi Settlement,13,WASH ,4
+IAU,21,Kiryandongo Settlement,22,WASH ,4
+DRC,19,"Maaji I,II, III",2,WASH ,4
+URCS,37,"Maaji I,II, III",2,WASH ,4
+ACF,9,Kiryandongo Settlement,22,WASH ,4
+URCS,37,Imvepi Settlement,11,WASH ,4
+UNICEF,4,Elegu CP,14,WASH ,4
+LWF,53,Elegu CP,14,WASH ,4
+LWF,53,Rwamwanja,16,WASH ,4
+AAH-U,105,Kyangwali,7,WASH ,4
+NRC,35,"Mungula I, II",3,WASH ,4
+CRC,100,Bidibidi Settlement,13,WASH ,4
+UNHCR,2,Palorinya Settlement,15,WASH ,4
+UNHCR,2,Nyakabande TC,17,WASH ,4
+IAS,3,Rhino settlement,10,WASH ,4
+UNICEF,4,Pagirinya Settlement,1,WASH ,4
+UNICEF,4,Rhino settlement,10,WASH ,4
+UNICEF,4,Bidibidi Settlement,13,WASH ,4
+ACF,9,Imvepi Settlement,11,WASH ,4
+ACF,9,Palabek Settlement,12,WASH ,4
+ACF,9,Bidibidi Settlement,13,WASH ,4
+ADRA,10,Imvepi Settlement,11,WASH ,4
+ADRA,10,Bidibidi Settlement,13,WASH ,4
+AIRD,11,Bidibidi Settlement,13,WASH ,4
+AIRD,11,Nyakabande TC,17,WASH ,4
+Caritas,16,Palabek Settlement,12,WASH ,4
+DRC,19,Kuluba CP,8,WASH ,4
+DRC,19,Ocea RC (Rhino),9,WASH ,4
+DRC,19,Rhino settlement,10,WASH ,4
+DRC,19,Bidibidi Settlement,13,WASH ,4
+VEDCO,24,Palabek Settlement,12,WASH ,4
+MSF_,25,Pagirinya Settlement,1,WASH ,4
+MSF_,25,Palabek Settlement,12,WASH ,4
+MSF_,25,Bidibidi Settlement,13,WASH ,4
+MSF_,25,Palorinya Settlement,15,WASH ,4
+PLAN,31,Bidibidi Settlement,13,WASH ,4
+NRC,35,Rhino settlement,10,WASH ,4
+NRC,35,Bidibidi Settlement,13,WASH ,4
+URCS,37,Rhino settlement,10,WASH ,4
+URCS,37,Bidibidi Settlement,13,WASH ,4
+SP,38,Imvepi Settlement,11,WASH ,4
+SP,38,Bidibidi Settlement,13,WASH ,4
+WMI,40,Pagirinya Settlement,1,WASH ,4
+WMI,40,Rhino settlement,10,WASH ,4
+WMI,40,Bidibidi Settlement,13,WASH ,4
+WHH,41,Pagirinya Settlement,1,WASH ,4
+WHH,41,Rhino settlement,10,WASH ,4
+WHH,41,Imvepi Settlement,11,WASH ,4
+WHH,41,Bidibidi Settlement,13,WASH ,4
+WVI,43,Rhino settlement,10,WASH ,4
+Peace Wind,45,Bidibidi Settlement,13,WASH ,4
+OXFAM,46,Imvepi Settlement,11,WASH ,4
+OXFAM,46,Palabek Settlement,12,WASH ,4
+OXFAM,46,Bidibidi Settlement,13,WASH ,4
+LWF,53,Pagirinya Settlement,1,WASH ,4
+LWF,53,Palabek Settlement,12,WASH ,4
+LWF,53,Palorinya Settlement,15,WASH ,4
+IOM,55,Bidibidi Settlement,13,WASH ,4
+Here is Life,57,Imvepi Settlement,11,WASH ,4
+Here is Life,57,Bidibidi Settlement,13,WASH ,4
+Malteser,58,Rhino settlement,10,WASH ,4
+Malteser,58,Bidibidi Settlement,13,WASH ,4
+NRC,35,Ocea RC (Rhino),9,WASH ,4
+HIJRA/CAFOMI,69,Nyakabande TC,17,WASH ,4
+Ceford/Oxfam,72,Rhino settlement,10,WASH ,4
+MSF-H,77,Rhino settlement,10,WASH ,4
+MSF-F,78,Imvepi Settlement,11,WASH ,4
+Arua district local authorities,79,Imvepi Settlement,11,WASH ,4
+Arua district water authorities,80,Rhino settlement,10,WASH ,4
+Yumbe district water authorities,83,Bidibidi Settlement,13,WASH ,4
+Lamwo district water authorities,84,Palabek Settlement,12,WASH ,4
+Moyo district water authorities,85,Palorinya Settlement,15,WASH ,4
+ACF(AAH),88,Kuluba CP,8,WASH ,4
+ACF(AAH),88,Ocea RC (Rhino),9,WASH ,4
+OPM,1,Bidibidi Settlement,13,Livelihoods,5
+UNHCR,2,Kyangwali,7,Livelihoods,5
+UNHCR,2,Bidibidi Settlement,13,Livelihoods,5
+AAH,8,Kyangwali,7,Livelihoods,5
+AAH,8,Bidibidi Settlement,13,Livelihoods,5
+ACF,9,Bidibidi Settlement,13,Livelihoods,5
+ADRA,10,Bidibidi Settlement,13,Livelihoods,5
+ARC,13,Kyangwali,7,Livelihoods,5
+ARC,13,Bidibidi Settlement,13,Livelihoods,5
+Caritas,16,Nyumanzi,5,Livelihoods,5
+Caritas,16,Imvepi Settlement,11,Livelihoods,5
+Caritas,16,Palabek Settlement,12,Livelihoods,5
+Caritas,16,Bidibidi Settlement,13,Livelihoods,5
+CEFORD,17,Bidibidi Settlement,13,Livelihoods,5
+DRC,19,"Maaji I,II, III",2,Livelihoods,5
+DRC,19,"Mungula I, II",3,Livelihoods,5
+DRC,19,"Ayilo I,II",6,Livelihoods,5
+DRC,19,Kuluba CP,8,Livelihoods,5
+DRC,19,Kyaka II settlement,20,Livelihoods,5
+DRC,19,Kampala District,23,Livelihoods,5
+FRC,20,Nakivale Settlement,18,Livelihoods,5
+IAU,21,Kiryandongo TC,21,Livelihoods,5
+IRC,22,Bidibidi Settlement,13,Livelihoods,5
+IRC,22,Kampala District,23,Livelihoods,5
+CESVI,23,Palabek Settlement,12,Livelihoods,5
+TPO,28,Bidibidi Settlement,13,Livelihoods,5
+URDMC,33,Bidibidi Settlement,13,Livelihoods,5
+NRC,35,Ocea RC (Rhino),9,Livelihoods,5
+Yumbe District,98,Bidibidi Settlement,13,Livelihoods,5
+SP,38,Bidibidi Settlement,13,Livelihoods,5
+WHH,41,Bidibidi Settlement,13,Livelihoods,5
+WVI,43,Imvepi Settlement,11,Livelihoods,5
+WVI,43,Bidibidi Settlement,13,Livelihoods,5
+OXFAM,46,Palabek Settlement,12,Livelihoods,5
+FH,47,"Mungula I, II",3,Livelihoods,5
+FH,47,Boroli,4,Livelihoods,5
+FH,47,Palabek Settlement,12,Livelihoods,5
+SCI,48,Bidibidi Settlement,13,Livelihoods,5
+DCA,51,Bidibidi Settlement,13,Livelihoods,5
+FCA,52,Bidibidi Settlement,13,Livelihoods,5
+LWF,53,Pagirinya Settlement,1,Livelihoods,5
+LWF,53,Boroli,4,Livelihoods,5
+LWF,53,Nyumanzi,5,Livelihoods,5
+LWF,53,"Ayilo I,II",6,Livelihoods,5
+LWF,53,Palabek Settlement,12,Livelihoods,5
+LWF,53,Palorinya Settlement,15,Livelihoods,5
+Malteser,58,Bidibidi Settlement,13,Livelihoods,5
+NSAMIZI,64,Nakivale Settlement,18,Livelihoods,5
+NSAMIZI,64,Oruchinga,19,Livelihoods,5
+NRC,35,"Maaji I,II, III",2,Livelihoods,5
+NRC,35,Nyumanzi,5,Livelihoods,5
+NRC,35,Bidibidi Settlement,13,Livelihoods,5
+UNHCR,2,Rhino settlement,10,Livelihoods,5
+UNHCR,2,Kiryandongo Settlement,22,Livelihoods,5
+IAS,3,Rhino settlement,10,Livelihoods,5
+FAO,7,Rhino settlement,10,Livelihoods,5
+DRC,19,Rhino settlement,10,Livelihoods,5
+DRC,19,Kiryandongo Settlement,22,Livelihoods,5
+IAU,21,Kiryandongo Settlement,22,Livelihoods,5
+TPO,28,Kiryandongo Settlement,22,Livelihoods,5
+NRC,35,Rhino settlement,10,Livelihoods,5
+SP,38,Rwamwanja,16,Livelihoods,5
+WHH,41,Rhino settlement,10,Livelihoods,5
+FCA,52,Rwamwanja,16,Livelihoods,5
+LWF,53,Rwamwanja,16,Livelihoods,5
+Government_,59,Rhino settlement,10,Livelihoods,5
+NRC,35,Rhino settlement,10,Livelihoods,5
+ACAV,66,Rhino settlement,10,Livelihoods,5
+UNFPA/ACORD,70,Rwamwanja,16,Livelihoods,5
+Ceford/Oxfam,72,Rhino settlement,10,Livelihoods,5
+Government (LG),89,Kiryandongo Settlement,22,Livelihoods,5
+OPM,1,Rhino settlement,10,Food Assistance,6
+UNHCR,2,Kyangwali,7,Food Assistance,6
+UNHCR,2,Kuluba CP,8,Food Assistance,6
+UNHCR,2,Ocea RC (Rhino),9,Food Assistance,6
+UNHCR,2,Rhino settlement,10,Food Assistance,6
+WFP,6,Pagirinya Settlement,1,Food Assistance,6
+WFP,6,"Maaji I,II, III",2,Food Assistance,6
+WFP,6,"Mungula I, II",3,Food Assistance,6
+WFP,6,Boroli,4,Food Assistance,6
+WFP,6,Nyumanzi,5,Food Assistance,6
+WFP,6,"Ayilo I,II",6,Food Assistance,6
+WFP,6,Kyangwali,7,Food Assistance,6
+WFP,6,Kuluba CP,8,Food Assistance,6
+WFP,6,Ocea RC (Rhino),9,Food Assistance,6
+WFP,6,Rhino settlement,10,Food Assistance,6
+WFP,6,Imvepi Settlement,11,Food Assistance,6
+WFP,6,Palabek Settlement,12,Food Assistance,6
+WFP,6,Bidibidi Settlement,13,Food Assistance,6
+WFP,6,Elegu CP,14,Food Assistance,6
+WFP,6,Palorinya Settlement,15,Food Assistance,6
+WFP,6,Rwamwanja,16,Food Assistance,6
+WFP,6,Nyakabande TC,17,Food Assistance,6
+WFP,6,Nakivale Settlement,18,Food Assistance,6
+WFP,6,Oruchinga,19,Food Assistance,6
+WFP,6,Kiryandongo TC,21,Food Assistance,6
+WFP,6,Kiryandongo Settlement,22,Food Assistance,6
+FAO,7,Rhino settlement,10,Food Assistance,6
+CWW,18,Rhino settlement,10,Food Assistance,6
+DRC,19,Kuluba CP,8,Food Assistance,6
+DRC,19,Ocea RC (Rhino),9,Food Assistance,6
+DRC,19,Rhino settlement,10,Food Assistance,6
+IAU,21,Kiryandongo TC,21,Food Assistance,6
+URDMC,33,Pagirinya Settlement,1,Food Assistance,6
+URDMC,33,Palabek Settlement,12,Food Assistance,6
+SP,38,Kyangwali,7,Food Assistance,6
+SP,38,Imvepi Settlement,11,Food Assistance,6
+SP,38,Palabek Settlement,12,Food Assistance,6
+SP,38,Rwamwanja,16,Food Assistance,6
+SP,38,Nakivale Settlement,18,Food Assistance,6
+SP,38,Oruchinga,19,Food Assistance,6
+SP,38,Kyaka II settlement,20,Food Assistance,6
+SP,38,Kiryandongo TC,21,Food Assistance,6
+SP,38,Kiryandongo Settlement,22,Food Assistance,6
+WVI,43,Pagirinya Settlement,1,Food Assistance,6
+WVI,43,"Maaji I,II, III",2,Food Assistance,6
+WVI,43,"Mungula I, II",3,Food Assistance,6
+WVI,43,Boroli,4,Food Assistance,6
+WVI,43,Nyumanzi,5,Food Assistance,6
+WVI,43,"Ayilo I,II",6,Food Assistance,6
+WVI,43,Ocea RC (Rhino),9,Food Assistance,6
+WVI,43,Rhino settlement,10,Food Assistance,6
+WVI,43,Bidibidi Settlement,13,Food Assistance,6
+WVI,43,Elegu CP,14,Food Assistance,6
+WVI,43,Palorinya Settlement,15,Food Assistance,6
+FH,47,Rwamwanja,16,Food Assistance,6
+FH,47,Kiryandongo Settlement,22,Food Assistance,6
+OPM,1,Rwamwanja,16,Health and Nutrition,7
+UNHCR,2,Pagirinya Settlement,1,Health and Nutrition,7
+UNHCR,2,"Maaji I,II, III",2,Health and Nutrition,7
+UNHCR,2,"Mungula I, II",3,Health and Nutrition,7
+UNHCR,2,Boroli,4,Health and Nutrition,7
+UNHCR,2,Nyumanzi,5,Health and Nutrition,7
+UNHCR,2,"Ayilo I,II",6,Health and Nutrition,7
+UNHCR,2,Kyangwali,7,Health and Nutrition,7
+UNHCR,2,Rhino settlement,10,Health and Nutrition,7
+UNHCR,2,Elegu CP,14,Health and Nutrition,7
+UNHCR,2,Rwamwanja,16,Health and Nutrition,7
+UNHCR,2,Kiryandongo TC,21,Health and Nutrition,7
+UNHCR,2,Kiryandongo Settlement,22,Health and Nutrition,7
+UNICEF,4,Pagirinya Settlement,1,Health and Nutrition,7
+UNICEF,4,"Maaji I,II, III",2,Health and Nutrition,7
+UNICEF,4,"Mungula I, II",3,Health and Nutrition,7
+UNICEF,4,Boroli,4,Health and Nutrition,7
+UNICEF,4,Nyumanzi,5,Health and Nutrition,7
+UNICEF,4,"Ayilo I,II",6,Health and Nutrition,7
+UNICEF,4,Rhino settlement,10,Health and Nutrition,7
+UNICEF,4,Nakivale Settlement,18,Health and Nutrition,7
+UNICEF,4,Oruchinga,19,Health and Nutrition,7
+UNFPA,5,Pagirinya Settlement,1,Health and Nutrition,7
+UNFPA,5,"Maaji I,II, III",2,Health and Nutrition,7
+UNFPA,5,"Mungula I, II",3,Health and Nutrition,7
+UNFPA,5,Boroli,4,Health and Nutrition,7
+UNFPA,5,Nyumanzi,5,Health and Nutrition,7
+UNFPA,5,"Ayilo I,II",6,Health and Nutrition,7
+UNFPA,5,Kiryandongo TC,21,Health and Nutrition,7
+UNFPA,5,Kiryandongo Settlement,22,Health and Nutrition,7
+WFP,6,Kyangwali,7,Health and Nutrition,7
+WFP,6,Elegu CP,14,Health and Nutrition,7
+WFP,6,Rwamwanja,16,Health and Nutrition,7
+WFP,6,Nakivale Settlement,18,Health and Nutrition,7
+WFP,6,Oruchinga,19,Health and Nutrition,7
+WFP,6,Kiryandongo Settlement,22,Health and Nutrition,7
+AAH,8,Kyangwali,7,Health and Nutrition,7
+ACF,9,Elegu CP,14,Health and Nutrition,7
+ACF,9,Kiryandongo Settlement,22,Health and Nutrition,7
+ACORD,12,Pagirinya Settlement,1,Health and Nutrition,7
+ACORD,12,"Maaji I,II, III",2,Health and Nutrition,7
+ACORD,12,"Mungula I, II",3,Health and Nutrition,7
+ACORD,12,Boroli,4,Health and Nutrition,7
+ACORD,12,Nyumanzi,5,Health and Nutrition,7
+ACORD,12,"Ayilo I,II",6,Health and Nutrition,7
+ACORD,12,Kyangwali,7,Health and Nutrition,7
+ACORD,12,Rwamwanja,16,Health and Nutrition,7
+CWW,18,Pagirinya Settlement,1,Health and Nutrition,7
+CWW,18,"Maaji I,II, III",2,Health and Nutrition,7
+CWW,18,"Mungula I, II",3,Health and Nutrition,7
+CWW,18,Boroli,4,Health and Nutrition,7
+CWW,18,Nyumanzi,5,Health and Nutrition,7
+CWW,18,"Ayilo I,II",6,Health and Nutrition,7
+CWW,18,Rhino settlement,10,Health and Nutrition,7
+CWW,18,Elegu CP,14,Health and Nutrition,7
+CWW,18,Kiryandongo TC,21,Health and Nutrition,7
+CWW,18,Kiryandongo Settlement,22,Health and Nutrition,7
+IRC,22,"Maaji I,II, III",2,Health and Nutrition,7
+IRC,22,"Mungula I, II",3,Health and Nutrition,7
+IRC,22,Boroli,4,Health and Nutrition,7
+IRC,22,Nyumanzi,5,Health and Nutrition,7
+IRC,22,"Ayilo I,II",6,Health and Nutrition,7
+MTI,27,Pagirinya Settlement,1,Health and Nutrition,7
+MTI,27,"Maaji I,II, III",2,Health and Nutrition,7
+MTI,27,"Mungula I, II",3,Health and Nutrition,7
+MTI,27,Boroli,4,Health and Nutrition,7
+MTI,27,Nyumanzi,5,Health and Nutrition,7
+MTI,27,"Ayilo I,II",6,Health and Nutrition,7
+MTI,27,Ocea RC (Rhino),9,Health and Nutrition,7
+MTI,27,Rhino settlement,10,Health and Nutrition,7
+MTI,27,Elegu CP,14,Health and Nutrition,7
+MTI,27,Nyakabande TC,17,Health and Nutrition,7
+MTI,27,Nakivale Settlement,18,Health and Nutrition,7
+MTI,27,Oruchinga,19,Health and Nutrition,7
+TPO,28,Kiryandongo Settlement,22,Health and Nutrition,7
+RMF,32,Kiryandongo TC,21,Health and Nutrition,7
+RMF,32,Kiryandongo Settlement,22,Health and Nutrition,7
+URCS,37,Elegu CP,14,Health and Nutrition,7
+SP,38,Rwamwanja,16,Health and Nutrition,7
+WVI,43,Elegu CP,14,Health and Nutrition,7
+Government_,59,Kyangwali,7,Health and Nutrition,7
+Arua district,60,Rhino settlement,10,Health and Nutrition,7
+AHA,62,Rwamwanja,16,Health and Nutrition,7
+AHA,62,Kyaka II settlement,20,Health and Nutrition,7
+UNHCR,2,Bidibidi Settlement,13,Health and Nutrition,7
+UNHCR,2,Palorinya Settlement,15,Health and Nutrition,7
+UNICEF,4,Bidibidi Settlement,13,Health and Nutrition,7
+UNICEF,4,Palorinya Settlement,15,Health and Nutrition,7
+UNFPA,5,Palorinya Settlement,15,Health and Nutrition,7
+WFP,6,Bidibidi Settlement,13,Health and Nutrition,7
+WFP,6,Palorinya Settlement,15,Health and Nutrition,7
+ACF,9,Bidibidi Settlement,13,Health and Nutrition,7
+AVSI,14,Palabek Settlement,12,Health and Nutrition,7
+CARE,15,Imvepi Settlement,11,Health and Nutrition,7
+CWW,18,Imvepi Settlement,11,Health and Nutrition,7
+CWW,18,Bidibidi Settlement,13,Health and Nutrition,7
+CWW,18,Palorinya Settlement,15,Health and Nutrition,7
+IRC,22,Bidibidi Settlement,13,Health and Nutrition,7
+MSF_,25,Bidibidi Settlement,13,Health and Nutrition,7
+MTI,27,Imvepi Settlement,11,Health and Nutrition,7
+MTI,27,Bidibidi Settlement,13,Health and Nutrition,7
+TPO,28,Bidibidi Settlement,13,Health and Nutrition,7
+RMF,32,Bidibidi Settlement,13,Health and Nutrition,7
+WVI,43,Palorinya Settlement,15,Health and Nutrition,7
+WHO,54,Imvepi Settlement,11,Health and Nutrition,7
+WHO,54,Bidibidi Settlement,13,Health and Nutrition,7
+WHO,54,Palorinya Settlement,15,Health and Nutrition,7
+DHO,61,Bidibidi Settlement,13,Health and Nutrition,7
+IRC/DLG.,73,Palabek Settlement,12,Health and Nutrition,7
+IRC/MSF-S,74,Palabek Settlement,12,Health and Nutrition,7
+MTI/MSF-H,75,Palorinya Settlement,15,Health and Nutrition,7
+MSF-F,78,Imvepi Settlement,11,Health and Nutrition,7
+OPM,1,Pagirinya Settlement,1,"Shelter, Site  and NFIs",8
+OPM,1,Kyangwali,7,"Shelter, Site  and NFIs",8
+OPM,1,Kuluba CP,8,"Shelter, Site  and NFIs",8
+OPM,1,Ocea RC (Rhino),9,"Shelter, Site  and NFIs",8
+OPM,1,Rhino settlement,10,"Shelter, Site  and NFIs",8
+OPM,1,Imvepi Settlement,11,"Shelter, Site  and NFIs",8
+OPM,1,Palabek Settlement,12,"Shelter, Site  and NFIs",8
+OPM,1,Bidibidi Settlement,13,"Shelter, Site  and NFIs",8
+OPM,1,Elegu CP,14,"Shelter, Site  and NFIs",8
+OPM,1,Palorinya Settlement,15,"Shelter, Site  and NFIs",8
+OPM,1,Rwamwanja,16,"Shelter, Site  and NFIs",8
+OPM,1,Nakivale Settlement,18,"Shelter, Site  and NFIs",8
+OPM,1,Oruchinga,19,"Shelter, Site  and NFIs",8
+OPM,1,Kyaka II settlement,20,"Shelter, Site  and NFIs",8
+OPM,1,Kiryandongo Settlement,22,"Shelter, Site  and NFIs",8
+UNHCR,2,Pagirinya Settlement,1,"Shelter, Site  and NFIs",8
+UNHCR,2,"Maaji I,II, III",2,"Shelter, Site  and NFIs",8
+UNHCR,2,"Mungula I, II",3,"Shelter, Site  and NFIs",8
+UNHCR,2,Boroli,4,"Shelter, Site  and NFIs",8
+UNHCR,2,Nyumanzi,5,"Shelter, Site  and NFIs",8
+UNHCR,2,"Ayilo I,II",6,"Shelter, Site  and NFIs",8
+UNHCR,2,Kyangwali,7,"Shelter, Site  and NFIs",8
+UNHCR,2,Kuluba CP,8,"Shelter, Site  and NFIs",8
+UNHCR,2,Ocea RC (Rhino),9,"Shelter, Site  and NFIs",8
+UNHCR,2,Rhino settlement,10,"Shelter, Site  and NFIs",8
+UNHCR,2,Imvepi Settlement,11,"Shelter, Site  and NFIs",8
+UNHCR,2,Palabek Settlement,12,"Shelter, Site  and NFIs",8
+UNHCR,2,Bidibidi Settlement,13,"Shelter, Site  and NFIs",8
+UNHCR,2,Elegu CP,14,"Shelter, Site  and NFIs",8
+UNHCR,2,Palorinya Settlement,15,"Shelter, Site  and NFIs",8
+UNHCR,2,Rwamwanja,16,"Shelter, Site  and NFIs",8
+UNHCR,2,Nakivale Settlement,18,"Shelter, Site  and NFIs",8
+UNHCR,2,Oruchinga,19,"Shelter, Site  and NFIs",8
+UNHCR,2,Kyaka II settlement,20,"Shelter, Site  and NFIs",8
+UNHCR,2,Kiryandongo Settlement,22,"Shelter, Site  and NFIs",8
+UNICEF,4,Rhino settlement,10,"Shelter, Site  and NFIs",8
+WFP,6,Imvepi Settlement,11,"Shelter, Site  and NFIs",8
+AAH,8,Kyangwali,7,"Shelter, Site  and NFIs",8
+AIRD,11,Pagirinya Settlement,1,"Shelter, Site  and NFIs",8
+AIRD,11,"Maaji I,II, III",2,"Shelter, Site  and NFIs",8
+AIRD,11,"Mungula I, II",3,"Shelter, Site  and NFIs",8
+AIRD,11,Boroli,4,"Shelter, Site  and NFIs",8
+AIRD,11,Nyumanzi,5,"Shelter, Site  and NFIs",8
+AIRD,11,"Ayilo I,II",6,"Shelter, Site  and NFIs",8
+AIRD,11,Rhino settlement,10,"Shelter, Site  and NFIs",8
+AIRD,11,Imvepi Settlement,11,"Shelter, Site  and NFIs",8
+AIRD,11,Palabek Settlement,12,"Shelter, Site  and NFIs",8
+AIRD,11,Bidibidi Settlement,13,"Shelter, Site  and NFIs",8
+AIRD,11,Palorinya Settlement,15,"Shelter, Site  and NFIs",8
+AIRD,11,Rwamwanja,16,"Shelter, Site  and NFIs",8
+AIRD,11,Nakivale Settlement,18,"Shelter, Site  and NFIs",8
+AIRD,11,Oruchinga,19,"Shelter, Site  and NFIs",8
+AIRD,11,Kiryandongo Settlement,22,"Shelter, Site  and NFIs",8
+DRC,19,"Maaji I,II, III",2,"Shelter, Site  and NFIs",8
+DRC,19,"Mungula I, II",3,"Shelter, Site  and NFIs",8
+DRC,19,Nyumanzi,5,"Shelter, Site  and NFIs",8
+DRC,19,"Ayilo I,II",6,"Shelter, Site  and NFIs",8
+DRC,19,Kuluba CP,8,"Shelter, Site  and NFIs",8
+DRC,19,Ocea RC (Rhino),9,"Shelter, Site  and NFIs",8
+DRC,19,Rhino settlement,10,"Shelter, Site  and NFIs",8
+DRC,19,Kyaka II settlement,20,"Shelter, Site  and NFIs",8
+IAU,21,Kiryandongo Settlement,22,"Shelter, Site  and NFIs",8
+PLAN,31,"Maaji I,II, III",2,"Shelter, Site  and NFIs",8
+PLAN,31,"Mungula I, II",3,"Shelter, Site  and NFIs",8
+PLAN,31,Boroli,4,"Shelter, Site  and NFIs",8
+URCS,37,Imvepi Settlement,11,"Shelter, Site  and NFIs",8
+URCS,37,Bidibidi Settlement,13,"Shelter, Site  and NFIs",8
+WVI,43,Kuluba CP,8,"Shelter, Site  and NFIs",8
+WVI,43,Bidibidi Settlement,13,"Shelter, Site  and NFIs",8
+SCI,48,Pagirinya Settlement,1,"Shelter, Site  and NFIs",8
+SCI,48,"Maaji I,II, III",2,"Shelter, Site  and NFIs",8
+SCI,48,"Mungula I, II",3,"Shelter, Site  and NFIs",8
+SCI,48,Boroli,4,"Shelter, Site  and NFIs",8
+SCI,48,Ocea RC (Rhino),9,"Shelter, Site  and NFIs",8
+SCI,48,Rhino settlement,10,"Shelter, Site  and NFIs",8
+LWF,53,Pagirinya Settlement,1,"Shelter, Site  and NFIs",8
+LWF,53,"Maaji I,II, III",2,"Shelter, Site  and NFIs",8
+LWF,53,"Mungula I, II",3,"Shelter, Site  and NFIs",8
+LWF,53,Boroli,4,"Shelter, Site  and NFIs",8
+LWF,53,Nyumanzi,5,"Shelter, Site  and NFIs",8
+LWF,53,"Ayilo I,II",6,"Shelter, Site  and NFIs",8
+LWF,53,Palabek Settlement,12,"Shelter, Site  and NFIs",8
+LWF,53,Elegu CP,14,"Shelter, Site  and NFIs",8
+LWF,53,Palorinya Settlement,15,"Shelter, Site  and NFIs",8
+LWF,53,Rwamwanja,16,"Shelter, Site  and NFIs",8
+HIJRA,56,Nakivale Settlement,18,"Shelter, Site  and NFIs",8
+HIJRA,56,Oruchinga,19,"Shelter, Site  and NFIs",8
+Government_,59,Kiryandongo Settlement,22,"Shelter, Site  and NFIs",8
+Arua district,60,Ocea RC (Rhino),9,"Shelter, Site  and NFIs",8
+Arua district,60,Rhino settlement,10,"Shelter, Site  and NFIs",8
+OPM,1,Nyakabande TC,17,"Shelter, Site  and NFIs",8
+UNHCR,2,Nyakabande TC,17,"Shelter, Site  and NFIs",8
+AIRD,11,Nyakabande TC,17,"Shelter, Site  and NFIs",8
+AIRD,11,Kiryandongo TC,21,"Shelter, Site  and NFIs",8
+HIJRA/CAFOMI,69,Nyakabande TC,17,"Shelter, Site  and NFIs",8
+IAU/UNHCR,76,Kiryandongo TC,21,"Shelter, Site  and NFIs",8
+OPM,1,Kiryandongo TC,21,Logistics,9
+UNHCR,2,Boroli,4,Logistics,9
+UNHCR,2,Nyumanzi,5,Logistics,9
+UNHCR,2,"Ayilo I,II",6,Logistics,9
+UNHCR,2,Kyangwali,7,Logistics,9
+UNHCR,2,Rhino settlement,10,Logistics,9
+UNHCR,2,Bidibidi Settlement,13,Logistics,9
+UNHCR,2,Elegu CP,14,Logistics,9
+UNHCR,2,Palorinya Settlement,15,Logistics,9
+UNHCR,2,Rwamwanja,16,Logistics,9
+UNHCR,2,Nyakabande TC,17,Logistics,9
+UNHCR,2,Kiryandongo TC,21,Logistics,9
+UNHCR,2,Kiryandongo Settlement,22,Logistics,9
+AAH,8,Palorinya Settlement,15,Logistics,9
+ACF,9,Rhino settlement,10,Logistics,9
+ACF,9,Elegu CP,14,Logistics,9
+AIRD,11,Boroli,4,Logistics,9
+AIRD,11,Nyumanzi,5,Logistics,9
+AIRD,11,"Ayilo I,II",6,Logistics,9
+AIRD,11,Kyangwali,7,Logistics,9
+AIRD,11,Rhino settlement,10,Logistics,9
+AIRD,11,Imvepi Settlement,11,Logistics,9
+AIRD,11,Palabek Settlement,12,Logistics,9
+AIRD,11,Bidibidi Settlement,13,Logistics,9
+AIRD,11,Elegu CP,14,Logistics,9
+AIRD,11,Palorinya Settlement,15,Logistics,9
+AIRD,11,Rwamwanja,16,Logistics,9
+AIRD,11,Nyakabande TC,17,Logistics,9
+AIRD,11,Nakivale Settlement,18,Logistics,9
+AIRD,11,Oruchinga,19,Logistics,9
+AIRD,11,Kyaka II settlement,20,Logistics,9
+AIRD,11,Kiryandongo TC,21,Logistics,9
+AIRD,11,Kiryandongo Settlement,22,Logistics,9
+TCNs Ugandan nationals,91,Rhino settlement,10,Logistics,9
+UNHCR,2,Pagirinya Settlement,1,Logistics,9
+UNHCR,2,"Maaji I,II, III",2,Logistics,9
+UNHCR,2,"Mungula I, II",3,Logistics,9
+UNHCR,2,Kuluba CP,8,Logistics,9
+UNHCR,2,Ocea RC (Rhino),9,Logistics,9
+AIRD,11,Pagirinya Settlement,1,Logistics,9
+AIRD,11,"Maaji I,II, III",2,Logistics,9
+AIRD,11,"Mungula I, II",3,Logistics,9
+AIRD,11,Kuluba CP,8,Logistics,9
+AIRD,11,Ocea RC (Rhino),9,Logistics,9
+ACF(AAH),88,Pagirinya Settlement,1,Logistics,9
+ACF(AAH),88,"Maaji I,II, III",2,Logistics,9
+ACF(AAH),88,"Mungula I, II",3,Logistics,9
+ACF(AAH),88,Kuluba CP,8,Logistics,9
+ACF(AAH),88,Ocea RC (Rhino),9,Logistics,9
+UNHCR,2,Kyangwali,7,Environment,10
+UNHCR,2,Bidibidi Settlement,13,Environment,10
+UNHCR,2,Palorinya Settlement,15,Environment,10
+AAH,8,Kyangwali,7,Environment,10
+AAH,8,Palorinya Settlement,15,Environment,10
+AIRD,11,Imvepi Settlement,11,Environment,10
+AIRD,11,Palabek Settlement,12,Environment,10
+AIRD,11,Bidibidi Settlement,13,Environment,10
+AIRD,11,Palorinya Settlement,15,Environment,10
+DRC,19,Kuluba CP,8,Environment,10
+DRC,19,Rhino settlement,10,Environment,10
+LWF,53,Pagirinya Settlement,1,Environment,10
+LWF,53,Boroli,4,Environment,10
+LWF,53,Nyumanzi,5,Environment,10
+LWF,53,"Ayilo I,II",6,Environment,10
+LWF,53,Palorinya Settlement,15,Environment,10
+LWF,53,Rwamwanja,16,Environment,10
+LWF,53,Kiryandongo TC,21,Environment,10
+HIJRA,56,Nyakabande TC,17,Environment,10
+Government_,59,Pagirinya Settlement,1,Environment,10
+Government_,59,"Maaji I,II, III",2,Environment,10
+Government_,59,"Mungula I, II",3,Environment,10
+Government_,59,Boroli,4,Environment,10
+Government_,59,Nyumanzi,5,Environment,10
+Government_,59,"Ayilo I,II",6,Environment,10
+Government_,59,Kyangwali,7,Environment,10
+Government_,59,Elegu CP,14,Environment,10
+Government_,59,Kiryandongo TC,21,Environment,10
+Arua district,60,Ocea RC (Rhino),9,Environment,10
+Arua district,60,Rhino settlement,10,Environment,10
+NSAMIZI,64,Nakivale Settlement,18,Environment,10
+NSAMIZI,64,Oruchinga,19,Environment,10
+NSAMIZI,64,Kyaka II settlement,20,Environment,10
+NSAMIZI,64,Kiryandongo Settlement,22,Environment,10
+IRC,22,Kiryandongo Settlement,22,WASH ,4
+CWW,18,Kiryandongo Settlement,22,WASH ,4
+SCI,48,Kiryandongo Settlement,22,WASH ,4
+WM Uganda,94,Kiryandongo Settlement,22,WASH ,4
+Government_,59,Kiryandongo Settlement,22,Health and Nutrition,7
+UNHCR,2,Kiryandongo Settlement,22,"Shelter, Site  and NFIs",8
+SP,38,Kyaka II settlement,20,WASH ,4
+Kyegegwa district water authorities,87,Kyaka II settlement,20,WASH ,4
+CAFOMI,95,Oruchinga,19,"CP, Community Based and Psychosocial",1
+RLP,92,Nakivale Settlement,18,"CP, Community Based and Psychosocial",1
+Africa ministry revival,63,Nyakabande TC,17,Education,3
+Koboko DEO,96,Nyakabande TC,17,Education,3
+SCI,48,Elegu CP,14,"CP, Community Based and Psychosocial",1
+MC,99,Bidibidi Settlement,13,Livelihoods,5
+MSF-FR,101,Imvepi Settlement,11,Health and Nutrition,7
+MI,102,Imvepi Settlement,11,WASH ,4
+SCI,48,Rhino settlement,10,"CP, Community Based and Psychosocial",1
+OXFAM,46,Rhino settlement,10,WASH ,4
+IFRC,103,Rhino settlement,10,WASH ,4
+UNHCR,2,Kuluba CP,8,"CP, Community Based and Psychosocial",1
+Koboko District (Gov.),67,Kuluba CP,8,Health and Nutrition,7
+WVI,43,Kuluba CP,8,Health and Nutrition,7
+WFP,6,Kuluba CP,8,Health and Nutrition,7
+CWW,18,Kuluba CP,8,Health and Nutrition,7
+MTI,27,Kuluba CP,8,Health and Nutrition,7
+Koboko District,104,Kuluba CP,8,"Shelter, Site  and NFIs",8
+Hoima district water authorities,82,Kyangwali,7,WASH ,4
+DRC,19,"Ayilo I,II",6,WASH ,4
+NRC,35,"Maaji I,II, III",2,WASH ,4
+WVI,43,"Maaji I,II, III",2,WASH ,4
+UNHCR,2,"Maaji I,II, III",2,"Shelter, Site  and NFIs",8
+LWF,53,Pagirinya Settlement,1,"CP, Community Based and Psychosocial",1

@@ -1,64 +1,121 @@
-Actor_ID,Name,Abb
-1,"Government , Office of the Prime Minister ",OPM
-2,United Nation High Commissioner for Refugees ,UNHCR
-3,International Aid Services ,IAS
-4,United Nations International Children's Emergency Fund ,UNICEF
-5,United Nations Population Fund ,UNFPA
-6,World Food Programme ,WFP
-7,United Nation Food Assistant Organization ,FAO
-8,Action Africa Help ,AAH
-9,Action Against Hunger ,ACF/ AAH
-10,Adventist Development and Relief Agency ,ADRA
-11,Africa Development Corps ,ADC
-12,African Initiatives for Relief and Development ,AIRD
-13,African Medical and Research Foundation ,AMREF
-14,Agency for Cooperation and Research in Development  ,ACORD
-15,American Refugee Committee ,ARC
-16,The Association of Volunteers in International Service ,AVSI
-17,Care International ,CARE Int.
-18,Caritas  ,Caritas
-19,Community Empowerment for Rural Development ,CEFORD
-20,Concern World Wide ,CWW
-21,Danish Refugee Council ,DRC
-22,Finnish Refugee Council ,FRC
-23,HelpAge International ,HelpAge
-24,Interaid Uganda ,IAU 
-25,International Rescue Committeeï¿½,IRC
-26,Cesvi Onlus - Cooperazione e Sviluppo ,CESVI
-27,Volunteer Efforts for Development Concerns ,VEDCOï¿½
-28,Mï¿½decins Sans Frontiï¿½res ,MSF
-29,Rural Initiative for Community Empowerment ,RICE
-30,Medical Teams International ,MTI
-31,Transcultural Psychosocial Organization ,TPO
-32,Obadiah Brothers Canada ,OBK
-33,United Nations Entity for Gender Equality and the Empowerment of Women ,UN Women
-34,Plan International Uganda ,PLAN
-35,Real Medicine Foundation ,RMF
-36,Ugandan Refugee and Disaster Management Council ,URDMC
-37,Touch Africa ,TAN
-38,Norwegian Refugee Council ,NRC
-39,Tutapona ,Trauma Rehabilitationï¿½
-40,Ugandan Red Cross Society ,URCS
-41,Samaritan's Purse ,SP
-42,War Child Canda ,WCC
-43,Water Mission International ,WMI
-44,Welthungerhilfe ,WHH
-45,Windle Trust Uganda ,WTU 
-46,World Vision International ,WVI
-47,ZOA- Uganda ,ZOA
-48,Peace Winds Japan,Peace Winds
-49,Oxfam ,OXFAM
-50,Food for the Hungry ,FH
-51,Save the Children ,SCI
-52,War Child Holland ,WCH
-53,Peter C. Alderman Foundation ,PCAF
-54,DanChurchAid ,DCA 
-55,Finn Church Aid ,FCA
-56,Lutheran World Federation ,LWF
-57,World Health Organization ,WHO
-58,Reproductive Health Uganda ,RHU
-59,International organization for migration ,IOM
-60,Humanitarian Initiative Just Relief Aid ,HIJRA
-61,Right to Play ,RtP
-62,Here is Life,Here is Life
-63,Malteser International ,MI
+Name,Abb,Actor_ID,
+"Government , Office of the Prime Minister ",OPM,1,
+United Nation High Commissioner for Refugees ,UNHCR,2,
+International Aid Services ,IAS,3,
+United Nations International Children's Emergency Fund ,UNICEF,4,
+United Nations Population Fund ,UNFPA,5,
+World Food Programme ,WFP,6,
+United Nation Food Assistant Organization ,FAO,7,
+Action Africa Help ,AAH,8,
+Action Against Hunger ,ACF,9,
+Adventist Development and Relief Agency ,ADRA,10,
+African Initiatives for Relief and Development ,AIRD,11,
+Agency for Cooperation and Research in Development  ,ACORD,12,
+American Refugee Committee ,ARC,13,
+The Association of Volunteers in International Service ,AVSI,14,
+Care International ,CARE,15,
+Caritas  ,Caritas,16,
+Community Empowerment for Rural Development ,CEFORD,17,
+Concern World Wide ,CWW,18,
+Danish Refugee Council ,DRC,19,
+Finnish Refugee Council ,FRC,20,
+Interaid Uganda ,IAU,21,
+International Rescue Committee ,IRC,22,
+Cesvi Onlus - Cooperazione e Sviluppo ,CESVI,23,
+Volunteer Efforts for Development Concerns ,VEDCO,24,
+Médecins Sans Frontières ,MSF_,25,
+Rural Initiative for Community Empowerment ,RICE,26,
+Medical Teams International ,MTI,27,
+Transcultural Psychosocial Organization ,TPO,28,
+Obadiah Brothers Canada ,OBK,29,
+United Nations Entity for Gender Equality and the Empowerment of Women ,UNWOMEN,30,
+Plan International Uganda ,PLAN,31,
+Real Medicine Foundation ,RMF,32,
+Ugandan Refugee and Disaster Management Council ,URDMC,33,
+Touch Africa ,TAN,34,
+Norwegian Refugee Council ,NRC,35,
+Tutapona ,TUTAPONA,36,
+Ugandan Red Cross Society ,URCS,37,
+Samaritan's Purse ,SP,38,
+War Child Canda ,WCC,39,
+Water Mission International ,WMI,40,
+Welthungerhilfe,WHH,41,
+Windle Trust Uganda ,WTU,42,
+World Vision International ,WVI,43,
+ZOA- Uganda ,ZOA,44,
+Peace Winds Japan,Peace Wind,45,
+Oxfam ,OXFAM,46,
+Food for the Hungry ,FH,47,
+Save the Children ,SCI,48,
+War Child Holland ,WCH,49,
+Peter C. Alderman Foundation ,PCAF,50,
+DanChurchAid ,DCA,51,
+Finn Church Aid ,FCA,52,
+Lutheran World Federation ,LWF,53,
+World Health Organization ,WHO,54,
+International organization for migration ,IOM,55,
+Humanitarian Initiative Just Relief Aid ,HIJRA,56,
+Here is Life,Here is Life,57,
+Malteser International ,Malteser,58,
+Uganda Government,Government_,59,
+Arua District,Arua district,60,
+DHO,DHO,61,
+AHA,AHA,62,
+Africa ministry revival,Africa ministry revival,63,
+NSAMIZI,NSAMIZI,64,
+Arua Regional Hospital,Arua Regional Hospital,65,
+ACAV,ACAV,66,
+Koboko District (Gov.),Koboko District (Gov.),67,
+International Committee of the Red Cross/URC,ICRC/URC,68,
+Humanitarian Initiative Just Relief Aid/Care and Assistance for Forced Migrants,HIJRA/CAFOMI,69,
+United Nations Population Fund/Agency for Cooperation and Research in Development,UNFPA/ACORD,70,
+Windle Trust Uganda/United Nation High Commissioner for Refugees,WTU/UNHCR,71,
+Community Empowerment for Rural Development /Oxfam,Ceford/Oxfam,72,
+International Rescue Committee/District Local Government,IRC/DLG.,73,
+International Rescue Committee/Médecins Sans Frontières - S,IRC/MSF-S,74,
+Medical Teams International/Médecins Sans Frontières - H,MTI/MSF-H,75,
+Interaid Uganda/United Nation High Commissioner for Refugees,IAU/UNHCR,76,
+Médecins Sans Frontières - H,MSF-H,77,
+Médecins Sans Frontières - F,MSF-F,78,
+Arua district local authorities,Arua district local authorities,79,
+Arua district water authorities,Arua district water authorities,80,
+The Israel Forum for International Humanitarian Aid,IsraAID,81,
+Hoima district water authorities,Hoima district water authorities,82,
+Yumbe district water authorities,Yumbe district water authorities,83,
+Lamwo district water authorities,Lamwo district water authorities,84,
+Moyo district water authorities,Moyo district water authorities,85,
+Isingiro district water authorities,Isingiro district water authorities,86,
+Kyegegwa district water authorities,Kyegegwa district water authorities,87,
+Action Against Hunger/Action Africa Help,ACF(AAH),88,
+Local Government,Government (LG),89,
+United Nations Population Fund (Gender Based Violence),UNFPA (GBV),90,
+TCNs Ugandan nationals,TCNs Ugandan nationals,91,
+Refugee Law Project,RLP,92,
+Hebrew Immigrant Aid Society (HIAS),HIAS,93,
+Water Mission Uganda,WM Uganda,94,
+Care and Assistance for Forced Migrants,CAFOMI,95,
+Koboko DEO,Koboko DEO,96,
+Kamwenge district water authorities,Kamwenge district water authorities,97,
+Yumbe District,Yumbe District,98,
+Mercy Corps,MC,99,
+Convention on the Rights of the Child,CRC,100,
+Médecins Sans Frontières - FR,MSF-FR,101,
+Malteser International ,MI,102,
+International Federation of Red Cross,IFRC,103,
+Koboko District,Koboko District,104,
+Action Africa Help - Uganda,AAH-U,105,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
