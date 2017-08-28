@@ -130,7 +130,7 @@
 
     var h = (window.innerHeight ||
       document.documentElement.clientHeight ||
-      document.body.clientHeight) - 130;
+      document.body.clientHeight) - 30;
     if (h > 540) {
       d3.select(".list-container").style("height", h + "px");
       d3.select("#d3-map-wrapper").style("height", h + "px");
@@ -188,7 +188,7 @@
     //   });
 
     var projection = d3.geo.mercator()
-      .scale(5000).translate([(-2000 + (width / 930) * 100), 395]); //395 width/2 930 - 2400  -2400
+      .scale(5000).translate([(-2000 + (width / 930) * 100), 460]); //395 width/2 930 - 2400  -2400
 
     var path = d3.geo.path()
       .projection(projection);
@@ -467,14 +467,16 @@
     var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) /
       4), domain[1]];
 
+    var legendX = 1000;
+    var legendY = 22;
     svg.selectAll('.legend-rect')
       .data(array)
       .enter()
       .append('rect')
       .attr('class', 'legend-rect')
-      .attr("x", 20)
+      .attr("x", legendX + 20)
       .attr("y", function (d, i) {
-        return (i + 1) * 22 + 50;
+        return (i + 1) * legendY + height - 150;
       })
       .attr("width", 20)
       .attr("height", 20)
@@ -490,9 +492,9 @@
       .enter()
       .append('text')
       .attr('class', 'legend-text')
-      .attr("x", 45)
+      .attr("x", legendX + 45)
       .attr("y", function (d, i) {
-        return (i) * 22 + 77;
+        return (i) * legendY + height - 125;
       })
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
@@ -504,8 +506,8 @@
       .enter()
       .append('text')
       .attr('class', 'legend-title')
-      .attr("x", 20)
-      .attr("y", 52)
+      .attr("x", legendX + 20)
+      .attr("y", height - 150)
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
         return d;
