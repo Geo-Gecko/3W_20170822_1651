@@ -3,63 +3,78 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Uganda</title>
+  <title>3W Map - Uganda</title>
   <link href="./css/bootstrap.min.css" rel="Stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="./css/uganda.map.css" rel="Stylesheet" type="text/css">
 
 </head>
 
 <body>
   <div class="main-container">
-    <div class="row" style="margin:0px;">
-      <div class="title-panel col-md-3 col-sm-3">
-        <div>
-          <p>3W Map - Uganda</p>
-        </div>
-      </div>
-      <div class="top-panel col-md-9 col-sm-9">
-        <div class="col-md-3 col-sm-3">
-          <p class="custom-count-header">Districts</p>
-          <p id="district-count" class="custom-count">0</p>
-        </div>
-        <div class="col-md-3 col-sm-3">
-          <p class="custom-count-header">Settlements</p>
-          <p id="settlement-count" class="custom-count">0</p>
-        </div>
-        <div class="col-md-3 col-sm-3">
-          <p class="custom-count-header">Sectors</p>
-          <p id="sector-count" class="custom-count">0</p>
-        </div>
-        <div class="col-md-3 col-sm-3">
-          <p class="custom-count-header">Agencies</p>
-          <p id="agency-count" class="custom-count">0</p>
-        </div>
-      </div>
-    </div>
+
     <div class="row" style="margin:0px;">
       <!--<div class="bottom-panel col-md-12" style="padding: 0 5px;">  <span class="glyphicon glyphicon-menu-down"></span>-->
-      <div class="left-panel col-md-3 col-sm-3">
-        <div class="list-container">
-          <div class="col-md-12">
-            <p class="custom-list-header">District</p>
-            <div id="district-list" class="custom-list"></div>
-          </div>
-          <div class="col-md-12">
-            <p class="custom-list-header">Settlement</p>
-            <div id="settlement-list" class="custom-list"></div>
-          </div>
-          <div class="col-md-12">
-            <p class="custom-list-header">Sector</p>
-            <div id="sector-list" class="custom-list"></div>
-          </div>
-          <div class="col-md-12">
-            <p class="custom-list-header">Agency</p>
-            <div id="agency-list" class="custom-list"></div>
-          </div>
+      <div class="left-panel col-md-4 col-sm-4">
+      <div class="details-panel col-md-12 col-sm-12">
+        <div class="menu-panel col-md-6 col-sm-6">
+            <div class="list-container">
+              <div class="col-md-12">
+                <p class="custom-list-header">District <i class="glyphicon glyphicon-chevron-down"></i></p>
+                <div id="district-list" class="custom-list"></div>
+              </div>
+              <div class="col-md-12">
+                <p class="custom-list-header">Settlement <i class="glyphicon glyphicon-chevron-down"></i></p>
+                <div id="settlement-list" class="custom-list"></div>
+              </div>
+              <div class="col-md-12">
+                <p class="custom-list-header">Sector <i class="glyphicon glyphicon-chevron-down"></i></p>
+                <div id="sector-list" class="custom-list"></div>
+              </div>
+              <div class="col-md-12">
+                <p class="custom-list-header">Agency <i class="glyphicon glyphicon-chevron-down"></i></p>
+                <div id="agency-list" class="custom-list"></div>
+              </div>
+            </div>
         </div>
+
+        <div class="counter-panel col-md-6 col-sm-6">
+            <div class="row" style="margin:0px;">
+              <div class="title-panel col-md-12 col-sm-12">
+                <div id="header-text">
+                  <p>>Who does,</p>
+                  <p>>What,</p>
+                  <p>>Where (3)</p>
+                </div>
+              </div>
+              <div class="top-panel col-md-12 col-sm-12">
+                <div class="head col-md-12 col-sm-12">
+                  <p class="custom-count-header">Districts </p>
+                  <p id="district-count" class="custom-count">0</p>
+                </div>
+                <div class=" head col-md-12 col-sm-12">
+                  <p class="custom-count-header">Settlements</p>
+                  <p id="settlement-count" class="custom-count">0</p>
+                </div>
+                <div class=" head col-md-12 col-sm-12">
+                  <p class="custom-count-header">Sectors</p>
+                  <p id="sector-count" class="custom-count">0</p>
+                </div>
+                <div class="head col-md-12 col-sm-12">
+                  <p class="custom-count-header">Agencies</p>
+                  <p id="agency-count" class="custom-count">0</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
       </div>
 
-      <div class="right-panel col-md-9 col-sm-9">
+      </div>
+
+      <div class="right-panel col-md-12 col-sm-12">
         <div id="d3-map-container">
           <div style="background:#f5f5f5;height:24px; position:absolute; top:0px; width:100%;">
             <p id="d3-map-info">Click on map or left menu to see filtered stats</p>
@@ -69,7 +84,6 @@
         </div>
       </div>
     </div>
-    <!--</div>-->
   </div>
 
   <script src="./js/d3.v3.min.js"></script>
@@ -79,5 +93,4 @@
   <script src="./js/uganda.map.js"></script>
 
 </body>
-
-</html>
+</html>   
