@@ -151,10 +151,6 @@ p.custom-list-header  .glyphicon {
   border-left: 1px solid #dfe9f1;
 }
 
-#district-list.custom-list {
-  display: block;
-}
-
 .custom-list p {
   padding: 0px 5px;
   margin: 0;
@@ -166,7 +162,6 @@ p.custom-list-header  .glyphicon {
 .collapsed {
   display: none;
 }
-
 
 .custom-count {
   margin: 0;
