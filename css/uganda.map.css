@@ -66,8 +66,8 @@ p.custom-count {
 
 #d3-map-refresh {
     position: absolute;
-    top: 405px;
-    left: 257px;
+    top: 360px;
+    left: 18%;
     cursor: pointer;
     z-index: 9;
     border-radius: 4px;
