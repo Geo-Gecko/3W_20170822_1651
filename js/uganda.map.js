@@ -188,7 +188,7 @@
     //   });
 
     var projection = d3.geo.mercator()
-      .scale(5000).translate([(-2400 + (width / 930) * 100), 395]); //395 width/2 930 - 2400  -2400
+      .scale(5000).translate([(-2000 + (width / 930) * 100), 395]); //395 width/2 930 - 2400  -2400
 
     var path = d3.geo.path()
       .projection(projection);
