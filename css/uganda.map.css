@@ -3,10 +3,20 @@
     font-weight: 700;
     color: #fff;
     display: inline-block;
-    background-color: rgb(85, 170, 0);
-    padding: 0 14px 0 8px;
+
+
     font-family: Roboto,sans-serif;
-    margin: 0px 0 1px 0;
+
+}
+
+#header-text span {
+  background-color: rgb(85, 170, 0);
+  padding: 0 14px 0 8px;
+  margin: 0px 0 1px 0;
+}
+
+#header-text {
+    line-height: 35px;
 }
 
 .top-panel {
@@ -28,10 +38,10 @@ p.custom-count-header {
 
 p.custom-count {
   font-family: Roboto,sans-serif;
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 28px;
-        color: #52595e;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 28px;
+  color: #52595e;
 }
 
 .head {
@@ -66,8 +76,8 @@ p.custom-count {
 
 #d3-map-refresh {
     position: absolute;
-    top: 360px;
-    left: 18%;
+    top: 5px;
+    right: 299px;
     cursor: pointer;
     z-index: 9;
     border-radius: 4px;
