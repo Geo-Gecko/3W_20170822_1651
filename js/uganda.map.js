@@ -128,6 +128,11 @@
       // $(this).find("span").toggleClass('glyphicon-menu-down').toggleClass('glyphicon-menu-right');
     });
 
+    // Collapses all the boxes apart from district
+    $(".custom-list-header").siblings(".custom-list").addClass('collapsed');
+    $("#district-list.custom-list").removeClass('collapsed');
+
+
     var h = (window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight) - 30;
@@ -467,7 +472,7 @@
     var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) /
       4), domain[1]];
 
-    var legendX = 1000;
+    var legendX = 250;
     var legendY = 22;
     svg.selectAll('.legend-rect')
       .data(array)
@@ -476,7 +481,7 @@
       .attr('class', 'legend-rect')
       .attr("x", legendX + 20)
       .attr("y", function (d, i) {
-        return (i + 1) * legendY + height - 150;
+        return (i + 1) * legendY + height - 425;
       })
       .attr("width", 20)
       .attr("height", 20)
@@ -494,7 +499,7 @@
       .attr('class', 'legend-text')
       .attr("x", legendX + 45)
       .attr("y", function (d, i) {
-        return (i) * legendY + height - 125;
+        return (i) * legendY + height - 400;
       })
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
@@ -507,7 +512,7 @@
       .append('text')
       .attr('class', 'legend-title')
       .attr("x", legendX + 20)
-      .attr("y", height - 150)
+      .attr("y", height - 430)
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
         return d;
@@ -610,6 +615,8 @@
 
     function refreshMap() {
       // ugandaPath.style("opacity", 1);
+    $(".custom-list-header").siblings(".custom-list").addClass('collapsed');
+    $("#district-list.custom-list").removeClass('collapsed');
       global.selectedDistrict = [];
       ugandaPath.style("opacity", function (a) {
         a.properties._selected = false;
@@ -977,6 +984,7 @@
     }
 
   } // ready
+
 
 
 })(d3, $, queue, window);

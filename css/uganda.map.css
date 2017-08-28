@@ -67,6 +67,11 @@ p.custom-count {
   padding: 0;
 }
 
+.left-panel.col-md-4.col-sm-4 {
+    min-width: 500px!important;
+    max-width: 500px!important;
+}
+
 .right-panel {
   padding: 0px;
 }
