@@ -463,14 +463,17 @@
 
 
     var domain = color.domain();
-    // var N = 4;
+    var N = 4;
     // var array = (Array.apply(null, {
     //   length: N+1
     // }).map(Number.call, Number)).map(function(d,i){
     //   return Math.round(i*(domain[1]-domain[0])/N);
     // });
-    var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) /
-      4), domain[1]];
+    var step = Math.round((domain[1] - domain[0]) / N);
+    var array = [Math.round(step-step/2), Math.round(step*2-step/2), Math.round(step*3-step/2), Math.round(step*4-step/2)];
+    var arrayLabel = [domain[0].toString() + " - " + step.toString(), (step+1).toString() + " - " + (step*2).toString(), (step*2+1).toString() + " - " + (step*3).toString(), (step*3+1).toString() + " - " + domain[1].toString()];
+    // var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) / 4), domain[1]];//
+    // var array = [domain[0] + (domain[1] - domain[0]/2)/4, Math.round(2 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, Math.round(3 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, domain[1] + (domain[1] - domain[0]/2)/4];//
 
     var legendX = 250;
     var legendY = 22;
@@ -503,7 +506,7 @@
       })
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
-        return d;
+        return arrayLabel[i];
       });
 
     svg.selectAll('.legend-title')
