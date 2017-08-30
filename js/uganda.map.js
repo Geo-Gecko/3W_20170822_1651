@@ -163,14 +163,15 @@
       .attr("xmlns", "http://www.w3.org/2000/svg")
       .attr("preserveAspectRatio", "xMidYMid")
       .attr("viewBox", "0 0 " + width + " " + height)
-      .attr("width", width)
-      .attr("height", height);
+      .attr("preserveAspectRatio", "xMinYMin")
+      .attr("width", "100%")
+      .attr("height", "100%");
 
     svg.append("rect")
       .attr("class", "background")
       .attr("width", width)
       .attr("height", height)
-      .on("click", refreshMap)
+      .on("click", refreshMap);
 
 
     var g = svg.append("g")
@@ -193,7 +194,7 @@
     //   });
 
     var projection = d3.geo.mercator()
-      .scale(5000).translate([(-2000 + (width / 930) * 100), 460]); //395 width/2 930 - 2400  -2400
+      .scale(5000).translate([(-2000 - 1/Math.pow(width, 1/2)*500 - (width<992 ? width/3 : 0)), 460]); //395 width/2 930 - 2400  -2400
 
     var path = d3.geo.path()
       .projection(projection);
@@ -470,8 +471,8 @@
     //   return Math.round(i*(domain[1]-domain[0])/N);
     // });
     var step = Math.round((domain[1] - domain[0]) / N);
-    var array = [Math.round(step-step/2), Math.round(step*2-step/2), Math.round(step*3-step/2), Math.round(step*4-step/2)];
-    var arrayLabel = [domain[0].toString() + " - " + step.toString(), (step+1).toString() + " - " + (step*2).toString(), (step*2+1).toString() + " - " + (step*3).toString(), (step*3+1).toString() + " - " + domain[1].toString()];
+    var array = [domain[0]+Math.round(step-step/2), domain[0]+Math.round(step*2-step/2), domain[0]+Math.round(step*3-step/2), domain[0]+Math.round(step*4-step/2)];
+    var arrayLabel = [domain[0].toString() + " - " + (domain[0]+step).toString(), (domain[0]+step+1).toString() + " - " + (domain[0]+step*2).toString(), (domain[0]+step*2+1).toString() + " - " + (domain[0]+step*3).toString(), (domain[0]+step*3+1).toString() + " - " + domain[1].toString()];
     // var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) / 4), domain[1]];//
     // var array = [domain[0] + (domain[1] - domain[0]/2)/4, Math.round(2 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, Math.round(3 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, domain[1] + (domain[1] - domain[0]/2)/4];//
 
@@ -957,17 +958,20 @@
       }
     }
 
-    window.addEventListener("resize", function () {
-      var wrapper = d3.select("#d3-map-wrapper");
-      var width = wrapper.node().offsetWidth || 960;
-      var height = wrapper.node().offsetHeight || 480;
-      if (width) {
-        d3.select("#d3-map-wrapper").select("svg")
-          .attr("viewBox", "0 0 " + width + " " + height)
-          .attr("width", width)
-          .attr("height", height);
-      }
-    });
+    // window.addEventListener("resize", function () {
+    //   var wrapper = d3.select("#d3-map-wrapper");
+    //   var width = wrapper.node().offsetWidth || 960;
+    //   var height = wrapper.node().offsetHeight || 480;
+    //   if (width) {
+    //     d3.select("#d3-map-wrapper").select("svg")
+    //       .attr("viewBox", "0 0 " + width + " " + height)
+    //       .attr("preserveAspectRatio", "xMinYMin")
+    //       .attr("width", "100%")
+    //       .attr("height", "auto");
+    //       // .attr("width", width)
+    //       // .attr("height", height);
+    //   }
+    // });
 
     setTimeout(function () {
       queue()
