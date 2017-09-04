@@ -481,7 +481,7 @@
       .attr('class', 'legend-rect')
       .attr("x", legendX + 20)
       .attr("y", function (d, i) {
-        return (i + 1) * legendY + height - 425;
+        return (i + 1) * legendY + height - 735;
       })
       .attr("width", 20)
       .attr("height", 20)
@@ -499,7 +499,7 @@
       .attr('class', 'legend-text')
       .attr("x", legendX + 45)
       .attr("y", function (d, i) {
-        return (i) * legendY + height - 400;
+        return (i) * legendY + height - 710;
       })
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
@@ -512,7 +512,7 @@
       .append('text')
       .attr('class', 'legend-title')
       .attr("x", legendX + 20)
-      .attr("y", height - 430)
+      .attr("y", height - 740)
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
         return d;
@@ -831,7 +831,7 @@
             // d3.select("#agency-list").selectAll("p").style("background", "transparent");
             var needRemove = $(d3.select(this).node()).hasClass("d3-active");
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#8cc4d3");
+              "#55aa00");
             // refreshCounts();
             global.currentEvent = "district";
             myFilter(c, global.currentEvent, needRemove);
@@ -869,7 +869,7 @@
             // d3.select(this).style("background", "#8cc4d3");
             var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#8cc4d3");
+              "#55aa00");
             global.currentEvent = "sector";
             myFilter(c, global.currentEvent, needRemove);
             // myFilterBySector(c, needRemove);
@@ -895,7 +895,7 @@
             // d3.select(this).style("background", "#8cc4d3");
             var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#8cc4d3");
+              "#55aa00");
             global.currentEvent = "settlement";
             myFilter(c, global.currentEvent, needRemove);
             // myFilterBySettlement(c, undefined);
@@ -934,7 +934,7 @@
           .on("click", function (c) {
             var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#8cc4d3");
+              "#55aa00");
             // myFilterByAgency(c, needRemove);
             global.currentEvent = "agency"
             myFilter(c, global.currentEvent, needRemove);
