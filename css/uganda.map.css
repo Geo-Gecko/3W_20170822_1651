@@ -1,5 +1,6 @@
 html {
     background: rgb(245, 245, 245);
+    overflow: hidden;
 }
 
 #header-text p {
@@ -28,32 +29,32 @@ html {
 }
 
 .top-panel.col-md-8.col-sm-8 {
-        margin-top: 10px;
-    position: absolute;
-    z-index: 9;
-    left: 570px;
+  margin-top: 10px;
+  position: absolute;
+  z-index: 500;
+  left: 570px;
 }
 
 p.custom-count-header {
   font-family: Roboto,sans-serif;
-      font-size: 18px;
-    font-weight: 700;
-    line-height: 21px;
-        color: #52595e;
-        margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  color: #52595e;
+  margin: 0;
 }
 
 p.custom-count {
-    font-family: Roboto,sans-serif;
-    font-size: 20px;
-    font-weight: 300;
-    background-color: #55aa00;
-    line-height: 28px;
-    color: #ffffff;
-    margin: 8px -4px -8px -4px;
-    padding: 3px;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
+  font-family: Roboto,sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  background-color: #55aa00;
+  line-height: 28px;
+  color: #ffffff;
+  margin: 8px -4px -8px -4px;
+  padding: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 .head {
@@ -72,7 +73,7 @@ p.custom-count {
 .left-panel {
   padding: 10px 0 10px 10px;
   position: absolute;
-  z-index: 9;
+  z-index: 500;
 }
 
 .left-panel .col-md-12 {
@@ -106,6 +107,7 @@ p.custom-count {
     /* box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.24), 0 4px 8px 0 rgba(0, 0, 0, 0.16); */
     padding: 5px 10px;
     font-size: 13px;
+    z-index: 500;
 }
 
 #d3-map-info {
@@ -118,6 +120,7 @@ p.custom-count {
     font-family: Roboto,sans-serif;
     font-size: 13px;
     border-radius: 3px;
+    z-index: 500;
 }
 
 #d3-map-wrapper {

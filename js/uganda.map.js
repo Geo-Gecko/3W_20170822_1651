@@ -135,15 +135,25 @@
 
     var h = (window.innerHeight ||
       document.documentElement.clientHeight ||
-      document.body.clientHeight) - 30;
+      document.body.clientHeight);
     if (h > 540) {
       d3.select(".list-container").style("height", h + "px");
       d3.select("#d3-map-wrapper").style("height", h + "px");
     }
-    // var w = (window.innerWidth ||
-    //   document.documentElement.clientWidth ||
-    //   document.body.clientWidth);
-    // d3.select(".list-container").style("height", h+"px")
+    var w = (window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth);
+    d3.select(".list-container").style("height", h+"px")
+
+    var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false})
+    .addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw"));
+    //temporarily disable the zoom
+      map.scrollWheelZoom.disable();
+      map.doubleClickZoom.disable();
+      map.boxZoom.disable();
+      map.keyboard.disable();
+      map.touchZoom.disable();
+
     var wrapper = d3.select("#d3-map-wrapper");
     var width = wrapper.node().offsetWidth || 960;
     var height = wrapper.node().offsetHeight || 480; // < 480 ? h : wrapper.node().offsetHeight)  || 480;
@@ -158,12 +168,15 @@
       .attr("class", "d3-tooltip d3-hide");
 
     d3.select("#d3-map-wrapper").selectAll("*").remove();
-    var svg = d3.select("#d3-map-wrapper")
+
+    //var svg = d3.select(map.getPanes().overlayPane)
+    var svg = d3.select(map.getPanes().overlayPane)
       .append("svg")
       .attr("xmlns", "http://www.w3.org/2000/svg")
       .attr("preserveAspectRatio", "xMidYMid")
       .attr("viewBox", "0 0 " + width + " " + height)
       .attr("width", width)
+      .attr("z-index", 999)
       .attr("height", height);
 
     svg.append("rect")
@@ -174,7 +187,7 @@
 
 
     var g = svg.append("g")
-      .attr("class", "map");
+      .attr("class", "leaflet-zoom-hide");
     // g.attr("transform", "translate(" + 0 + "," + 24 + ")");
 
     // var mapTitle = svg.append("g")
@@ -193,8 +206,9 @@
     //   });
 
     var projection = d3.geo.mercator()
-      .scale(5000).translate([(-2000 + (width / 930) * 100), 460]); //395 width/2 930 - 2400  -2400
-
+      .scale(1)
+      .translate([0, 0]); //395 width/2 930 - 2400  -2400
+    //console.log(center);
     var path = d3.geo.path()
       .projection(projection);
 
@@ -202,6 +216,16 @@
       return d.District;
     }).entries(dataset);
 
+    var b = path.bounds(ugandaGeoJson),
+    s = 5176.885757686581,
+    t = [(width - 154 - s * (b[1][0] + b[0][0])) / 2, (height + 20 - s * (b[1][1] + b[0][1])) / 2];
+
+    console.log(s);
+    console.log(t);
+
+    projection
+    .scale(s)
+    .translate(t);
 
     var ugandaPath;
 
@@ -344,136 +368,27 @@
 
     }
 
-    var ugandaNeighboursPath = g.append("g")
-    .attr("class", "uganda-neighbours")
-    .attr("transform", "translate(" + 2 + "," + 0.5 + ")")
-    .selectAll("path")
-    .data(ugandaNeighboursGeoJson.features)
-    .enter()
-    .append("path")
-    .attr("class", "neighbour")
-    .style("fill", "transparent")
-    .style("stroke", "#000")
-    .attr("d", path);
+    var ugandaNeighboursPath;
 
     updateGeoPath(ugandaGeoJson);
 
     
-    var tanzaniaText = g.append("g")
-      .attr("class", "tanzania")
-      .selectAll("text")
-      .data(["Tanzania"])
-      .enter()
-      .append("text")
-      .attr("class", "neighbour")
-      .style("cursor-pointer", "none")
-      .attr("x", 0)
-      .attr("y", 0)
-      .text(function (d) {
-        return d;
-      });
+    var tanzaniaText;
 
-    var indianOcean = g.append("g")
-      .attr("class", "indian-ocean")
-      .selectAll("text")
-      .data(["Indian Ocean"])
-      .enter()
-      .append("text")
-      .attr("class", "neighbour")
-      .style("cursor-pointer", "none")
-      .attr("x", 0)
-      .attr("y", 0)
-      .text(function (d) {
-        return d;
-      });
+    var indianOcean;
 
-    var ugandaNeighboursText = g.append("g")
-      .attr("class", "uganda-neighbours")
-      .selectAll("text")
-      .data(ugandaNeighboursGeoJson.features)
-      .enter()
-      .append("text")
-      .attr("class", "neighbour")
-      // .style("cursor", "none")
-      .style("cursor-pointer", "none")
-      .each(function (d) {
-        d.properties.centroid = projection(d3.geo.centroid(d));
-      })
-      .attr("x", function (d) {
-        if (d.properties.NAME === "S. Sudan") {
-          return d.properties.centroid[0] + 50;
-        }
-        if (d.properties.NAME === "Congo (Kinshasa)") {
-          return d.properties.centroid[0] + 450;
-        }
-        if (d.properties.NAME === "Kenya") {
-          indianOcean.attr("x", d.properties.centroid[0] + 230)
-          return d.properties.centroid[0] - 250;
-        }
-        if (d.properties.NAME === "Rwanda") {
-          tanzaniaText.attr("x", d.properties.centroid[0] + 200)
-          return d.properties.centroid[0] + 15;
-        }
-        if (d.properties.NAME === "Burundi") {
-          return d.properties.centroid[0] - 5;
-        }
-        if (d.properties.NAME === "Ethiopia") {
-          return d.properties.centroid[0] - 350;
-        }
-        if (d.properties.NAME === "Somalia") {
-          return d.properties.centroid[0] - 400;
-        }
-        if (d.properties.NAME === "Central African Rep.") {
-          return d.properties.centroid[0] + 400;
-        }
-        return d.properties.centroid[0];
-      })
-      .attr("y", function (d) {
-        if (d.properties.NAME === "Rwanda") {
-          tanzaniaText.attr("y", d.properties.centroid[1] - 50)
-          return d.properties.centroid[1] - 40;
-        }
-        if (d.properties.NAME === "Kenya") {
-          indianOcean.attr("y", d.properties.centroid[1] + 320)
-          return d.properties.centroid[1];
-        }
-        if (d.properties.NAME === "S. Sudan") {
-          return d.properties.centroid[1] + 290;
-        }
-        if (d.properties.NAME === "Congo (Kinshasa)") {
-          return d.properties.centroid[1] - 400;
-        }
-        if (d.properties.NAME === "Burundi") {
-          return d.properties.centroid[1] - 30;
-        }
-        if (d.properties.NAME === "Ethiopia") {
-          return d.properties.centroid[1] + 250;
-        }
-        if (d.properties.NAME === "Somalia") {
-          return d.properties.centroid[1] + 200;
-        }
-        if (d.properties.NAME === "Central African Rep.") {
-          return d.properties.centroid[1] + 80;
-        }
-        return d.properties.centroid[1];
-      })
-      .text(function (d) {
-        return d.properties.NAME;
-      });
+    var ugandaNeighboursText;
 
 
     var domain = color.domain();
-    var N = 4;
+    // var N = 4;
     // var array = (Array.apply(null, {
     //   length: N+1
     // }).map(Number.call, Number)).map(function(d,i){
     //   return Math.round(i*(domain[1]-domain[0])/N);
     // });
-    var step = Math.round((domain[1] - domain[0]) / N);
-    var array = [Math.round(step-step/2), Math.round(step*2-step/2), Math.round(step*3-step/2), Math.round(step*4-step/2)];
-    var arrayLabel = [domain[0].toString() + " - " + step.toString(), (step+1).toString() + " - " + (step*2).toString(), (step*2+1).toString() + " - " + (step*3).toString(), (step*3+1).toString() + " - " + domain[1].toString()];
-    // var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) / 4), domain[1]];//
-    // var array = [domain[0] + (domain[1] - domain[0]/2)/4, Math.round(2 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, Math.round(3 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, domain[1] + (domain[1] - domain[0]/2)/4];//
+    var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) /
+      4), domain[1]];
 
     var legendX = 250;
     var legendY = 22;
@@ -506,7 +421,7 @@
       })
       .attr("dy", "0.8em") //place text one line *below* the x,y point
       .text(function (d, i) {
-        return arrayLabel[i];
+        return d;
       });
 
     svg.selectAll('.legend-title')
