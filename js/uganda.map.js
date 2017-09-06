@@ -143,7 +143,7 @@
     var w = (window.innerWidth ||
       document.documentElement.clientWidth ||
       document.body.clientWidth);
-    d3.select(".list-container").style("height", h+"px")
+    d3.select(".list-container").style("height", h - 0 +"px")
 
     var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false})
     .addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw"));
@@ -167,9 +167,9 @@
       .append("div")
       .attr("class", "d3-tooltip d3-hide");
 
-    d3.select("#d3-map-wrapper").selectAll("*").remove();
+    //d3.select("#d3-map-wrapper").selectAll("*").remove();
 
-    //var svg = d3.select(map.getPanes().overlayPane)
+    //var svg = d3.select("#d3-map-wrapper")
     var svg = d3.select(map.getPanes().overlayPane)
       .append("svg")
       .attr("xmlns", "http://www.w3.org/2000/svg")
@@ -187,7 +187,7 @@
 
 
     var g = svg.append("g")
-      .attr("class", "leaflet-zoom-hide");
+      .attr("class", "map");
     // g.attr("transform", "translate(" + 0 + "," + 24 + ")");
 
     // var mapTitle = svg.append("g")
@@ -220,9 +220,6 @@
     s = 5176.885757686581,
     t = [(width - 154 - s * (b[1][0] + b[0][0])) / 2, (height + 20 - s * (b[1][1] + b[0][1])) / 2];
 
-    console.log(s);
-    console.log(t);
-
     projection
     .scale(s)
     .translate(t);
@@ -232,13 +229,15 @@
     var ugandaDistricts = g.append("g").attr("class", "uganda-districts");
 
     window.updateGeoPath = function updateGeoPath(ugandaGeoJson) {
-      // console.log("updatePath");
+       //console.log(ugandaGeoJson.features[0].properties.DNAME_06);
       ugandaPath = ugandaDistricts
         .selectAll('.district')
         .data(ugandaGeoJson.features);
       ugandaPath
         .enter()
         .append("path")
+        .attr("style","z-index:600")
+        .attr("style","pointer-events:all!important")
         .style("cursor", "pointer")
         .style("stroke", "#fff")
         .each(function (d) {
@@ -265,6 +264,7 @@
           });
         })
         .on("mousemove", function (d) {
+          //console.log("mousemove");
           var mouse = d3.mouse(svg.node()).map(function (d) {
             return parseInt(d);
           });
@@ -285,15 +285,18 @@
               box.height) + "px");
         })
         .on("mouseover", function (d) {
+          //console.log("mouseover");
           d3.select(this).style("fill", "#aaa");
         })
         .on("mouseout", function (d) {
+          //console.log("mouseout");
           d3.select(this).style("fill", d.properties._agencyList ? color(d.properties._agencyList.length) :
             "#ccc");
           tooltip.classed("d3-hide", true);
         })
         .attr("d", path)
         .on("click", function (d) {
+          //console.log("click");
           var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
           // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
           // d.properties._selected = !needRemove;
@@ -369,18 +372,12 @@
     }
 
     var ugandaNeighboursPath;
-
     updateGeoPath(ugandaGeoJson);
-
-    
     var tanzaniaText;
-
     var indianOcean;
-
     var ugandaNeighboursText;
-
-
     var domain = color.domain();
+
     // var N = 4;
     // var array = (Array.apply(null, {
     //   length: N+1
@@ -390,59 +387,51 @@
     var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) /
       4), domain[1]];
 
-    var legendX = 250;
-    var legendY = 22;
-    svg.selectAll('.legend-rect')
-      .data(array)
-      .enter()
-      .append('rect')
-      .attr('class', 'legend-rect')
-      .attr("x", legendX + 20)
-      .attr("y", function (d, i) {
-        return (i + 1) * legendY + height - 735;
-      })
-      .attr("width", 20)
-      .attr("height", 20)
-      .style("stroke", "black")
-      .style("stroke-width", 0)
-      .style("fill", function (d) {
-        return color(d);
-      });
-    //the data objects are the fill colors
+    // var legendX = 250;
+    // var legendY = 22;
+    // svg.selectAll('.legend-rect')
+    //   .data(array)
+    //   .enter()
+    //   .append('rect')
+    //   .attr('class', 'legend-rect')
+    //   .attr("x", legendX + 20)
+    //   .attr("y", function (d, i) {
+    //     return (i + 1) * legendY + height - 735;
+    //   })
+    //   .attr("width", 20)
+    //   .attr("height", 20)
+    //   .style("stroke", "black")
+    //   .style("stroke-width", 0)
+    //   .style("fill", function (d) {
+    //     return color(d);
+    //   });
+    // //the data objects are the fill colors
 
-    svg.selectAll('.legend-text')
-      .data(array)
-      .enter()
-      .append('text')
-      .attr('class', 'legend-text')
-      .attr("x", legendX + 45)
-      .attr("y", function (d, i) {
-        return (i) * legendY + height - 710;
-      })
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return d;
-      });
+    // svg.selectAll('.legend-text')
+    //   .data(array)
+    //   .enter()
+    //   .append('text')
+    //   .attr('class', 'legend-text')
+    //   .attr("x", legendX + 45)
+    //   .attr("y", function (d, i) {
+    //     return (i) * legendY + height - 710;
+    //   })
+    //   .attr("dy", "0.8em") //place text one line *below* the x,y point
+    //   .text(function (d, i) {
+    //     return d;
+    //   });
 
-    svg.selectAll('.legend-title')
-      .data(["Number of Agencies"])
-      .enter()
-      .append('text')
-      .attr('class', 'legend-title')
-      .attr("x", legendX + 20)
-      .attr("y", height - 740)
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return d;
-      });
-
-    // var gNode = g.node().getBBox();
-    // console.log(gNode);
-    // g.attr("transform", function (d) {
-    //   var x = (width-gNode.width)/2;
-    //   var y = (height-gNode.height)/2;
-    //   return "translate(" + x/2 + "," + y/2 + ")";
-    // });
+    // svg.selectAll('.legend-title')
+    //   .data(["Number of Agencies"])
+    //   .enter()
+    //   .append('text')
+    //   .attr('class', 'legend-title')
+    //   .attr("x", legendX + 20)
+    //   .attr("y", height - 740)
+    //   .attr("dy", "0.8em") //place text one line *below* the x,y point
+    //   .text(function (d, i) {
+    //     return d;
+    //   });
 
     g.append("g").attr("class", 'circle-group');
     // var localDistrictSettlement = $.extend(true, [], districtSettlement);

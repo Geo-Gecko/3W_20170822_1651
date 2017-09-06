@@ -229,3 +229,8 @@ div#district-list .d3-active {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+svg, g.map {
+    z-index: 999!important;
+    position: relative;
+}
