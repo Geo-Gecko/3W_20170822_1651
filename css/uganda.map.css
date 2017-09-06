@@ -234,3 +234,39 @@ svg, g.map {
     z-index: 999!important;
     position: relative;
 }
+
+.cLegend {
+  margin-top: 80px;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+#cLegend-title {
+    font-size: 12.5px;
+    color: #000;
+}
+
+span.colorbox {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+span.colorbox.one {
+  background-color: #56e495;
+}
+
+span.colorbox.two {
+  background-color: #48cc81;
+}
+
+span.colorbox.three {
+  background-color: #36b069;
+}
+
+span.colorbox.four {
+  background-color: #0b793c;
+} 
