@@ -153,6 +153,7 @@
       map.boxZoom.disable();
       map.keyboard.disable();
       map.touchZoom.disable();
+      map.dragging.disable();
 
     var wrapper = d3.select("#d3-map-wrapper");
     var width = wrapper.node().offsetWidth || 960;
