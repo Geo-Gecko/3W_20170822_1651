@@ -142,6 +142,9 @@ div.d3-tooltip {
   box-shadow: 0px 0px 2px 0px #a6a6a6;
   opacity: 0.9;
   position: absolute;
+  z-index: 601!important;
+  min-width: 140px;
+  max-width: 200px;
 }
 
 div.d3-tooltip p {
@@ -158,23 +161,23 @@ div.d3-tooltip p b {
 }
 
 .custom-list-header {
-    margin: 0;
-    padding: 7px 6px;
-    background-color: #fff;
-    font-size: 16px;
-    color: #52595e;
-    font-weight: bold;
-    font-style: normal;
-    cursor: pointer;
-    font-family: Roboto,sans-serif;
-    border-bottom: 1px solid #dfe9f1;
+  margin: 0;
+  padding: 7px 6px;
+  background-color: #fff;
+  font-size: 16px;
+  color: #52595e;
+  font-weight: bold;
+  font-style: normal;
+  cursor: pointer;
+  font-family: Roboto,sans-serif;
+  border-bottom: 1px solid #dfe9f1;
 }
 
 p.custom-list-header  .glyphicon {
-    float: right;
-    padding: 3px 10px 0 0;
-    font-size: 13px;
-    color: #55aa00;
+  float: right;
+  padding: 3px 10px 0 0;
+  font-size: 13px;
+  color: #55aa00;
 }
 
 .custom-list {
@@ -187,13 +190,13 @@ p.custom-list-header  .glyphicon {
 }
 
 .custom-list p {
-    padding: 3px 5px;
-    margin: 0;
-    cursor: pointer;
+  padding: 3px 5px;
+  margin: 0;
+  cursor: pointer;
 }
 .custom-list p:hover{
-    background: rgba(85, 170, 0, 0.12) !important;
-        color: #000!important;
+  background: rgba(85, 170, 0, 0.12) !important;
+  color: #000!important;
 }
 .collapsed {
   display: none;
@@ -221,18 +224,18 @@ div#district-list .d3-active {
 }
 
 .list-container>.col-md-12:first-child p.custom-list-header {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .list-container>.col-md-12:last-child p.custom-list-header {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 svg, g.map {
-    z-index: 999!important;
-    position: relative;
+  z-index: 600!important;
+  position: relative;
 }
 
 .cLegend {
@@ -242,17 +245,17 @@ svg, g.map {
 }
 
 #cLegend-title {
-    font-size: 12.5px;
-    color: #000;
+  font-size: 12.5px;
+  color: #000;
 }
 
 span.colorbox {
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 7px;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
 }
 
 span.colorbox.one {

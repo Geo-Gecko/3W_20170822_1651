@@ -163,7 +163,7 @@
       .interpolate(d3.interpolateHcl)
       .range([d3.rgb("#56e495"), d3.rgb('#0b793c')]); //#f597aa #a02842
 
-    var tooltip = d3.select("#d3-map-container")
+    var tooltip = d3.select(map.getPanes().overlayPane)
       .append("div")
       .attr("class", "d3-tooltip d3-hide");
 
@@ -176,7 +176,7 @@
       .attr("preserveAspectRatio", "xMidYMid")
       .attr("viewBox", "0 0 " + width + " " + height)
       .attr("width", width)
-      .attr("z-index", 999)
+      .attr("z-index", 600)
       .attr("height", height);
 
     svg.append("rect")
@@ -264,7 +264,7 @@
           });
         })
         .on("mousemove", function (d) {
-          //console.log("mousemove");
+          
           var mouse = d3.mouse(svg.node()).map(function (d) {
             return parseInt(d);
           });
@@ -274,10 +274,13 @@
               "<p><span>Sectors:</span> <b>" + d.properties._sectorList.length + "</b></p>" +
               "<p><span>Agencies:</span> <b>" + d.properties._agencyList.length + "</b></p>";
           }
+          //console.log("mousemove", str);
           tooltip.html(str);
           var box = tooltip.node().getBoundingClientRect() || {
             height: 0
           };
+
+
           tooltip
             .classed("d3-hide", false)
             .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
