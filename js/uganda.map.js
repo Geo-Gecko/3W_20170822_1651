@@ -162,7 +162,7 @@
     var opacity = 0.3;
     var color = d3.scale.linear().domain(domain) //http://bl.ocks.org/jfreyre/b1882159636cc9e1283a
       .interpolate(d3.interpolateHcl)
-      .range([d3.rgb("#56e495"), d3.rgb('#0b793c')]); //#f597aa #a02842
+      .range([d3.rgb("#ffe1b8"), d3.rgb('#e08114')]); //#f597aa #a02842
 
     var tooltip = d3.select(map.getPanes().overlayPane)
       .append("div")
