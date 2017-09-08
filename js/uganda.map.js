@@ -794,6 +794,8 @@
           });
         _sectorList.exit().remove();
       }
+      //Hack to indent child protection and SGBV
+      $("p.CP").insertAfter("p.Protection");
 
       if (settlementList) {
         d3.select("#settlement-count").text(settlementList.length);
