@@ -771,6 +771,9 @@
         var _sectorList = d3.select("#sector-list").selectAll("p")
           .data(sectorList);
         _sectorList.enter().append("p")
+          .attr("class", function(d){
+              return d.key.replace(/\s/g,''); 
+          })
           .text(function (d) {
             return d.key;
           })

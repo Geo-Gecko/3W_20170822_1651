@@ -273,3 +273,7 @@ span.colorbox.three {
 span.colorbox.four {
   background-color: #E08114;
 } 
+
+p.CP, p.SGBV {
+  padding-left: 20px;
+}
