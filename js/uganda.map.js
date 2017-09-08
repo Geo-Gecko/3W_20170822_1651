@@ -742,7 +742,7 @@
             // d3.select("#agency-list").selectAll("p").style("background", "transparent");
             var needRemove = $(d3.select(this).node()).hasClass("d3-active");
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#55aa00");
+              "#E3784A");
             // refreshCounts();
             global.currentEvent = "district";
             myFilter(c, global.currentEvent, needRemove);
@@ -783,7 +783,7 @@
             // d3.select(this).style("background", "#8cc4d3");
             var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#55aa00");
+              "#E3784A");
             global.currentEvent = "sector";
             myFilter(c, global.currentEvent, needRemove);
             // myFilterBySector(c, needRemove);
@@ -811,7 +811,7 @@
             // d3.select(this).style("background", "#8cc4d3");
             var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#55aa00");
+              "#E3784A");
             global.currentEvent = "settlement";
             myFilter(c, global.currentEvent, needRemove);
             // myFilterBySettlement(c, undefined);
@@ -850,7 +850,7 @@
           .on("click", function (c) {
             var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
             d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
-              "#55aa00");
+              "#E3784A");
             // myFilterByAgency(c, needRemove);
             global.currentEvent = "agency"
             myFilter(c, global.currentEvent, needRemove);
@@ -882,6 +882,7 @@
       }
     });
 
+	/*
     setTimeout(function () {
       queue()
         .defer(d3.json, "./data/UgandaDistricts.unhighlighted.geojson") //dist
@@ -897,7 +898,7 @@
       });
       ugandaGeoJson.features = ugandaGeoJson.features.concat(ugandaGeoJsonUnhighlighted.features);
       updateGeoPath(ugandaGeoJson);
-    }
+    }*/
 
   } // ready
 
