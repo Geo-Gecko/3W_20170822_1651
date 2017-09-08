@@ -15,7 +15,7 @@ html {
 }
 
 #header-text span {
-  background-color: #fdc627;
+  background-color: #E3784A;
   padding: 0 14px 0 8px;
   margin: 0px 0 1px 0;
 }
@@ -48,7 +48,7 @@ p.custom-count {
   font-family: Roboto,sans-serif;
   font-size: 20px;
   font-weight: 300;
-  background-color: #fdc627;
+  background-color: #E3784A;
   line-height: 28px;
   color: #ffffff;
   margin: 8px -4px -8px -4px;
@@ -177,7 +177,7 @@ p.custom-list-header  .glyphicon {
   float: right;
   padding: 3px 10px 0 0;
   font-size: 13px;
-  color: #fdc627;
+  color: #E3784A;
 }
 
 .custom-list {
@@ -195,7 +195,7 @@ p.custom-list-header  .glyphicon {
   cursor: pointer;
 }
 .custom-list p:hover{
-  background: rgba(85, 170, 0, 0.12) !important;
+  background: rgba(227, 120, 74, 0.12) !important;
   color: #000!important;
 }
 .collapsed {
