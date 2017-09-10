@@ -274,6 +274,11 @@ span.colorbox.four {
   background-color: #E08114;
 } 
 
-p.CP, p.SGBV {
+#sector-list p.child {
   padding-left: 20px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed!important;
 }
