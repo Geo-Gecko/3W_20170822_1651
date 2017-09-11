@@ -314,7 +314,7 @@
           // d3.select(this).style("opacity", 1); //d3.selectAll(".district-" + d.properties.DNAME_06.replaceAll('[ ]', "_"))
           // d3.select("#district-list").selectAll("p").style("background", "transparent");
           d3.select(".district-list-" + d.properties.DNAME_06.replaceAll('[ ]', "_")).style("background",
-            "#8cc4d3");
+            "#E3784A");
           refreshCounts();
           global.currentEvent = "district";
           myFilter({
@@ -490,7 +490,7 @@
         //   "key": d.District
         // }, "district", false);
         // d3.select("#settlement-list").selectAll("p").style("background", "transparent");
-        d3.select(".settlement-list-" + d.Settlement_ID).style("background", "#8cc4d3");
+        d3.select(".settlement-list-" + d.Settlement_ID).style("background", "#E3784A");
         // var needRemove = $(d3.select(this).node()).hasClass("d3-active");
         global.currentEvent = "settlement";
         myFilter({
