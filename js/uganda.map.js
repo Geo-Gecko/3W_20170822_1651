@@ -17,9 +17,9 @@
 
   queue()
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
+  // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
     .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson") //dist
-    .defer(d3.json, "./data/UgandaNeighbours.geojson")
-    .defer(d3.csv, "./data/Map5_T1.csv") //Actor_ID,Name,Abb
+    .defer(d3.csv, "./data/Map5_T1.csv") //Actor_ID,Name,Abb,//Actor_Type
     .defer(d3.csv, "./data/Map5_T2.csv") //District,Settlement,Settlement_ID,Long,Lat
     .defer(d3.csv, "./data/Map5_T3.csv") //Sector,Sector_ID
     .defer(d3.csv, "./data/Map5_T4.csv") //Actor_ID,Settlement_ID,Sector_ID
@@ -28,32 +28,45 @@
 
 
 
-
+//These variables contain the dynamic counts and selections based on user interaction.
   var global = {};
   global.selectedDistrict = []; // name
   global.selectedSector = []; // ID
   global.selectedSettlement = []; //undefined; //[]; // ID
   global.selectedAgency = []; // ID
+  global.selectedUn = []; // Type UN
+  global.selectedIp = []; // Type IP
+  global.selectedOp = []; // Type OP
   global.districtCount;
   global.sectorCount;
   global.settlementCount;
   global.agencyCount;
+  global.unCount;
+  global.ipCount;
+  global.opCount;
   global.currentEvent;
   // global.needRefreshDistrict;
 
-
+//Function to refresh the counts when the user selects clear all
   function refreshCounts() {
     d3.select("#district-count").text(global.districtCount);
     d3.select("#sector-count").text(global.sectorCount);
     d3.select("#settlement-count").text(global.settlementCount);
     d3.select("#agency-count").text(global.agencyCount);
+    d3.select("#agencyUN-count").text(global.UnCount);
+    d3.select("#agencyIP-count").text(global.IpCount);
+    d3.select("#agencyOP-count").text(global.OpCount);
     // global.selectedDistrict = [];
     global.selectedSettlement = []; //undefined; //[];
     global.selectedSector = [];
     global.selectedAgency = [];
+    global.selectedUn = [];
+    global.selectedIp = [];
+    global.selectedOp = [];
   }
-
-  function ready(error, ugandaGeoJson, ugandaNeighboursGeoJson, nameAbb, districtSettlement, sector, relationship) {
+//this function is the heart and soul of the d3 map, it calls the data and defines the relationship between the tables and the SVG map.
+  function ready(error, ugandaGeoJson, nameAbb, districtSettlement, sector, relationship) {
+    //standard for if data is missing, the map shouldnt start.
     if (error) {
       throw error;
     };
@@ -93,7 +106,9 @@
       }
       return d;
     });
-    // console.log(dataset);
+
+    //console.log(dataset);
+
 
     // http://bl.ocks.org/phoebebright/raw/3176159/
     var districtList = d3.nest().key(function (d) {
@@ -108,10 +123,34 @@
     var agencyList = d3.nest().key(function (d) {
       return d.Name;
     }).sortKeys(d3.ascending).entries(nameAbb);
+    var unAgencyList = d3.nest().key(function (d) {
+        if (d.Actor_Type === "UN") {
+            return d.Actor_Type; //return d.Actor_Type["UN"];
+        } else return void 0;
+    }).sortKeys(d3.ascending).entries(nameAbb);
+    var ipAgencyList = d3.nest().key(function (d) {
+        if (d.Actor_Type === "IP") {
+            return d.Actor_Type;
+        } else return null;
+    }).sortKeys(d3.ascending).entries(nameAbb);
+    var opAgencyList = d3.nest().key(function (d) {
+        if (d.Actor_Type === "OP") {
+            return d.Actor_Type;
+        } else return;
+    }).sortKeys(d3.ascending).entries(nameAbb);
+
+      console.log(unAgencyList);
+      console.log(ipAgencyList);
+
+
     global.districtCount = districtList.length;
     global.sectorCount = sectorList.length;
     global.settlementCount = settlementList.length;
     global.agencyCount = agencyList.length;
+    global.unCount = unAgencyList[0].length;
+    global.ipCount = ipAgencyList[0].length;
+    global.opCount = opAgencyList[0].length;
+
     refreshCounts();
     updateLeftPanel(districtList, sectorList, settlementList, agencyList, dataset);
     // updateLeftPanel(districtList, null, null, null, dataset);
@@ -145,11 +184,15 @@
        document.body.clientWidth);
      d3.select(".list-container").style("height", h - 0 +"px")
 	 
-	 var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false})
-    .addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw"));
-    //temporarily disable the zoom
-      map.scrollWheelZoom.disable();
+	 var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
+
+     var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw");
+
+     basemap.addTo(map);
+
+      //temporarily disable the zoom
       map.doubleClickZoom.disable();
+      map.scrollWheelZoom.disable();
       map.boxZoom.disable();
       map.keyboard.disable();
       map.touchZoom.disable();
@@ -163,6 +206,7 @@
     var color = d3.scale.linear().domain(domain) //http://bl.ocks.org/jfreyre/b1882159636cc9e1283a
       .interpolate(d3.interpolateHcl)
       .range([d3.rgb("#ffe1b8"), d3.rgb('#e08114')]); //#f597aa #a02842
+      var active = d3.select(null);
 
     var tooltip = d3.select(map.getPanes().overlayPane)
       .append("div")
@@ -173,6 +217,7 @@
     //var svg = d3.select("#d3-map-wrapper")
 	var svg = d3.select(map.getPanes().overlayPane)
       .append("svg")
+      .on("dblclick", stopped, true)
       .attr("xmlns", "http://www.w3.org/2000/svg")
       .attr("preserveAspectRatio", "xMidYMid")
       .attr("viewBox", "0 0 " + width + " " + height)
@@ -184,12 +229,22 @@
       .attr("class", "background")
       .attr("width", width)
       .attr("height", height)
-      .on("click", refreshMap)
+      .on("dblclick", reset, refreshMap);
+
+
+
+      var zoom = d3.behavior.zoom()
+          .translate([0, 0])
+          .scale(1)
+          .scaleExtent([1, 8])
+          .on("zoom", zoomed);
 
 
     var g = svg.append("g")
       .attr("class", "map");
     // g.attr("transform", "translate(" + 0 + "," + 24 + ")");
+
+      svg.call(zoom.event);
 
     // var mapTitle = svg.append("g")
     //   .attr("class", "mat-title")
@@ -206,31 +261,56 @@
     //     return d;
     //   });
 
-    var projection = d3.geo.mercator()
-      .scale(1)
-	  .translate([0,0]); //395 width/2 930 - 2400  -2400
+      var projection = d3.geo.mercator()
+        .scale(1)
+        .translate([0,0]); //395 width/2 930 - 2400  -2400
 
-    var path = d3.geo.path()
-      .projection(projection);
+      var path = d3.geo.path()
+         .projection(projection);
+
 
     var datasetNest = d3.nest().key(function (d) {
       return d.District;
     }).entries(dataset);
 
-    var b = path.bounds(ugandaGeoJson),
+
+
+     /* var transform = d3.geo.transform({point: projectPoint}),
+          path = d3.geo.path().projection(transform);
+*/
+   var b = path.bounds(ugandaGeoJson),
     s = 5176.885757686581,
     t = [(width - 154 - s * (b[1][0] + b[0][0])) / 2, (height + 20 - s * (b[1][1] + b[0][1])) / 2];
 
     projection
     .scale(s)
     .translate(t);
-
+      //console.log(b);
     var ugandaPath;
 
     var ugandaDistricts = g.append("g").attr("class", "uganda-districts");
 
+  /*  var nodeFontSize = 12;
+
+    var labels =  svg.selectAll(".circle-group")
+          .data(districtSettlement)
+          .enter().append("svg:text")
+          .attr("class", "label")
+          .each(function (d) {
+              d._coordinates = projection([d.Long, d.Lat]);
+          })
+          .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
+          .attr("dy", ".35em")
+          .attr("font-size", nodeFontSize + "px")
+          .text(function (d) { return d.Settlement });*/
+
+
+
     window.updateGeoPath = function updateGeoPath(ugandaGeoJson) {
       // console.log("updatePath");
+
+
+
       ugandaPath = ugandaDistricts
         .selectAll('.district')
         .data(ugandaGeoJson.features);
@@ -254,6 +334,15 @@
               d.properties._agencyList = d3.nest().key(function (a) {
                 return a.Name;
               }).entries(c.values);
+              d.properties._unAgencyList = d3.nest().key(function (a) {
+                    return a.Actor_Type;
+                }).entries(c.values);
+              d.properties._ipAgencyList = d3.nest().key(function (a) {
+                    return a.Actor_Type;
+                }).entries(c.values);
+              d.properties._opAgencyList = d3.nest().key(function (a) {
+                    return a.Actor_Type;
+                }).entries(c.values);
               domain[0] = d.properties._agencyList.length < domain[0] ? d.properties._agencyList.length :
                 domain[
                   0];
@@ -264,7 +353,7 @@
             }
           });
         })
-        .on("mousemove", function (d) {
+        /*.on("mousemove", function (d) {
 			
           var mouse = d3.mouse(svg.node()).map(function (d) {
             return parseInt(d);
@@ -287,7 +376,7 @@
             .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
                 1] -
               box.height) + "px");
-        })
+        })*/
         .on("mouseover", function (d) {
           d3.select(this).style("fill", "#aaa");
         })
@@ -297,7 +386,32 @@
           tooltip.classed("d3-hide", true);
         })
         .attr("d", path)
+        .on("dblclick", clicked)
         .on("click", function (d) {
+
+            var mouse = d3.mouse(svg.node()).map(function (d) {
+                return parseInt(d);
+            });
+            var str = "<p><span>District:</span> <b>" + d.properties.DNAME_06 + "</b></p>"
+            if (d.properties._settlementList && d.properties._sectorList && d.properties._agencyList) {
+                str = str + "<p><span>Settlements:</span> <b>" + d.properties._settlementList.length + "</b></p>" +
+                    "<p><span>Sectors:</span> <b>" + d.properties._sectorList.length + "</b></p>" +
+                    "<p><span>Agencies:</span> <b>" + d.properties._agencyList.length + "</b></p>";
+                //console.log(d.properties._agencyList);
+            }
+            tooltip.html(str);
+
+            var box = tooltip.node().getBoundingClientRect() || {
+                height: 0
+            };
+
+
+            tooltip
+                .classed("d3-hide", false)
+                .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
+                        1] -
+                    box.height) + "px");
+
           var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
           // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
           // d.properties._selected = !needRemove;
@@ -321,7 +435,7 @@
             "key": d.properties.DNAME_06
           }, global.currentEvent);
 
-          settlements.style("opacity", opacity);
+          settlements.style("opacity", 1);
           if (global.selectedDistrict && global.selectedDistrict.length > 0) {
             global.selectedDistrict.map(function (dd) {
               d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
@@ -350,6 +464,15 @@
               }).entries(c.values);
               d.properties._agencyList = d3.nest().key(function (a) {
                 return a.Name;
+              }).entries(c.values);
+              d.properties._unAgencyList = d3.nest().key(function (a) {
+                return a.Actor_Type;
+              }).entries(c.values);
+              d.properties._ipAgencyList = d3.nest().key(function (a) {
+                return a.Actor_Type;
+                }).entries(c.values);
+              d.properties._opAgencyList = d3.nest().key(function (a) {
+                return a.Actor_Type;
               }).entries(c.values);
               domain[0] = d.properties._agencyList.length < domain[0] ? d.properties._agencyList.length :
                 domain[
@@ -448,12 +571,14 @@
     var settlements = svg.select('.circle-group')
       .selectAll('.settlement')
       .data(districtSettlement);
+    //console.log(settlements);
     settlements.enter().append('g')
       .attr("class", function (d) {
         return "settlement settlement-" + d.Settlement_ID + " settlement-district-" + d.District.toLowerCase().replaceAll(
           "[ ]", "-");
       })
       .append('path')
+      .attr("style","pointer-events:all!important")
       .style("fill", "#fff")
       .style("stroke", "red")
       .style("stroke-width", "0.5px")
@@ -475,6 +600,7 @@
         d3.select(this).style("fill", "#fff");
         tooltip.classed("d3-hide", true);
       })
+      .on("dblclick", clicked)
       .on("click", function (d) {
         // ugandaPath.style("opacity", opacity); //d3.selectAll(".district")
         // ugandaPath.style("opacity", function (a) {
@@ -505,7 +631,8 @@
           d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
         });
         // global.needRefreshDistrict = true;
-      });
+      })
+        ;
     settlements //.transition().duration(duration)
       .each(function (d) {
         d._coordinates = projection([d.Long, d.Lat]);
@@ -515,6 +642,23 @@
       })
       .select("path")
       .attr("d", 'M 0,0 m -5,-5 L 5,0 L -5,5 Z'); //http://bl.ocks.org/dustinlarimer/5888271
+
+
+      var nodeFontSize = 12;
+
+    /*settlements
+        .enter().append("svg:text")
+        .attr("class", "label")
+        .each(function (d) {
+            d._coordinates = projection([d.Long, d.Lat]);
+        })
+        .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
+        .attr("dy", ".60em")
+        .attr("font-size", nodeFontSize + "px")
+        .style("opacity", 0)
+        .text(function (d) { return d.Settlement});*/
+
+
     settlements.exit().remove();
 
     // settlements.append("title").text(function (d) {
@@ -700,6 +844,23 @@
       } else {
         d3.select("#agency-count").text(agencyList.length);
       }
+        if (flag === "unAgency") {
+            d3.select("#unAgency-count").text(global.selectedUn.length);
+        } else {
+            d3.select("#unAgency-count").text(unAgencyList.length);
+        }
+        if (flag === "ipAgency") {
+            d3.select("#ipAgency-count").text(global.selectedIp.length);
+        } else {
+            d3.select("#ipAgency-count").text(ipAgencyList.length);
+        }
+        if (flag === "opAgency") {
+            d3.select("#opAgency-count").text(global.selectedOp.length);
+        } else {
+            d3.select("#opAgency-count").text(opAgencyList.length);
+        }
+
+      //console.log(selectedDataset);
 
     }
 
@@ -825,7 +986,6 @@
         $("p.SGBV").addClass("child");
       }
 
-
       if (settlementList) {
         d3.select("#settlement-count").text(settlementList.length);
         var _settlementList = d3.select("#settlement-list").selectAll("p")
@@ -897,6 +1057,97 @@
           });
         _agencyList.exit().remove();
       }
+      if (unAgencyList) {
+            d3.select("#unAgency-count").text(unAgencyList.length);
+            var _unAgencyList = d3.select("#unAgency-list").selectAll("p")
+                .data(unAgencyList);
+            _unAgencyList.enter().append("p")
+                .text(function (d) {
+                    return d.key;
+                })
+                // .style("background", "transparent")
+                .on("click", function (c) {
+                    var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
+                    d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
+                        "#E3784A");
+                    // myFilterByAgency(c, needRemove);
+                    global.currentEvent = "unAgency"
+                    myFilter(c, global.currentEvent, needRemove);
+                    // settlementList.map(function (a) {
+                    //   d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
+                    // });
+                    // global.selectedDistrict.map(function (dd) {
+                    //   d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
+                    //     "opacity", 1);
+                    // });
+                });
+            _unAgencyList
+                .text(function (d) {
+                    return d.key;
+                });
+            _unAgencyList.exit().remove();
+        }
+      if (ipAgencyList) {
+            d3.select("#ipAgency-count").text(ipAgencyList.length);
+            var _ipAgencyList = d3.select("#ipAgency-list").selectAll("p")
+                .data(ipAgencyList);
+            _ipAgencyList.enter().append("p")
+                .text(function (d) {
+                    return d.key;
+                })
+                // .style("background", "transparent")
+                .on("click", function (c) {
+                    var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
+                    d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
+                        "#E3784A");
+                    // myFilterByAgency(c, needRemove);
+                    global.currentEvent = "ipAgency"
+                    myFilter(c, global.currentEvent, needRemove);
+                    // settlementList.map(function (a) {
+                    //   d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
+                    // });
+                    // global.selectedDistrict.map(function (dd) {
+                    //   d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
+                    //     "opacity", 1);
+                    // });
+                });
+            _ipAgencyList
+                .text(function (d) {
+                    return d.key;
+                });
+            _ipAgencyList.exit().remove();
+        }
+      if (opAgencyList) {
+            d3.select("#opAgency-count").text(opAgencyList.length);
+            var _opAgencyList = d3.select("#opAgency-list").selectAll("p")
+                .data(opAgencyList);
+            _opAgencyList.enter().append("p")
+                .text(function (d) {
+                    return d.key;
+                })
+                // .style("background", "transparent")
+                .on("click", function (c) {
+                    var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
+                    d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
+                        "#E3784A");
+                    // myFilterByAgency(c, needRemove);
+                    global.currentEvent = "opAgency"
+                    myFilter(c, global.currentEvent, needRemove);
+                    // settlementList.map(function (a) {
+                    //   d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
+                    // });
+                    // global.selectedDistrict.map(function (dd) {
+                    //   d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
+                    //     "opacity", 1);
+                    // });
+                });
+            _opAgencyList
+                .text(function (d) {
+                    return d.key;
+                });
+            _opAgencyList.exit().remove();
+        }
+
     }
 
     window.addEventListener("resize", function () {
@@ -928,6 +1179,73 @@
       ugandaGeoJson.features = ugandaGeoJson.features.concat(ugandaGeoJsonUnhighlighted.features);
       updateGeoPath(ugandaGeoJson);
     }*/
+
+      function clicked(d) {
+          if (active.node() === this) return reset();
+          active.classed("active", false);
+          active = d3.select(this).classed("active", true);
+
+          var bounds = path.bounds(d),
+              dx = bounds[1][0] - bounds[0][0],
+              dy = bounds[1][1] - bounds[0][1],
+              x = (bounds[0][0] + bounds[1][0]) / 2,
+              y = (bounds[0][1] + bounds[1][1]) / 2,
+              scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+              translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+          map.removeLayer(basemap);
+
+            /*svg.selectAll(".district").append("text")
+              .attr("dx", 12)
+              .attr("dy", ".35em")
+              .text(function(d) {return d.properties.DNAME_06});*/
+
+          /*var label = svg.selectAll('.district')
+             .data(ugandaGeoJson.features)
+             .enter()
+             .append("text")
+             .attr("class", "label")
+             .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+             .text(function(d) { return d.properties.DNAME_06;} );*/
+
+         //console.log(label, ugandaGeoJson.features);
+
+          //console.log(settlements);
+
+          svg.transition()
+              .duration(900)
+              .call(zoom.translate(translate).scale(scale).event);
+          }
+
+      function reset() {
+          active.classed("active", false);
+          active = d3.select(null);
+
+
+          svg.transition()
+              .duration(900)
+              .call(zoom.translate([0, 0]).scale(1).event);
+
+          basemap.addTo(map);
+      }
+
+      function zoomed() {
+          g.style("stroke-width", 1.5 / d3.event.scale + "px");
+          g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+          g.style("font-size", function(){return nodeFontSize / (d3.event.scale) + "px";});
+
+      }
+
+// If the drag behavior prevents the default click,
+// also stop propagation so we don’t click-to-zoom.
+      function stopped() {
+          if (d3.event.defaultPrevented) d3.event.stopPropagation();
+      }
+
+      function projectPoint(x, y) {
+          var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+          this.stream.point(point.x, point.y);
+      }
 
   } // ready
 
