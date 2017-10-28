@@ -110,6 +110,20 @@ p.custom-count {
     z-index: 500;
 }
 
+#d3-map-make-pdf {
+  position: absolute;
+  top: 205px;
+  left: 270px;
+  cursor: pointer;
+  z-index: 9;
+  border-radius: 4px;
+  background: #FFF;
+  /* box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.24), 0 4px 8px 0 rgba(0, 0, 0, 0.16); */
+  padding: 5px 10px;
+  font-size: 13px;
+  z-index: 500;
+}
+
 #d3-map-info {
     position: absolute;
     top: 125px;
