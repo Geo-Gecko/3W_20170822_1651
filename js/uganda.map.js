@@ -510,58 +510,6 @@
     // }).map(Number.call, Number)).map(function(d,i){
     //   return Math.round(i*(domain[1]-domain[0])/N);
     // });
-    var step = Math.round((domain[1] - domain[0]) / N);
-    var array = [domain[0]+Math.round(step-step/2), domain[0]+Math.round(step*2-step/2), domain[0]+Math.round(step*3-step/2), domain[0]+Math.round(step*4-step/2)];
-    var arrayLabel = [domain[0].toString() + " - " + (domain[0]+step).toString(), (domain[0]+step+1).toString() + " - " + (domain[0]+step*2).toString(), (domain[0]+step*2+1).toString() + " - " + (domain[0]+step*3).toString(), (domain[0]+step*3+1).toString() + " - " + domain[1].toString()];
-    // var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) / 4), domain[1]];//
-    // var array = [domain[0] + (domain[1] - domain[0]/2)/4, Math.round(2 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, Math.round(3 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, domain[1] + (domain[1] - domain[0]/2)/4];//
-
-    var legendX = 250;
-    var legendY = 22;
-    svg.selectAll('.legend-rect')
-      .data(array)
-      .enter()
-      .append('rect')
-      .attr('class', 'legend-rect')
-      .attr("x", legendX + 20)
-      .attr("y", function (d, i) {
-        return (i + 1) * legendY + height - 735;
-      })
-      .attr("width", 20)
-      .attr("height", 20)
-      .style("stroke", "black")
-      .style("stroke-width", 0)
-      .style("fill", function (d) {
-        return color(d);
-      });
-    //the data objects are the fill colors
-
-    svg.selectAll('.legend-text')
-      .data(array)
-      .enter()
-      .append('text')
-      .attr('class', 'legend-text')
-      .attr("x", legendX + 45)
-      .attr("y", function (d, i) {
-        return (i) * legendY + height - 710;
-      })
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return arrayLabel[i];
-      });
-
-    svg.selectAll('.legend-title')
-      .data(["Number of Agencies"])
-      .enter()
-      .append('text')
-      .attr('class', 'legend-title')
-      .attr("x", legendX + 20)
-      .attr("y", height - 740)
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return d;
-      });
-
     // var gNode = g.node().getBBox();
     // console.log(gNode);
     // g.attr("transform", function (d) {
