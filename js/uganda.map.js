@@ -15,6 +15,8 @@
   //   return string.charAt(0).toUpperCase() + string.slice(1);
   // }
 
+  var _selectedDataset;
+
   queue()
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
   // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
@@ -107,6 +109,8 @@
       return d;
     });
 
+    _selectedDataset = dataset;
+
     //console.log(dataset);
 
 
@@ -184,8 +188,8 @@
        document.body.clientWidth);
      d3.select(".list-container").style("height", h - 0 +"px")
 	 
-	 var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
-
+   var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
+  
      var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw");
 
      basemap.addTo(map);
@@ -694,6 +698,32 @@
     }
     d3.select("#d3-map-refresh").on("click", refreshMap);
 
+    function makePdf() {
+      reset();
+      var filters = [];
+      if (global.selectedDistrict.length > 0) {
+        filters.push({ "name": "District", "values": global.selectedDistrict })
+      }
+      if (global.selectedSettlement.length > 0) {
+        filters.push({ "name": "Settlements", "values": global.selectedSettlement })
+      }
+      if (global.selectedSector.length > 0) {
+        filters.push({ "name": "Sector", "values": global.selectedSector })
+      }
+      if (global.selectedAgency.length > 0) {
+        filters.push({ "name": "Agency", "values": global.selectedAgency })
+      }
+
+      var $xhr = $.ajax({
+        type: "HEAD",
+        url : "./data/Map5_T4.csv",
+      }).done(function () {
+        var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
+        generatePdf(map, _selectedDataset, filters, lastModified);
+      })      
+    }
+    d3.select("#d3-map-make-pdf").on("click", makePdf);
+
 
     // function onlyUnique(value, index, self) {
     //   console.log(value, index, self)
@@ -785,6 +815,8 @@
 
         return isDistrict && isSettlement && isSector && isAgency;
       });
+
+      _selectedDataset = selectedDataset;
 
       // console.log(selectedDataset.length, global.selectedDistrict, global.selectedSettlement, global.selectedSector, global.selectedAgency);
       //     global.selectedDistrict = []; // name
