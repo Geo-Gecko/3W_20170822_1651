@@ -18,9 +18,6 @@ function _printFilter(doc, filter, x, y) {
 	doc.text(x, y, 'Filters Applied');
 	doc.setFontSize(12);
 	doc.text(x, y + 5, filter.name);
-	filter.values.forEach(function (value, index) {
-		doc.text(x, y + 14 + index * 5, value.key);
-	})
 }
 
 function makeRectangularCanvas(oldCanvas, callback) {
@@ -71,14 +68,13 @@ function _makeMapImage(map, callback) {
 	});
 }
 
-function generatePdf(map, dataset, filters, lastModified) {
+function generatePdf(map, dataset, filters, lastModified, callback) {
 	var IMAGE_SIZE = 170;
 	var DOC_WIDTH = 210;
 
 	_makeMapImage(map, function (canvas) {
 		var doc = new jsPDF();
 		var ratio = canvas.height / canvas.width;
-		doc.setFont('helvetica', 'normal');
 
 		_printPageHeader(doc, lastModified);
 
@@ -90,7 +86,7 @@ function generatePdf(map, dataset, filters, lastModified) {
 		doc.addImage(image, 'PNG', x, y, width, height, '', 'fast');
 
 		filters.forEach(function (filter, index) {
-			_printFilter(doc, filter, 5 + index * 50, 220);
+			_printFilter(doc, filter, 5 + index * 50, 230);
 		});
 
 		doc.addPage();
@@ -109,6 +105,7 @@ function generatePdf(map, dataset, filters, lastModified) {
 			}
 		});
 
+		callback();
 		doc.save();
 	})
 }

@@ -296,3 +296,7 @@ span.colorbox.four {
   pointer-events: none;
   cursor: not-allowed!important;
 }
+
+#d3-map-make-pdf.disabled {
+  color: #c0c0c0;
+}

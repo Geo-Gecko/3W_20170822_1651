@@ -647,6 +647,13 @@
     d3.select("#d3-map-refresh").on("click", refreshMap);
 
     function makePdf() {
+      if ($("#d3-map-make-pdf").hasClass('disabled')) {
+        return;
+      }
+      $("#d3-map-make-pdf").addClass('disabled');
+      var spinner = new Spinner({ length: 3, radius: 4, width: 2 }).spin(document.body);
+      
+      document.getElementById('d3-map-make-pdf').appendChild(spinner.el);
       reset();
       var filters = [];
       if (global.selectedDistrict.length > 0) {
@@ -667,7 +674,10 @@
         url : "./data/Map5_T4.csv",
       }).done(function () {
         var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
-        generatePdf(map, _selectedDataset, filters, lastModified);
+        generatePdf(map, _selectedDataset, filters, lastModified, function () {
+          $("#d3-map-make-pdf").removeClass('disabled');
+          spinner.stop();
+        });
       })      
     }
     d3.select("#d3-map-make-pdf").on("click", makePdf);
