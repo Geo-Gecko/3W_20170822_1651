@@ -21,10 +21,10 @@
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
   // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
     .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson") //dist
-    .defer(d3.csv, "./data/Map5_T1.csv") //Actor_ID,Name,Abb,//Actor_Type
-    .defer(d3.csv, "./data/Map5_T2.csv") //District,Settlement,Settlement_ID,Long,Lat
-    .defer(d3.csv, "./data/Map5_T3.csv") //Sector,Sector_ID
-    .defer(d3.csv, "./data/Map5_T4.csv") //Actor_ID,Settlement_ID,Sector_ID
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T1.csv?GD_NONCE") //Actor_ID,Name,Abb,//Actor_Type
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T2.csv?GD_NONCE") //District,Settlement,Settlement_ID,Long,Lat
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T3.csv?GD_NONCE") //Sector,Sector_ID
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE") //Actor_ID,Settlement_ID,Sector_ID
     .await(ready);
 
 
