@@ -671,7 +671,7 @@
 
       var $xhr = $.ajax({
         type: "HEAD",
-        url : "./data/Map5_T4.csv",
+        url : "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE",
       }).done(function () {
         var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
         generatePdf(map, _selectedDataset, filters, lastModified, function () {
