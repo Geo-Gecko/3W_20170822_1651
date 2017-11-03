@@ -66,6 +66,71 @@
     global.selectedIp = [];
     global.selectedOp = [];
   }
+
+  function addLegend(domain, color) {
+    var N = 4;
+    var step = Math.round((domain[1] - domain[0]) / N);
+    var array = [domain[0]+Math.round(step-step/2), domain[0]+Math.round(step*2-step/2), domain[0]+Math.round(step*3-step/2), domain[0]+Math.round(step*4-step/2)];
+    var arrayLabel = [domain[0].toString() + " - " + (domain[0]+step).toString(), (domain[0]+step+1).toString() + " - " + (domain[0]+step*2).toString(), (domain[0]+step*2+1).toString() + " - " + (domain[0]+step*3).toString(), (domain[0]+step*3+1).toString() + " - " + domain[1].toString()];
+    // var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) / 4), domain[1]];//
+    // var array = [domain[0] + (domain[1] - domain[0]/2)/4, Math.round(2 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, Math.round(3 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, domain[1] + (domain[1] - domain[0]/2)/4];//
+
+    var legend = d3.selectAll('.c3-legend-item');
+    var legendSvg = d3.select('#legend')
+      .append('svg')
+      .attr('width', 640)
+      .attr('height', 100);
+    legend.each(function(){
+      svg.node().appendChild(this);
+    });
+
+    var legendX = 0;
+    var legendDY = 20;
+    legendSvg.selectAll('.legend-rect')
+      .data(array)
+      .enter()
+      .append('rect')
+      .attr('class', 'legend-rect')
+      .attr("x", legendX)
+      .attr("y", function (d, i) {
+        return (i + 1) * legendDY;
+      })
+      .attr("width", 20)
+      .attr("height", 20)
+      .style("stroke", "black")
+      .style("stroke-width", 0)
+      .style("fill", function (d) {
+        return color(d);
+      });
+    //the data objects are the fill colors
+
+    legendSvg.selectAll('.legend-text')
+      .data(array)
+      .enter()
+      .append('text')
+      .attr('class', 'legend-text')
+      .attr("x", legendX + 25)
+      .attr("y", function (d, i) {
+        return (i) * legendDY + 25;
+      })
+      .attr("dy", "0.8em") //place text one line *below* the x,y point
+      .text(function (d, i) {
+        return arrayLabel[i];
+      });
+
+    legendSvg.selectAll('.legend-title')
+      .data(["Number of Agencies"])
+      .enter()
+      .append('text')
+      .attr('class', 'legend-title')
+      .attr("x", legendX)
+      .attr("y", 0)
+      .attr("dy", "0.8em") //place text one line *below* the x,y point
+      .text(function (d, i) {
+        return d;
+      });
+
+  }
 //this function is the heart and soul of the d3 map, it calls the data and defines the relationship between the tables and the SVG map.
   function ready(error, ugandaGeoJson, nameAbb, districtSettlement, sector, relationship) {
     //standard for if data is missing, the map shouldnt start.
@@ -504,12 +569,13 @@
     var indianOcean = g.append("g")
     var ugandaNeighboursText = g.append("g")
     var domain = color.domain();
-    var N = 4;
     // var array = (Array.apply(null, {
     //   length: N+1
     // }).map(Number.call, Number)).map(function(d,i){
     //   return Math.round(i*(domain[1]-domain[0])/N);
     // });
+    addLegend(domain, color);
+
     // var gNode = g.node().getBBox();
     // console.log(gNode);
     // g.attr("transform", function (d) {
@@ -1238,7 +1304,6 @@
       }
 
   } // ready
-
 
 
 })(d3, $, queue, window);

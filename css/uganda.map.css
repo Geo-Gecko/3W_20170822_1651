@@ -300,3 +300,9 @@ span.colorbox.four {
 #d3-map-make-pdf.disabled {
   color: #c0c0c0;
 }
+
+#legend {
+  position: absolute;
+  top: 245px;
+  left: 270px;
+}
