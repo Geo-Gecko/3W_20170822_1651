@@ -15,16 +15,14 @@
   //   return string.charAt(0).toUpperCase() + string.slice(1);
   // }
 
-  var _selectedDataset;
-
   queue()
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
   // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
     .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson") //dist
-    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T1.csv?GD_NONCE") //Actor_ID,Name,Abb,//Actor_Type
-    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T2.csv?GD_NONCE") //District,Settlement,Settlement_ID,Long,Lat
-    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T3.csv?GD_NONCE") //Sector,Sector_ID
-    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE") //Actor_ID,Settlement_ID,Sector_ID
+    .defer(d3.csv, "./data/Map5_T1.csv") //Actor_ID,Name,Abb,//Actor_Type
+    .defer(d3.csv, "./data/Map5_T2.csv") //District,Settlement,Settlement_ID,Long,Lat
+    .defer(d3.csv, "./data/Map5_T3.csv") //Sector,Sector_ID
+    .defer(d3.csv, "./data/Map5_T4.csv") //Actor_ID,Settlement_ID,Sector_ID
     .await(ready);
 
 
@@ -65,69 +63,6 @@
     global.selectedUn = [];
     global.selectedIp = [];
     global.selectedOp = [];
-  }
-
-  function addLegend(domain, color) {
-    var N = 4;
-    var step = Math.round((domain[1] - domain[0]) / N);
-    var array = [domain[0]+Math.round(step-step/2), domain[0]+Math.round(step*2-step/2), domain[0]+Math.round(step*3-step/2), domain[0]+Math.round(step*4-step/2)];
-    var arrayLabel = [domain[0].toString() + " - " + (domain[0]+step).toString(), (domain[0]+step+1).toString() + " - " + (domain[0]+step*2).toString(), (domain[0]+step*2+1).toString() + " - " + (domain[0]+step*3).toString(), (domain[0]+step*3+1).toString() + " - " + domain[1].toString()];
-
-    var legend = d3.selectAll('.c3-legend-item');
-    var legendSvg = d3.select('#legend')
-      .append('svg')
-      .attr('width', 150)
-      .attr('height', 150);
-    legend.each(function(){
-      svg.node().appendChild(this);
-    });
-
-    var legendX = 0;
-    var legendDY = 20;
-    legendSvg.selectAll('.legend-rect')
-      .data(array)
-      .enter()
-      .append('rect')
-      .attr('class', 'legend-rect')
-      .attr("x", legendX)
-      .attr("y", function (d, i) {
-        return (i + 1) * legendDY;
-      })
-      .attr("width", 20)
-      .attr("height", 20)
-      .style("stroke", "black")
-      .style("stroke-width", 0)
-      .style("fill", function (d) {
-        return color(d);
-      });
-    //the data objects are the fill colors
-
-    legendSvg.selectAll('.legend-text')
-      .data(array)
-      .enter()
-      .append('text')
-      .attr('class', 'legend-text')
-      .attr("x", legendX + 25)
-      .attr("y", function (d, i) {
-        return (i) * legendDY + 25;
-      })
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return arrayLabel[i];
-      });
-
-    legendSvg.selectAll('.legend-title')
-      .data(["Number of Agencies"])
-      .enter()
-      .append('text')
-      .attr('class', 'legend-title')
-      .attr("x", legendX)
-      .attr("y", 0)
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return d;
-      });
-
   }
 //this function is the heart and soul of the d3 map, it calls the data and defines the relationship between the tables and the SVG map.
   function ready(error, ugandaGeoJson, nameAbb, districtSettlement, sector, relationship) {
@@ -171,8 +106,6 @@
       }
       return d;
     });
-
-    _selectedDataset = dataset;
 
     //console.log(dataset);
 
@@ -251,9 +184,9 @@
        document.body.clientWidth);
      d3.select(".list-container").style("height", h - 0 +"px")
 	 
-   var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
-   var _3w_attrib = 'Created by <a href="http://www.geogecko.com">Geo Gecko</a> and © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Powered by <a href="https://d3js.org/">d3</a>'; 
-   var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw", {attribution: _3w_attrib});
+	 var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
+
+     var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw");
 
      basemap.addTo(map);
 
@@ -567,12 +500,63 @@
     var indianOcean = g.append("g")
     var ugandaNeighboursText = g.append("g")
     var domain = color.domain();
+    var N = 4;
     // var array = (Array.apply(null, {
     //   length: N+1
     // }).map(Number.call, Number)).map(function(d,i){
     //   return Math.round(i*(domain[1]-domain[0])/N);
     // });
-    addLegend(domain, color);
+    var step = Math.round((domain[1] - domain[0]) / N);
+    var array = [domain[0]+Math.round(step-step/2), domain[0]+Math.round(step*2-step/2), domain[0]+Math.round(step*3-step/2), domain[0]+Math.round(step*4-step/2)];
+    var arrayLabel = [domain[0].toString() + " - " + (domain[0]+step).toString(), (domain[0]+step+1).toString() + " - " + (domain[0]+step*2).toString(), (domain[0]+step*2+1).toString() + " - " + (domain[0]+step*3).toString(), (domain[0]+step*3+1).toString() + " - " + domain[1].toString()];
+    // var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) / 4), domain[1]];//
+    // var array = [domain[0] + (domain[1] - domain[0]/2)/4, Math.round(2 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, Math.round(3 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, domain[1] + (domain[1] - domain[0]/2)/4];//
+
+    var legendX = 450;
+    var legendY = 22;
+    svg.selectAll('.legend-rect')
+      .data(array)
+      .enter()
+      .append('rect')
+      .attr('class', 'legend-rect')
+      .attr("x", legendX + 20)
+      .attr("y", function (d, i) {
+        return (i + 1) * legendY + height - 735;
+      })
+      .attr("width", 20)
+      .attr("height", 20)
+      .style("stroke", "black")
+      .style("stroke-width", 0)
+      .style("fill", function (d) {
+        return color(d);
+      });
+    //the data objects are the fill colors
+
+    svg.selectAll('.legend-text')
+      .data(array)
+      .enter()
+      .append('text')
+      .attr('class', 'legend-text')
+      .attr("x", legendX + 45)
+      .attr("y", function (d, i) {
+        return (i) * legendY + height - 710;
+      })
+      .attr("dy", "0.8em") //place text one line *below* the x,y point
+      .text(function (d, i) {
+        return arrayLabel[i];
+      });
+
+    svg.selectAll('.legend-title')
+      .data(["Number of Agencies"])
+      .enter()
+      .append('text')
+      .attr('class', 'legend-title')
+      .attr("x", legendX + 20)
+      .attr("y", height - 740)
+      .attr("dy", "0.8em") //place text one line *below* the x,y point
+      .text(function (d, i) {
+        return d;
+      });
 
     // var gNode = g.node().getBBox();
     // console.log(gNode);
@@ -710,42 +694,6 @@
     }
     d3.select("#d3-map-refresh").on("click", refreshMap);
 
-    function makePdf() {
-      if ($("#d3-map-make-pdf").hasClass('disabled')) {
-        return;
-      }
-      $("#d3-map-make-pdf").addClass('disabled');
-      var spinner = new Spinner({ length: 3, radius: 4, width: 2 }).spin(document.body);
-      
-      document.getElementById('d3-map-make-pdf').appendChild(spinner.el);
-      reset();
-      var filters = [];
-      if (global.selectedDistrict.length > 0) {
-        filters.push({ "name": "District", "values": global.selectedDistrict })
-      }
-      if (global.selectedSettlement.length > 0) {
-        filters.push({ "name": "Settlements", "values": global.selectedSettlement })
-      }
-      if (global.selectedSector.length > 0) {
-        filters.push({ "name": "Sector", "values": global.selectedSector })
-      }
-      if (global.selectedAgency.length > 0) {
-        filters.push({ "name": "Agency", "values": global.selectedAgency })
-      }
-
-      var $xhr = $.ajax({
-        type: "HEAD",
-        url : "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE",
-      }).done(function () {
-        var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
-        generatePdf(map, _selectedDataset, filters, lastModified, function () {
-          $("#d3-map-make-pdf").removeClass('disabled');
-          spinner.stop();
-        });
-      })      
-    }
-    d3.select("#d3-map-make-pdf").on("click", makePdf);
-
 
     // function onlyUnique(value, index, self) {
     //   console.log(value, index, self)
@@ -837,8 +785,6 @@
 
         return isDistrict && isSettlement && isSector && isAgency;
       });
-
-      _selectedDataset = selectedDataset;
 
       // console.log(selectedDataset.length, global.selectedDistrict, global.selectedSettlement, global.selectedSector, global.selectedAgency);
       //     global.selectedDistrict = []; // name
@@ -1302,6 +1248,7 @@
       }
 
   } // ready
+
 
 
 })(d3, $, queue, window);
