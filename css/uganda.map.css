@@ -24,6 +24,12 @@ html {
     line-height: 35px;
 }
 
+.label {
+    font-weight: bold;
+    text-anchor: middle;
+    cursor: default;
+}
+
 .top-panel {
       /*background-color: rgba(255,255,255,.9);*/
 }
@@ -32,7 +38,30 @@ html {
   margin-top: 10px;
   position: absolute;
   z-index: 500;
-  left: 570px;
+  left: 550px;
+}
+
+.panel-right {
+    /*background-color: rgba(255,255,255,.9);*/
+}
+
+.panel-right.row-md-8 {
+    position: absolute;
+    top: 300px;
+    width: 150px;
+    z-index: 500;
+    right: 50px;
+}
+
+.right-panel {
+    /*background-color: rgba(255,255,255,.9);*/
+}
+
+.right-panel.col-md-8.col-sm-8 {
+    position: absolute;
+    right: 0px;
+    z-index: 500;
+    top: 570px;
 }
 
 p.custom-count-header {
@@ -195,8 +224,15 @@ p.custom-list-header  .glyphicon {
 }
 
 .custom-list {
+  text-align: center;
+  height: 125px;
   margin: 0;
   padding: 0px;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  overflow-y: scroll;
   background-color: rgb(245, 245, 245);
   color: #52595e;
   border-right: 1px solid #dfe9f1;
