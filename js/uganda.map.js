@@ -15,14 +15,16 @@
   //   return string.charAt(0).toUpperCase() + string.slice(1);
   // }
 
+  var _selectedDataset;
+
   queue()
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
   // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
     .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson") //dist
-    .defer(d3.csv, "./data/Map5_T1.csv") //Actor_ID,Name,Abb,//Actor_Type
-    .defer(d3.csv, "./data/Map5_T2.csv") //District,Settlement,Settlement_ID,Long,Lat
-    .defer(d3.csv, "./data/Map5_T3.csv") //Sector,Sector_ID
-    .defer(d3.csv, "./data/Map5_T4.csv") //Actor_ID,Settlement_ID,Sector_ID
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T1.csv?GD_NONCE") //Actor_ID,Name,Abb,//Actor_Type
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T2.csv?GD_NONCE") //District,Settlement,Settlement_ID,Long,Lat
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T3.csv?GD_NONCE") //Sector,Sector_ID
+    .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE") //Actor_ID,Settlement_ID,Sector_ID
     .await(ready);
 
 
@@ -53,9 +55,9 @@
     d3.select("#sector-count").text(global.sectorCount);
     d3.select("#settlement-count").text(global.settlementCount);
     d3.select("#agency-count").text(global.agencyCount);
-    d3.select("#agencyUN-count").text(global.UnCount);
-    d3.select("#agencyIP-count").text(global.IpCount);
-    d3.select("#agencyOP-count").text(global.OpCount);
+    d3.select("#agencyUN-count").text(global.unCount);
+    d3.select("#agencyIP-count").text(global.ipCount);
+    d3.select("#agencyOP-count").text(global.opCount);
     // global.selectedDistrict = [];
     global.selectedSettlement = []; //undefined; //[];
     global.selectedSector = [];
@@ -63,6 +65,69 @@
     global.selectedUn = [];
     global.selectedIp = [];
     global.selectedOp = [];
+  }
+
+  function addLegend(domain, color) {
+    var N = 4;
+    var step = Math.round((domain[1] - domain[0]) / N);
+    var array = [domain[0]+Math.round(step-step/2), domain[0]+Math.round(step*2-step/2), domain[0]+Math.round(step*3-step/2), domain[0]+Math.round(step*4-step/2)];
+    var arrayLabel = [domain[0].toString() + " - " + (domain[0]+step).toString(), (domain[0]+step+1).toString() + " - " + (domain[0]+step*2).toString(), (domain[0]+step*2+1).toString() + " - " + (domain[0]+step*3).toString(), (domain[0]+step*3+1).toString() + " - " + domain[1].toString()];
+
+    var legend = d3.selectAll('.c3-legend-item');
+    var legendSvg = d3.select('#legend')
+      .append('svg')
+      .attr('width', 150)
+      .attr('height', 150);
+    legend.each(function(){
+      svg.node().appendChild(this);
+    });
+
+    var legendX = 0;
+    var legendDY = 20;
+    legendSvg.selectAll('.legend-rect')
+      .data(array)
+      .enter()
+      .append('rect')
+      .attr('class', 'legend-rect')
+      .attr("x", legendX)
+      .attr("y", function (d, i) {
+        return (i + 1) * legendDY;
+      })
+      .attr("width", 20)
+      .attr("height", 20)
+      .style("stroke", "black")
+      .style("stroke-width", 0)
+      .style("fill", function (d) {
+        return color(d);
+      });
+    //the data objects are the fill colors
+
+    legendSvg.selectAll('.legend-text')
+      .data(array)
+      .enter()
+      .append('text')
+      .attr('class', 'legend-text')
+      .attr("x", legendX + 25)
+      .attr("y", function (d, i) {
+        return (i) * legendDY + 25;
+      })
+      .attr("dy", "0.8em") //place text one line *below* the x,y point
+      .text(function (d, i) {
+        return arrayLabel[i];
+      });
+
+    legendSvg.selectAll('.legend-title')
+      .data(["Number of Agencies"])
+      .enter()
+      .append('text')
+      .attr('class', 'legend-title')
+      .attr("x", legendX)
+      .attr("y", 0)
+      .attr("dy", "0.8em") //place text one line *below* the x,y point
+      .text(function (d, i) {
+        return d;
+      });
+
   }
 //this function is the heart and soul of the d3 map, it calls the data and defines the relationship between the tables and the SVG map.
   function ready(error, ugandaGeoJson, nameAbb, districtSettlement, sector, relationship) {
@@ -107,6 +172,8 @@
       return d;
     });
 
+    _selectedDataset = dataset;
+
     //console.log(dataset);
 
 
@@ -123,33 +190,40 @@
     var agencyList = d3.nest().key(function (d) {
       return d.Name;
     }).sortKeys(d3.ascending).entries(nameAbb);
-    var unAgencyList = d3.nest().key(function (d) {
-        if (d.Actor_Type === "UN") {
-            return d.Actor_Type; //return d.Actor_Type["UN"];
-        } else return void 0;
-    }).sortKeys(d3.ascending).entries(nameAbb);
-    var ipAgencyList = d3.nest().key(function (d) {
-        if (d.Actor_Type === "IP") {
-            return d.Actor_Type;
-        } else return null;
-    }).sortKeys(d3.ascending).entries(nameAbb);
-    var opAgencyList = d3.nest().key(function (d) {
-        if (d.Actor_Type === "OP") {
-            return d.Actor_Type;
-        } else return;
-    }).sortKeys(d3.ascending).entries(nameAbb);
 
-      console.log(unAgencyList);
-      console.log(ipAgencyList);
+      var unAgencyList = nameAbb.filter(function(d) {  if (d.Actor_Type === "UN") {
+          return d.Actor_Type; //return d.Actor_Type["UN"];
+      }});
+      var ipAgencyList = nameAbb.filter(function(d) {  if (d.Actor_Type === "IP") {
+          return d.Actor_Type; //return d.Actor_Type["UN"];
+      }});
+      var opAgencyList = nameAbb.filter(function(d) {  if (d.Actor_Type === "OP") {
+          return d.Actor_Type; //return d.Actor_Type["UN"];
+      }});
+      //console.log(unFiltered);
+
+   /* var unAgencyList = d3.nest().key(function (d) {
+            return d.Actor_Type; //return d.Actor_Type["UN"];
+    }).sortKeys(d3.ascending).entries(unFiltered);
+    var ipAgencyList = d3.nest().key(function (d) {
+            return d.Actor_Type;
+    }).key(function (d) { return d[0]; }).sortKeys(d3.ascending).entries(ipFiltered);
+    var opAgencyList = d3.nest().key(function (d) {
+            return d.Actor_Type;
+    }).sortKeys(d3.ascending).entries(opFiltered);*/
+    //console.log(nameAbb);
+
+     //console.log(unAgencyList);
+     //console.log(ipAgencyList);
 
 
     global.districtCount = districtList.length;
     global.sectorCount = sectorList.length;
     global.settlementCount = settlementList.length;
     global.agencyCount = agencyList.length;
-    global.unCount = unAgencyList[0].length;
-    global.ipCount = ipAgencyList[0].length;
-    global.opCount = opAgencyList[0].length;
+    global.unCount = unAgencyList.length;
+    global.ipCount = ipAgencyList.length;
+    global.opCount = opAgencyList.length;
 
     refreshCounts();
     updateLeftPanel(districtList, sectorList, settlementList, agencyList, dataset);
@@ -161,15 +235,15 @@
     //   // if (customList.node().getBoundingClientRect().width===0){}
     //   console.log(customList.node().getBoundingClientRect());
     // });
-    $(".custom-list-header").click(function () {
+    /*$(".custom-list-header").click(function () {
       // d3.select(this.parentNode).selectAll("p").style("background", "transparent");
       $(this).siblings(".custom-list").toggleClass('collapsed');
       // $(this).find("span").toggleClass('glyphicon-menu-down').toggleClass('glyphicon-menu-right');
     });
-
+*/
     // Collapses all the boxes apart from district
-    $(".custom-list-header").siblings(".custom-list").addClass('collapsed');
-    $("#district-list.custom-list").removeClass('collapsed');
+    //$(".custom-list-header").siblings(".custom-list").addClass('collapsed');
+    //$("#district-list.custom-list").removeClass('collapsed');
 
 
     var h = (window.innerHeight ||
@@ -184,9 +258,9 @@
        document.body.clientWidth);
      d3.select(".list-container").style("height", h - 0 +"px")
 	 
-	 var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
-
-     var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw");
+   var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
+   var _3w_attrib = 'Created by <a href="http://www.geogecko.com">Geo Gecko</a> and © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Powered by <a href="https://d3js.org/">d3</a>';
+   var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw", {attribution: _3w_attrib});
 
      basemap.addTo(map);
 
@@ -354,7 +428,7 @@
           });
         })
         /*.on("mousemove", function (d) {
-			
+
           var mouse = d3.mouse(svg.node()).map(function (d) {
             return parseInt(d);
           });
@@ -365,7 +439,7 @@
               "<p><span>Agencies:</span> <b>" + d.properties._agencyList.length + "</b></p>";
           }
           tooltip.html(str);
-		  
+
           var box = tooltip.node().getBoundingClientRect() || {
             height: 0
           };
@@ -383,7 +457,7 @@
         .on("mouseout", function (d) {
           d3.select(this).style("fill", d.properties._agencyList ? color(d.properties._agencyList.length) :
             "#ccc");
-          tooltip.classed("d3-hide", true);
+          //tooltip.classed("d3-hide", true);
         })
         .attr("d", path)
         .on("dblclick", clicked)
@@ -392,11 +466,21 @@
             var mouse = d3.mouse(svg.node()).map(function (d) {
                 return parseInt(d);
             });
+
             var str = "<p><span>District:</span> <b>" + d.properties.DNAME_06 + "</b></p>"
             if (d.properties._settlementList && d.properties._sectorList && d.properties._agencyList) {
+
+               var tooltipList = "";
+                var i = 0;
+                while (i < d.properties._agencyList.length){
+                    tooltipList = tooltipList + ("<p>" + d.properties._agencyList[i].key + "</p>");
+                i++
+                }
+                //console.log(d.properties);
+
                 str = str + "<p><span>Settlements:</span> <b>" + d.properties._settlementList.length + "</b></p>" +
                     "<p><span>Sectors:</span> <b>" + d.properties._sectorList.length + "</b></p>" +
-                    "<p><span>Agencies:</span> <b>" + d.properties._agencyList.length + "</b></p>";
+                    "<p><span>Agencies:</span> <b>" + tooltipList    + "</b></p>";
                 //console.log(d.properties._agencyList);
             }
             tooltip.html(str);
@@ -410,9 +494,10 @@
                 .classed("d3-hide", false)
                 .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
                         1] -
-                    box.height) + "px");
+                    box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: scroll;")
+            .on("click", tooltip.classed("d3-hide", true));
 
-          var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
+          /*var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
           // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
           // d.properties._selected = !needRemove;
           ugandaPath.style("opacity", function (a) {
@@ -423,17 +508,17 @@
             } else {
               return (a.properties._selected ? 1 : opacity);
             }
-          });
+          });*/
           // settlements.style("opacity", opacity);
           // d3.select(this).style("opacity", 1); //d3.selectAll(".district-" + d.properties.DNAME_06.replaceAll('[ ]', "_"))
           // d3.select("#district-list").selectAll("p").style("background", "transparent");
-          d3.select(".district-list-" + d.properties.DNAME_06.replaceAll('[ ]', "_")).style("background",
+          /*d3.select(".district-list-" + d.properties.DNAME_06.replaceAll('[ ]', "_")).style("background",
             "#E3784A");
           refreshCounts();
           global.currentEvent = "district";
           myFilter({
             "key": d.properties.DNAME_06
-          }, global.currentEvent);
+          }, global.currentEvent);*/
 
           settlements.style("opacity", 1);
           if (global.selectedDistrict && global.selectedDistrict.length > 0) {
@@ -466,13 +551,13 @@
                 return a.Name;
               }).entries(c.values);
               d.properties._unAgencyList = d3.nest().key(function (a) {
-                return a.Actor_Type;
+                return a.Name;
               }).entries(c.values);
               d.properties._ipAgencyList = d3.nest().key(function (a) {
-                return a.Actor_Type;
+                return a.Name;
                 }).entries(c.values);
               d.properties._opAgencyList = d3.nest().key(function (a) {
-                return a.Actor_Type;
+                return a.Name;
               }).entries(c.values);
               domain[0] = d.properties._agencyList.length < domain[0] ? d.properties._agencyList.length :
                 domain[
@@ -490,6 +575,21 @@
         .attr("class", function (d) {
           return "district district-" + d.properties.DNAME_06.replaceAll('[ ]', "_");
         });
+
+        var nodeFontSize = 22;
+
+      ugandaPath
+          .enter().append("svg:text")
+          .attr("class", "label")
+          .each(function (d) {
+              d.properties.centroid = projection(d3.geo.centroid(d));
+          })
+          .attr("transform", function(d) { return "translate(" + d.properties.centroid + ")"; })
+          .attr("dy", ".30em")
+          .attr("font-size", nodeFontSize + "px")
+          .style("opacity", 0)
+          .text(function (d) { return d.properties.dist});
+
       ugandaPath.exit().remove();
       // var ugandaCentroid;
 
@@ -500,63 +600,12 @@
     var indianOcean = g.append("g")
     var ugandaNeighboursText = g.append("g")
     var domain = color.domain();
-    var N = 4;
     // var array = (Array.apply(null, {
     //   length: N+1
     // }).map(Number.call, Number)).map(function(d,i){
     //   return Math.round(i*(domain[1]-domain[0])/N);
     // });
-    var step = Math.round((domain[1] - domain[0]) / N);
-    var array = [domain[0]+Math.round(step-step/2), domain[0]+Math.round(step*2-step/2), domain[0]+Math.round(step*3-step/2), domain[0]+Math.round(step*4-step/2)];
-    var arrayLabel = [domain[0].toString() + " - " + (domain[0]+step).toString(), (domain[0]+step+1).toString() + " - " + (domain[0]+step*2).toString(), (domain[0]+step*2+1).toString() + " - " + (domain[0]+step*3).toString(), (domain[0]+step*3+1).toString() + " - " + domain[1].toString()];
-    // var array = [domain[0], Math.round(2 * (domain[1] - domain[0]) / 4), Math.round(3 * (domain[1] - domain[0]) / 4), domain[1]];//
-    // var array = [domain[0] + (domain[1] - domain[0]/2)/4, Math.round(2 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, Math.round(3 * (domain[1] - domain[0]) / 4) + (domain[1] - domain[0]/2)/4, domain[1] + (domain[1] - domain[0]/2)/4];//
-
-    var legendX = 450;
-    var legendY = 22;
-    svg.selectAll('.legend-rect')
-      .data(array)
-      .enter()
-      .append('rect')
-      .attr('class', 'legend-rect')
-      .attr("x", legendX + 20)
-      .attr("y", function (d, i) {
-        return (i + 1) * legendY + height - 735;
-      })
-      .attr("width", 20)
-      .attr("height", 20)
-      .style("stroke", "black")
-      .style("stroke-width", 0)
-      .style("fill", function (d) {
-        return color(d);
-      });
-    //the data objects are the fill colors
-
-    svg.selectAll('.legend-text')
-      .data(array)
-      .enter()
-      .append('text')
-      .attr('class', 'legend-text')
-      .attr("x", legendX + 45)
-      .attr("y", function (d, i) {
-        return (i) * legendY + height - 710;
-      })
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return arrayLabel[i];
-      });
-
-    svg.selectAll('.legend-title')
-      .data(["Number of Agencies"])
-      .enter()
-      .append('text')
-      .attr('class', 'legend-title')
-      .attr("x", legendX + 20)
-      .attr("y", height - 740)
-      .attr("dy", "0.8em") //place text one line *below* the x,y point
-      .text(function (d, i) {
-        return d;
-      });
+    addLegend(domain, color);
 
     // var gNode = g.node().getBBox();
     // console.log(gNode);
@@ -601,7 +650,7 @@
         tooltip.classed("d3-hide", true);
       })
       .on("dblclick", clicked)
-      .on("click", function (d) {
+      /*.on("click", function (d) {
         // ugandaPath.style("opacity", opacity); //d3.selectAll(".district")
         // ugandaPath.style("opacity", function (a) {
         //   a.properties._selected = false;
@@ -631,17 +680,17 @@
           d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
         });
         // global.needRefreshDistrict = true;
-      })
-        ;
+      });*/
+    var lineSize = 5;
     settlements //.transition().duration(duration)
       .each(function (d) {
         d._coordinates = projection([d.Long, d.Lat]);
       })
+      .select("path")
+      .attr("d", 'M 0,0 m -1.5,-1.5 L 1.5,0 L -1.5,1.5 Z') //http://bl.ocks.org/dustinlarimer/5888271
       .attr("transform", function (d) {
         return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")rotate(-90)";
-      })
-      .select("path")
-      .attr("d", 'M 0,0 m -5,-5 L 5,0 L -5,5 Z'); //http://bl.ocks.org/dustinlarimer/5888271
+      });
 
 
       var nodeFontSize = 12;
@@ -653,7 +702,7 @@
             d._coordinates = projection([d.Long, d.Lat]);
         })
         .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
-        .attr("dy", ".60em")
+        .attr("dy", ".30em")
         .attr("font-size", nodeFontSize + "px")
         .style("opacity", 0)
         .text(function (d) { return d.Settlement});*/
@@ -693,6 +742,42 @@
       refreshCounts();
     }
     d3.select("#d3-map-refresh").on("click", refreshMap);
+
+    function makePdf() {
+      if ($("#d3-map-make-pdf").hasClass('disabled')) {
+        return;
+      }
+      $("#d3-map-make-pdf").addClass('disabled');
+      var spinner = new Spinner({ length: 3, radius: 4, width: 2 }).spin(document.body);
+
+      document.getElementById('d3-map-make-pdf').appendChild(spinner.el);
+      reset();
+      var filters = [];
+      if (global.selectedDistrict.length > 0) {
+        filters.push({ "name": "District", "values": global.selectedDistrict })
+      }
+      if (global.selectedSettlement.length > 0) {
+        filters.push({ "name": "Settlements", "values": global.selectedSettlement })
+      }
+      if (global.selectedSector.length > 0) {
+        filters.push({ "name": "Sector", "values": global.selectedSector })
+      }
+      if (global.selectedAgency.length > 0) {
+        filters.push({ "name": "Agency", "values": global.selectedAgency })
+      }
+
+      var $xhr = $.ajax({
+        type: "HEAD",
+        url : "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE",
+      }).done(function () {
+        var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
+        generatePdf(map, _selectedDataset, filters, lastModified, function () {
+          $("#d3-map-make-pdf").removeClass('disabled');
+          spinner.stop();
+        });
+      })      
+    }
+    d3.select("#d3-map-make-pdf").on("click", makePdf);
 
 
     // function onlyUnique(value, index, self) {
@@ -735,6 +820,15 @@
       }
       if (flag === "agency") {
         filterSelectedItem("selectedAgency", c, needRemove);
+      }
+      if (flag === "unAgency") {
+            filterSelectedItem("selectedUn", c, needRemove);
+      }
+      if (flag === "ipAgency") {
+            filterSelectedItem("selectedIp", c, needRemove);
+      }
+      if (flag === "opAgency") {
+            filterSelectedItem("selectedOp", c, needRemove);
       }
 
       var selectedDataset = dataset.filter(function (d) { //global.selectedDataset
@@ -786,11 +880,32 @@
         return isDistrict && isSettlement && isSector && isAgency;
       });
 
+      _selectedDataset = selectedDataset;
+
       // console.log(selectedDataset.length, global.selectedDistrict, global.selectedSettlement, global.selectedSector, global.selectedAgency);
       //     global.selectedDistrict = []; // name
       // global.selectedSector = []; // ID
       // global.selectedSettlement = []; //undefined; //[]; // ID
       // global.selectedAgency = []; // ID
+
+      var unExtract = selectedDataset.filter(function(d) {  if (d.Actor_Type === "UN") {
+          return d.Actor_Type; //return d.Actor_Type["UN"];
+      }});
+        var ipExtract = selectedDataset.filter(function(d) {  if (d.Actor_Type === "IP") {
+            return d.Actor_Type;
+        }});
+        var opExtract = selectedDataset.filter(function(d) {  if (d.Actor_Type === "OP") {
+            return d.Actor_Type;
+        }});
+      /*console.log(unExtract);
+      var reducedSelection = d3.nest().key(function (d) { if (d.Actor_Type === "UN") {return d.Actor_ID;} }).key(function(d) { return d.Name; }).entries(selectedDataset);
+      console.log(selectedDataset);
+      console.log(reducedSelection);
+*/
+      //var unReduced = reducedSelection.filter(function(d) { if (d.values.key = "UN") { /*console.log(d);*/}//return d.Actor_Type["UN"];
+     // });
+
+      //console.log(unReduced);
 
       var districtList = null;
       if (flag !== "district") {
@@ -818,6 +933,27 @@
         agencyList = d3.nest().key(function (d) {
           return d.Name;
         }).sortKeys(d3.ascending).entries(selectedDataset);
+      }
+
+      var unAgencyList = null;
+      if (flag !== "unAgency") {
+          unAgencyList = d3.nest().key(function (d) {
+              return d.Name;
+          }).sortKeys(d3.ascending).entries(unExtract);
+      }
+
+      var ipAgencyList = null;
+      if (flag !== "ipAgency") {
+            ipAgencyList = d3.nest().key(function (d) {
+                return d.Name;
+            }).sortKeys(d3.ascending).entries(ipExtract);
+      }
+
+      var opAgencyList = null;
+      if (flag !== "opAgency") {
+            opAgencyList = d3.nest().key(function (d) {
+                return d.Name;
+            }).sortKeys(d3.ascending).entries(opExtract);
       }
       // global.selectedDistrict = districtList;
       updateLeftPanel(districtList, sectorList, settlementList, agencyList, dataset);
@@ -1195,26 +1331,12 @@
 
           map.removeLayer(basemap);
 
-            /*svg.selectAll(".district").append("text")
-              .attr("dx", 12)
-              .attr("dy", ".35em")
-              .text(function(d) {return d.properties.DNAME_06});*/
 
-          /*var label = svg.selectAll('.district')
-             .data(ugandaGeoJson.features)
-             .enter()
-             .append("text")
-             .attr("class", "label")
-             .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-             .text(function(d) { return d.properties.DNAME_06;} );*/
-
-         //console.log(label, ugandaGeoJson.features);
-
-          //console.log(settlements);
 
           svg.transition()
               .duration(900)
               .call(zoom.translate(translate).scale(scale).event);
+
           }
 
       function reset() {
@@ -1227,6 +1349,7 @@
               .call(zoom.translate([0, 0]).scale(1).event);
 
           basemap.addTo(map);
+
       }
 
       function zoomed() {
@@ -1248,7 +1371,6 @@
       }
 
   } // ready
-
 
 
 })(d3, $, queue, window);
