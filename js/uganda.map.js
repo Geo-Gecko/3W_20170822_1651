@@ -687,7 +687,7 @@
         d._coordinates = projection([d.Long, d.Lat]);
       })
       .select("path")
-      .attr("d", 'M 0,0 m -1.5,-1.5 L 1.5,0 L -1.5,1.5 Z') //http://bl.ocks.org/dustinlarimer/5888271
+      .attr("d", 'M 0,0 m -5,-5 L 5,0 L -5,5 Z') //http://bl.ocks.org/dustinlarimer/5888271
       .attr("transform", function (d) {
         return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")rotate(-90)";
       });
