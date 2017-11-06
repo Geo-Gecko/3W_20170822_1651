@@ -48,7 +48,7 @@ html {
 .panel-right.row-md-8 {
     position: absolute;
     top: 30%;
-    width: 10px;
+    width: 150px;
     z-index: 500;
     right: 50px;
 }
