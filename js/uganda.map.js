@@ -1348,7 +1348,6 @@
 
           map.removeLayer(basemap);
 
-          g.attr("d", 'M 0,0 m -' + lineSize / 3 + ',-' + lineSize / 3 + ' L ' + lineSize / 3 + ',0 L -' + lineSize / 3 + ',' + lineSize / 3 + ' Z'); //http://bl.ocks.org/dustinlarimer/5888271
 
 
           //console.log(label, ugandaGeoJson.features);
@@ -1377,7 +1376,7 @@
           g.style("stroke-width", 0.5 / d3.event.scale + "px");
           g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
           g.style("font-size", function(){return nodeFontSize / (d3.event.scale) + "px";});
-          g.style("opacity", 1);
+          //g.style("opacity", 1);
 
       }
 
