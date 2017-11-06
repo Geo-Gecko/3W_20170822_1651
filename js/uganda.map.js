@@ -725,9 +725,9 @@
 
     function refreshMap() {
       // ugandaPath.style("opacity", 1);
-    $(".custom-list-header").siblings(".custom-list").addClass('collapsed');
+    /*$(".custom-list-header").siblings(".custom-list").addClass('collapsed');
     $("#district-list.custom-list").removeClass('collapsed');
-      global.selectedDistrict = [];
+     */ global.selectedDistrict = [];
       ugandaPath.style("opacity", function (a) {
         a.properties._selected = false;
         return 1;
