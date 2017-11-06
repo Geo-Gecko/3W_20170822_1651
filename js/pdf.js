@@ -50,8 +50,7 @@ function makeRectangularCanvas(oldCanvas, callback) {
 function _makeMapImage(map, callback) {
 	// Generate map image first
 	leafletImage(map, function (err, canvas) {
-		var svg = document.querySelector('.leaflet-pane > svg');
-		console.log(svg)
+		var svg = document.querySelector('svg');
 		var context = canvas.getContext('2d');
 
 		// Make png from SVG D3 map
@@ -62,10 +61,7 @@ function _makeMapImage(map, callback) {
 				context.drawImage(drawing, 0, 0);
 
 				makeRectangularCanvas(canvas, function (canvas) {
-					var legend = document.querySelector('#legend > svg');
-					svgAsPngUri(legend, {}, function (legendUri) {
-						callback(canvas, legendUri);
-					});
+					callback(canvas);
 				});
 			};
 		});
@@ -76,7 +72,7 @@ function generatePdf(map, dataset, filters, lastModified, callback) {
 	var IMAGE_SIZE = 170;
 	var DOC_WIDTH = 210;
 
-	_makeMapImage(map, function (canvas, legendUri) {
+	_makeMapImage(map, function (canvas) {
 		var doc = new jsPDF();
 		var ratio = canvas.height / canvas.width;
 
@@ -87,8 +83,7 @@ function generatePdf(map, dataset, filters, lastModified, callback) {
 		var y = 50;
 		var width = IMAGE_SIZE;
 		var height = IMAGE_SIZE * ratio;
-		doc.addImage(image, 'PNG', x, y, width, height, 'map', 'fast');
-		doc.addImage(legendUri, 'PNG', x + 5, y + 5, 35, 35, 'legend', 'fast');
+		doc.addImage(image, 'PNG', x, y, width, height, '', 'fast');
 
 		filters.forEach(function (filter, index) {
 			_printFilter(doc, filter, 5 + index * 50, 230);
