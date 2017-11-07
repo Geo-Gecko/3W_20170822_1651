@@ -21,7 +21,7 @@
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
   // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
     .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson")
-    .defer(d3.json, "./data/UgandaDistricts.geojson")//dist
+    //.defer(d3.json, "./data/UgandaDistricts.geojson")//dist
     .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T1.csv?GD_NONCE") //Actor_ID,Name,Abb,//Actor_Type
     .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T2.csv?GD_NONCE") //District,Settlement,Settlement_ID,Long,Lat
     .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T3.csv?GD_NONCE") //Sector,Sector_ID
@@ -131,7 +131,7 @@
 
   }
 //this function is the heart and soul of the d3 map, it calls the data and defines the relationship between the tables and the SVG map.
-  function ready(error, ugandaGeoJson, ugandaDistrictsGeoJson, nameAbb, districtSettlement, sector, relationship) {
+  function ready(error, ugandaGeoJson, nameAbb, districtSettlement, sector, relationship) {
     //standard for if data is missing, the map shouldnt start.
     if (error) {
       throw error;
