@@ -20,7 +20,8 @@
   queue()
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
   // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
-    .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson") //dist
+    .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson")
+    .defer(d3.json, "./data/UgandaDistricts.geojson")//dist
     .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T1.csv?GD_NONCE") //Actor_ID,Name,Abb,//Actor_Type
     .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T2.csv?GD_NONCE") //District,Settlement,Settlement_ID,Long,Lat
     .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T3.csv?GD_NONCE") //Sector,Sector_ID
@@ -130,7 +131,7 @@
 
   }
 //this function is the heart and soul of the d3 map, it calls the data and defines the relationship between the tables and the SVG map.
-  function ready(error, ugandaGeoJson, nameAbb, districtSettlement, sector, relationship) {
+  function ready(error, ugandaGeoJson, ugandaDistrictsGeoJson, nameAbb, districtSettlement, sector, relationship) {
     //standard for if data is missing, the map shouldnt start.
     if (error) {
       throw error;
@@ -494,8 +495,7 @@
                 .classed("d3-hide", false)
                 .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
                         1] -
-                    box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: scroll;")
-            .on("click", tooltip.classed("d3-hide", true));
+                    box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: scroll;");
 
           /*var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
           // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
@@ -578,7 +578,7 @@
 
         var nodeFontSize = 22;
 
-      ugandaPath
+      /*ugandaPath
           .enter().append("svg:text")
           .attr("class", "label")
           .each(function (d) {
@@ -588,7 +588,7 @@
           .attr("dy", ".30em")
           .attr("font-size", nodeFontSize + "px")
           .style("opacity", 0)
-          .text(function (d) { return d.properties.dist});
+          .text(function (d) { return d.properties.dist});*/
 
       ugandaPath.exit().remove();
       // var ugandaCentroid;
@@ -597,6 +597,18 @@
 
     var ugandaNeighboursPath = g.append("g")
     updateGeoPath(ugandaGeoJson);
+
+    /*var ugandaDistrictPath = g.append("g")
+          .attr("class", "uganda-neighbours")
+          .selectAll("path")
+          .data(ugandaDistrictsGeoJson.features)
+          .enter()
+          .append("path")
+          .attr("class", "neighbour")
+          .style("fill", "transparent")
+          .style("stroke", "#000")
+          .attr("d", path);
+*/
     var indianOcean = g.append("g")
     var ugandaNeighboursText = g.append("g")
     var domain = color.domain();
@@ -682,15 +694,17 @@
         // global.needRefreshDistrict = true;
       });*/
     var lineSize = 5;
+    var scale = 1;
     settlements //.transition().duration(duration)
       .each(function (d) {
         d._coordinates = projection([d.Long, d.Lat]);
       })
-      .select("path")
-      .attr("d", 'M 0,0 m -5,-5 L 5,0 L -5,5 Z') //http://bl.ocks.org/dustinlarimer/5888271
-      .attr("transform", function (d) {
-        return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")rotate(-90)";
-      });
+     .attr("transform", function (d) {
+        return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")rotate(-90)scale(" + scale + ")";
+      })
+     .select("path")
+     .attr("d", 'M 0,0 m -5,-5 L 5,0 L -5,5 Z'); //http://bl.ocks.org/dustinlarimer/5888271
+
 
 
       var nodeFontSize = 12;
@@ -1337,6 +1351,11 @@
               .duration(900)
               .call(zoom.translate(translate).scale(scale).event);
 
+          svg.selectAll(".circle-group")
+              .transition()
+              .duration(900)
+              .call(zoom.translate(translate).scale(scale).event);
+
           }
 
       function reset() {
@@ -1348,14 +1367,29 @@
               .duration(900)
               .call(zoom.translate([0, 0]).scale(1).event);
 
+          svg.selectAll(".circle-group")
+              .transition()
+              .duration(900)
+              .call(zoom.translate([0, 0]).scale(1).event);
+
+
+
           basemap.addTo(map);
 
       }
 
       function zoomed() {
           g.style("stroke-width", 1.5 / d3.event.scale + "px");
-          g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
           g.style("font-size", function(){return nodeFontSize / (d3.event.scale) + "px";});
+          g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+          /*svg.selectAll(".circle-group").each(function(){
+              var element = d3.select(this);
+              var t = element.attr("transform");
+              console.log(t);
+              element.attr("transform", "translate("+d3.event.translate+")scale("+d3.event.scale+")");
+              //console.log(d3.event.scale);
+          })*/
+
 
       }
 
@@ -1369,6 +1403,23 @@
           var point = map.latLngToLayerPoint(new L.LatLng(y, x));
           this.stream.point(point.x, point.y);
       }
+
+      /*setTimeout(function () {
+          queue()
+              .defer(d3.json, "./data/UgandaDistricts.unhighlighted.geojson") //dist
+              .await(readyUnhighlighted);
+      }, 100);
+
+      function readyUnhighlighted(error, ugandaGeoJsonUnhighlighted) {
+          if (error) {
+              throw error;
+          };
+          ugandaGeoJsonUnhighlighted.features.map(function (d) {
+              d.properties.DNAME_06 = d.properties.dist.toLowerCase().capitalize();
+          });
+          ugandaGeoJson.features = ugandaGeoJson.features.concat(ugandaGeoJsonUnhighlighted.features);
+          updateGeoPath(ugandaGeoJson);
+      }*/
 
   } // ready
 
