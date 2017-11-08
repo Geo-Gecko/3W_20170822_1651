@@ -477,6 +477,7 @@
             var str = "<p><span>District:</span> <b>" + d.properties.DNAME_06 + "</b></p>"
             if (d.properties._settlementList && d.properties._sectorList && d.properties._agencyList) {
 
+                //console.log(d.properties._agencyList);
                var tooltipList = "";
                 var i = 0;
                 while (i < d.properties._agencyList.length){
@@ -485,9 +486,9 @@
                 }
                 //console.log(d.properties);
 
-                str = str + "<p><span>Settlements:</span> <b>" + d.properties._settlementList.length + "</b></p>" +
-                    "<p><span>Sectors:</span> <b>" + d.properties._sectorList.length + "</b></p>" +
-                    "<p><span>Agencies:</span> <b>" + tooltipList + "</b></p>";
+                str = str + "<table style='width:100%'><tr><th>Settlements:</th> <th>" + d.properties._settlementList.length + "</th></tr>" +
+                    "<tr><th>Sectors:</th> <th>" + d.properties._sectorList.length + "</th></tr>" +
+                    "<tr><th>Partners:</th></tr><tr> <th>" + tooltipList + "</th></tr></table> ";
                 //console.log(d.properties._agencyList);
             }
             tooltip.html(str);
