@@ -292,7 +292,9 @@
     //var svg = d3.select("#d3-map-wrapper")
 	var svg = d3.select(map.getPanes().overlayPane)
       .append("svg")
-      .on("dblclick", stopped, true)
+      .on("dblclick", stopped, true, function () {
+          tooltip.classed("d3-hide", true);
+      })
       .attr("xmlns", "http://www.w3.org/2000/svg")
       .attr("preserveAspectRatio", "xMidYMid")
       .attr("viewBox", "0 0 " + width + " " + height)
@@ -304,7 +306,9 @@
       .attr("class", "background")
       .attr("width", width)
       .attr("height", height)
-      .on("dblclick", reset, refreshMap);
+      .on("dblclick", reset, refreshMap, function () {
+          tooltip.classed("d3-hide", true);
+      });
 
 
 
@@ -461,7 +465,9 @@
           //tooltip.classed("d3-hide", true);
         })
         .attr("d", path)
-        .on("dblclick", clicked)
+        .on("dblclick", clicked, function () {
+            tooltip.classed("d3-hide", true);
+        })
         .on("click", function (d) {
 
             var mouse = d3.mouse(svg.node()).map(function (d) {
@@ -481,7 +487,7 @@
 
                 str = str + "<p><span>Settlements:</span> <b>" + d.properties._settlementList.length + "</b></p>" +
                     "<p><span>Sectors:</span> <b>" + d.properties._sectorList.length + "</b></p>" +
-                    "<p><span>Agencies:</span> <b>" + tooltipList    + "</b></p>";
+                    "<p><span>Agencies:</span> <b>" + tooltipList + "</b></p>";
                 //console.log(d.properties._agencyList);
             }
             tooltip.html(str);
@@ -496,6 +502,14 @@
                 .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
                         1] -
                     box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: scroll;");
+
+            tooltip
+                .on("mouseover", function () {
+                tooltip.classed("d3-hide", false);
+            })
+                .on("mouseout", function () {
+                tooltip.classed("d3-hide", true);
+            });
 
           /*var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
           // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
@@ -576,9 +590,9 @@
           return "district district-" + d.properties.DNAME_06.replaceAll('[ ]', "_");
         });
 
-        var nodeFontSize = 22;
-
-      /*ugandaPath
+        var nodeFontSize = 40;
+/*
+      var distLabels = ugandaPath
           .enter().append("svg:text")
           .attr("class", "label")
           .each(function (d) {
@@ -587,7 +601,6 @@
           .attr("transform", function(d) { return "translate(" + d.properties.centroid + ")"; })
           .attr("dy", ".30em")
           .attr("font-size", nodeFontSize + "px")
-          .style("opacity", 0)
           .text(function (d) { return d.properties.dist});*/
 
       ugandaPath.exit().remove();
@@ -661,7 +674,7 @@
         d3.select(this).style("fill", "#fff");
         tooltip.classed("d3-hide", true);
       })
-      .on("dblclick", clicked)
+      //.on("dblclick", clicked)
       /*.on("click", function (d) {
         // ugandaPath.style("opacity", opacity); //d3.selectAll(".district")
         // ugandaPath.style("opacity", function (a) {
@@ -693,7 +706,6 @@
         });
         // global.needRefreshDistrict = true;
       });*/
-    var lineSize = 5;
     var scale = 1;
     settlements //.transition().duration(duration)
       .each(function (d) {
@@ -709,7 +721,7 @@
 
       var nodeFontSize = 12;
 
-    /*settlements
+    /*var settlementLabels = settlements
         .enter().append("svg:text")
         .attr("class", "label")
         .each(function (d) {
@@ -718,11 +730,12 @@
         .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
         .attr("dy", ".30em")
         .attr("font-size", nodeFontSize + "px")
-        .style("opacity", 0)
         .text(function (d) { return d.Settlement});*/
 
 
     settlements.exit().remove();
+
+    d3.selectAll(".label").style("opacity","0");
 
     // settlements.append("title").text(function (d) {
     //   return d.Settlement;
@@ -751,6 +764,7 @@
       d3.select("#sector-list").selectAll("p").style("background", "transparent");
       d3.select("#settlement-list").selectAll("p").style("background", "transparent");
       d3.select("#agency-list").selectAll("p").style("background", "transparent");
+      d3.selectAll(".label").style("opacity","0");
       updateLeftPanel(districtList, sectorList, settlementList, agencyList, dataset);
       // updateLeftPanel(districtList, [], [], [], dataset);
       refreshCounts();
@@ -1351,11 +1365,6 @@
               .duration(900)
               .call(zoom.translate(translate).scale(scale).event);
 
-          svg.selectAll(".circle-group")
-              .transition()
-              .duration(900)
-              .call(zoom.translate(translate).scale(scale).event);
-
           }
 
       function reset() {
@@ -1367,28 +1376,40 @@
               .duration(900)
               .call(zoom.translate([0, 0]).scale(1).event);
 
-          svg.selectAll(".circle-group")
-              .transition()
-              .duration(900)
-              .call(zoom.translate([0, 0]).scale(1).event);
 
-
-
+          //d3.selectAll(".label").style("opacity","0");
+          d3.selectAll(".label").remove();
           basemap.addTo(map);
 
       }
 
       function zoomed() {
+          //d3.selectAll(".label").transition().duration(900).style("opacity","0").style("font-size", function(){return nodeFontSize / (d3.event.scale) + "px";});;
           g.style("stroke-width", 1.5 / d3.event.scale + "px");
           g.style("font-size", function(){return nodeFontSize / (d3.event.scale) + "px";});
           g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-          /*svg.selectAll(".circle-group").each(function(){
+          svg.selectAll(".settlement").each(function(){
               var element = d3.select(this);
-              var t = element.attr("transform");
-              console.log(t);
-              element.attr("transform", "translate("+d3.event.translate+")scale("+d3.event.scale+")");
-              //console.log(d3.event.scale);
-          })*/
+              var t = d3.transform(element.attr("transform"));
+              element.attr("transform", "translate("+t.translate+")rotate(-90)scale("+ 1 / d3.event.scale +")")
+              /*element.append("svg:text")
+                  .attr("class", "label")
+                  .each(function (d) { console.log(d);
+                      d._coordinates = projection([d.Long, d.Lat]);
+                  })
+                  .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
+                  .attr("dy", ".30em")
+                  .attr("font-size", nodeFontSize + "px")
+                  .text(function (d) { return d.Settlement});*/
+
+
+          })
+
+         /* console.log(settlements);
+          console.log(ugandaPath);*/
+
+          /*var labels = svg.selectAll(".label");
+          console.log(labels);*/
 
 
       }
