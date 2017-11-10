@@ -287,14 +287,13 @@
       .append("div")
       .attr("class", "d3-tooltip d3-hide");
 
+
     //d3.select("#d3-map-wrapper").selectAll("*").remove();
 
     //var svg = d3.select("#d3-map-wrapper")
 	var svg = d3.select(map.getPanes().overlayPane)
       .append("svg")
-      .on("dblclick", stopped, true, function () {
-          tooltip.classed("d3-hide", true);
-      })
+      .on("dblclick", stopped, true )
       .attr("xmlns", "http://www.w3.org/2000/svg")
       .attr("preserveAspectRatio", "xMidYMid")
       .attr("viewBox", "0 0 " + width + " " + height)
@@ -306,9 +305,7 @@
       .attr("class", "background")
       .attr("width", width)
       .attr("height", height)
-      .on("dblclick", reset, refreshMap, function () {
-          tooltip.classed("d3-hide", true);
-      });
+      .on("dblclick", reset, refreshMap);
 
 
 
@@ -465,32 +462,40 @@
           //tooltip.classed("d3-hide", true);
         })
         .attr("d", path)
-        .on("dblclick", clicked, function () {
-            tooltip.classed("d3-hide", true);
-        })
+        .on("dblclick", clicked)
         .on("click", function (d) {
 
             var mouse = d3.mouse(svg.node()).map(function (d) {
                 return parseInt(d);
             });
 
-            var str = "<p><span>District:</span> <b>" + d.properties.DNAME_06 + "</b></p>"
+            var str = "<tr><button type='button' class='close' onclick='$(this).parent().hide();'>×</button></tr>" +
+            "<th><br/></th><tr><th>District:</th> <th style='right: 0;'>" + d.properties.DNAME_06 + "</th></tr>"
             if (d.properties._settlementList && d.properties._sectorList && d.properties._agencyList) {
 
                 //console.log(d.properties._agencyList);
+                var agencyListAbb = d3.values(d.properties._agencyList).map(function(d) {
+                    return d.values.map(function(v) { return v.Abb;});
+                });
+
+                //console.log(agencyListAbb);
                var tooltipList = "";
                 var i = 0;
-                while (i < d.properties._agencyList.length){
-                    tooltipList = tooltipList + ("<p>" + d.properties._agencyList[i].key + "</p>");
+                while (i < agencyListAbb.length){
+                    //console.log(d.properties._agencyList[i].key);
+                    tooltipList = tooltipList + ("<p>" + agencyListAbb[i][0] +"</p>");
                 i++
                 }
+                //console.log(tooltipList);
                 //console.log(d.properties);
 
                 str = str + "<table style='width:100%'><tr><th>Settlements:</th> <th>" + d.properties._settlementList.length + "</th></tr>" +
                     "<tr><th>Sectors:</th> <th>" + d.properties._sectorList.length + "</th></tr>" +
-                    "<tr><th>Partners:</th></tr><tr> <th>" + tooltipList + "</th></tr></table> ";
+                    "<tr><th>Partners:</th> <th>" + d.properties._agencyList.length + "</th></tr><th><br/></th><div><tr> <th style='text-align: right;'>" + tooltipList + "</th></tr></table></div>";
                 //console.log(d.properties._agencyList);
             }
+
+
             tooltip.html(str);
 
             var box = tooltip.node().getBoundingClientRect() || {
@@ -512,6 +517,7 @@
                 tooltip.classed("d3-hide", true);
             });
 
+            console.log(tooltip);
           /*var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
           // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
           // d.properties._selected = !needRemove;
@@ -535,7 +541,7 @@
             "key": d.properties.DNAME_06
           }, global.currentEvent);*/
 
-          settlements.style("opacity", 1);
+          /*settlements.style("opacity", 1);
           if (global.selectedDistrict && global.selectedDistrict.length > 0) {
             global.selectedDistrict.map(function (dd) {
               d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
@@ -543,7 +549,7 @@
             });
           }
           d3.selectAll(".settlement-district-" + d.properties.DNAME_06.toLowerCase().replaceAll("[ ]", "-")).style(
-            "opacity", 1);
+            "opacity", 1);*/
         })
         .style("fill", function (d) {
           return d.properties._agencyList ? color(d.properties._agencyList.length) : "#ccc"; //#3CB371
@@ -591,18 +597,18 @@
           return "district district-" + d.properties.DNAME_06.replaceAll('[ ]', "_");
         });
 
-        var nodeFontSize = 40;
-/*
-      var distLabels = ugandaPath
-          .enter().append("svg:text")
-          .attr("class", "label")
-          .each(function (d) {
-              d.properties.centroid = projection(d3.geo.centroid(d));
-          })
-          .attr("transform", function(d) { return "translate(" + d.properties.centroid + ")"; })
-          .attr("dy", ".30em")
-          .attr("font-size", nodeFontSize + "px")
-          .text(function (d) { return d.properties.dist});*/
+        /*        var nodeFontSize = 40;
+
+              var distLabels = ugandaPath
+                  .enter().append("svg:text")
+                  .attr("class", "label")
+                  .each(function (d) {
+                      d.properties.centroid = projection(d3.geo.centroid(d));
+                  })
+                  .attr("transform", function(d) { return "translate(" + d.properties.centroid + ")"; })
+                  .attr("dy", ".30em")
+                  .attr("font-size", nodeFontSize + "px")
+                  .text(function (d) { return d.properties.dist});*/
 
       ugandaPath.exit().remove();
       // var ugandaCentroid;
@@ -707,7 +713,7 @@
         });
         // global.needRefreshDistrict = true;
       });*/
-    var scale = 1;
+    var scale = 1.1;
     settlements //.transition().duration(duration)
       .each(function (d) {
         d._coordinates = projection([d.Long, d.Lat]);
@@ -719,24 +725,22 @@
      .attr("d", 'M 0,0 m -5,-5 L 5,0 L -5,5 Z'); //http://bl.ocks.org/dustinlarimer/5888271
 
 
+      /*
+            var nodeFontSize = 12;
 
-      var nodeFontSize = 12;
-
-    /*var settlementLabels = settlements
-        .enter().append("svg:text")
-        .attr("class", "label")
-        .each(function (d) {
-            d._coordinates = projection([d.Long, d.Lat]);
-        })
-        .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
-        .attr("dy", ".30em")
-        .attr("font-size", nodeFontSize + "px")
-        .text(function (d) { return d.Settlement});*/
+          var settlementLabels = settlements
+              .enter().append("svg:text")
+              .attr("class", "label")
+              .each(function (d) {
+                  d._coordinates = projection([d.Long, d.Lat]);
+              })
+              .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
+              .attr("dy", ".30em")
+              .attr("font-size", nodeFontSize + "px")
+              .text(function (d) { return d.Settlement});*/
 
 
     settlements.exit().remove();
-
-    d3.selectAll(".label").style("opacity","0");
 
     // settlements.append("title").text(function (d) {
     //   return d.Settlement;
@@ -765,7 +769,6 @@
       d3.select("#sector-list").selectAll("p").style("background", "transparent");
       d3.select("#settlement-list").selectAll("p").style("background", "transparent");
       d3.select("#agency-list").selectAll("p").style("background", "transparent");
-      d3.selectAll(".label").style("opacity","0");
       updateLeftPanel(districtList, sectorList, settlementList, agencyList, dataset);
       // updateLeftPanel(districtList, [], [], [], dataset);
       refreshCounts();
@@ -1379,32 +1382,45 @@
 
 
           //d3.selectAll(".label").style("opacity","0");
-          d3.selectAll(".label").remove();
           basemap.addTo(map);
+          /*svg.selectAll("text").each(function() {
+              var labels = d3.select(this);
+              console.log(labels);
+              //labels.remove();
+          });*/
+          //d3.selectAll(".label").data([]).exit().remove() ;
+          //var labels = g.text;//d3.selectAll(".label");
+          /*for (var i = 0; i < labels.length; i++) {
+              for (var j = 0; j < labels.length; j++) {
+                  labels[i].parentElement.removeChild(labels[j]);
+              }
+          }*/
+          //var settle = svg.selectAll(".settlement");
+          //console.log(settle);
+          //labels.selectAll(".label").remove();
 
       }
 
       function zoomed() {
-          //d3.selectAll(".label").transition().duration(900).style("opacity","0").style("font-size", function(){return nodeFontSize / (d3.event.scale) + "px";});;
+          //tooltip.classed("d3-hide", true);
           g.style("stroke-width", 1.5 / d3.event.scale + "px");
-          g.style("font-size", function(){return nodeFontSize / (d3.event.scale) + "px";});
           g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
           svg.selectAll(".settlement").each(function(){
               var element = d3.select(this);
-              var t = d3.transform(element.attr("transform"));
-              element.attr("transform", "translate("+t.translate+")rotate(-90)scale("+ 1 / d3.event.scale +")")
-              /*element.append("svg:text")
+              /*element.append("text")
                   .attr("class", "label")
-                  .each(function (d) { console.log(d);
-                      d._coordinates = projection([d.Long, d.Lat]);
-                  })
-                  .attr("transform", function(d) { return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")"; })
-                  .attr("dy", ".30em")
-                  .attr("font-size", nodeFontSize + "px")
-                  .text(function (d) { return d.Settlement});*/
+                  .attr("dy", "1.5em")
+                  .attr("transform", "rotate(+90)")
+                  .attr("font-size", "12px")
+                  .style("pointer-events", "none")
+                  .text(function (d) { return d.Settlement})
+                  .transition().duration(900);*/
+              var t = d3.transform(element.attr("transform"));
+              element.attr("transform", "translate("+t.translate+")rotate(-90)scale("+ 1.1 / d3.event.scale +")");
 
 
           })
+
 
          /* console.log(settlements);
           console.log(ugandaPath);*/
