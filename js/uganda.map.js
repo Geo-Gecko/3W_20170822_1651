@@ -1419,8 +1419,7 @@
                           });
                   });
                   var distLabels = ugandaPath
-                      .enter().append("svg:text");
-                  if (distLabels.length > 0) {
+                      .enter().append("svg:text")
                       .attr("class", "label")
                       .each(function (d) {
                           d.properties.centroid = projection(d3.geo.centroid(d));
@@ -1430,7 +1429,7 @@
                       .style("font-size", "2px")
                       .text(function (d) { return d.properties.dist});
 
-                  }
+                  
 
               });
       }
