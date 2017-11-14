@@ -464,93 +464,101 @@
         .attr("d", path)
         .on("dblclick", clicked)
         .on("click", function (d) {
-
+            var t0 = new Date();
             var mouse = d3.mouse(svg.node()).map(function (d) {
                 return parseInt(d);
             });
 
-            var str = "<tr><button type='button' class='close' onclick='$(this).parent().hide();'>×</button></tr>" +
-            "<th><br/></th><tr><th>District:</th> <th style='right: 0;'>" + d.properties.DNAME_06 + "</th></tr>"
-            if (d.properties._settlementList && d.properties._sectorList && d.properties._agencyList) {
+            if (t0 - doubleClickTime > threshold) {
+                setTimeout(function () {
+                    if (t0 - doubleClickTime > threshold) {
 
-                //console.log(d.properties._agencyList);
-                var agencyListAbb = d3.values(d.properties._agencyList).map(function(d) {
-                    return d.values.map(function(v) { return v.Abb;});
-                });
+                        var str = "<tr><button type='button' class='close' onclick='$(this).parent().hide();'>×</button></tr>" +
+                            "<th><br/></th><tr><th>District:</th> <th style='right: 0;'>" + d.properties.DNAME_06 + "</th></tr>"
+                        if (d.properties._settlementList && d.properties._sectorList && d.properties._agencyList) {
 
-                //console.log(agencyListAbb);
-               var tooltipList = "";
-                var i = 0;
-                while (i < agencyListAbb.length){
-                    //console.log(d.properties._agencyList[i].key);
-                    tooltipList = tooltipList + ("<p>" + agencyListAbb[i][0] +"</p>");
-                i++
-                }
-                //console.log(tooltipList);
-                //console.log(d.properties);
+                            //console.log(d.properties._agencyList);
+                            var agencyListAbb = d3.values(d.properties._agencyList).map(function(d) {
+                                return d.values.map(function(v) { return v.Abb;});
+                            });
 
-                str = str + "<table style='width:100%'><tr><th>Settlements:</th> <th>" + d.properties._settlementList.length + "</th></tr>" +
-                    "<tr><th>Sectors:</th> <th>" + d.properties._sectorList.length + "</th></tr>" +
-                    "<tr><th>Partners:</th> <th>" + d.properties._agencyList.length + "</th></tr><th><br/></th><div><tr> <th style='text-align: right;'>" + tooltipList + "</th></tr></table></div>";
-                //console.log(d.properties._agencyList);
+                            //console.log(agencyListAbb);
+                            var tooltipList = "";
+                            var i = 0;
+                            while (i < agencyListAbb.length){
+                                //console.log(d.properties._agencyList[i].key);
+                                tooltipList = tooltipList + ("<p>" + agencyListAbb[i][0] +"</p>");
+                                i++
+                            }
+                            //console.log(tooltipList);
+                            //console.log(d.properties);
+
+                            str = str + "<table style='width:100%'><tr><th>Settlements:</th> <th>" + d.properties._settlementList.length + "</th></tr>" +
+                                "<tr><th>Sectors:</th> <th>" + d.properties._sectorList.length + "</th></tr>" +
+                                "<tr><th>Partners:</th> <th>" + d.properties._agencyList.length + "</th></tr><th><br/></th><div><tr> <th style='text-align: right;'>" + tooltipList + "</th></tr></table></div>";
+                            //console.log(d.properties._agencyList);
+                        }
+
+
+                        tooltip.html(str);
+
+                        var box = tooltip.node().getBoundingClientRect() || {
+                            height: 0
+                        };
+
+
+                        tooltip
+                            .classed("d3-hide", false)
+                            .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
+                                    1] -
+                                box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: scroll;");
+
+                        tooltip
+                            .on("mouseover", function () {
+                                tooltip.classed("d3-hide", false);
+                            })
+                            .on("mouseout", function () {
+                                tooltip.classed("d3-hide", true);
+                            });
+
+                        /*var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
+                        // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
+                        // d.properties._selected = !needRemove;
+                        ugandaPath.style("opacity", function (a) {
+                          // var needRemove = $(d3.select(this).node()).hasClass("d3-active");
+                          if (a.properties.DNAME_06 === d.properties.DNAME_06) {
+                            a.properties._selected = !needRemove;
+                            return (a.properties._selected ? 1 : opacity);
+                          } else {
+                            return (a.properties._selected ? 1 : opacity);
+                          }
+                        });*/
+                        // settlements.style("opacity", opacity);
+                        // d3.select(this).style("opacity", 1); //d3.selectAll(".district-" + d.properties.DNAME_06.replaceAll('[ ]', "_"))
+                        // d3.select("#district-list").selectAll("p").style("background", "transparent");
+                        /*d3.select(".district-list-" + d.properties.DNAME_06.replaceAll('[ ]', "_")).style("background",
+                          "#E3784A");
+                        refreshCounts();
+                        global.currentEvent = "district";
+                        myFilter({
+                          "key": d.properties.DNAME_06
+                        }, global.currentEvent);*/
+
+                        /*settlements.style("opacity", 1);
+                        if (global.selectedDistrict && global.selectedDistrict.length > 0) {
+                          global.selectedDistrict.map(function (dd) {
+                            d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
+                              "opacity", 1);
+                          });
+                        }
+                        d3.selectAll(".settlement-district-" + d.properties.DNAME_06.toLowerCase().replaceAll("[ ]", "-")).style(
+                          "opacity", 1);*/
+                    }
+                },threshold);
             }
-
-
-            tooltip.html(str);
-
-            var box = tooltip.node().getBoundingClientRect() || {
-                height: 0
-            };
-
-
-            tooltip
-                .classed("d3-hide", false)
-                .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
-                        1] -
-                    box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: scroll;");
-
-            tooltip
-                .on("mouseover", function () {
-                tooltip.classed("d3-hide", false);
-            })
-                .on("mouseout", function () {
-                tooltip.classed("d3-hide", true);
-            });
-
-            console.log(tooltip);
-          /*var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
-          // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
-          // d.properties._selected = !needRemove;
-          ugandaPath.style("opacity", function (a) {
-            // var needRemove = $(d3.select(this).node()).hasClass("d3-active");
-            if (a.properties.DNAME_06 === d.properties.DNAME_06) {
-              a.properties._selected = !needRemove;
-              return (a.properties._selected ? 1 : opacity);
-            } else {
-              return (a.properties._selected ? 1 : opacity);
-            }
-          });*/
-          // settlements.style("opacity", opacity);
-          // d3.select(this).style("opacity", 1); //d3.selectAll(".district-" + d.properties.DNAME_06.replaceAll('[ ]', "_"))
-          // d3.select("#district-list").selectAll("p").style("background", "transparent");
-          /*d3.select(".district-list-" + d.properties.DNAME_06.replaceAll('[ ]', "_")).style("background",
-            "#E3784A");
-          refreshCounts();
-          global.currentEvent = "district";
-          myFilter({
-            "key": d.properties.DNAME_06
-          }, global.currentEvent);*/
-
-          /*settlements.style("opacity", 1);
-          if (global.selectedDistrict && global.selectedDistrict.length > 0) {
-            global.selectedDistrict.map(function (dd) {
-              d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
-                "opacity", 1);
-            });
-          }
-          d3.selectAll(".settlement-district-" + d.properties.DNAME_06.toLowerCase().replaceAll("[ ]", "-")).style(
-            "opacity", 1);*/
         })
+
+
         .style("fill", function (d) {
           return d.properties._agencyList ? color(d.properties._agencyList.length) : "#ccc"; //#3CB371
         })
@@ -609,6 +617,7 @@
                   .attr("dy", ".30em")
                   .attr("font-size", nodeFontSize + "px")
                   .text(function (d) { return d.properties.dist});*/
+
 
       ugandaPath.exit().remove();
       // var ugandaCentroid;
@@ -1330,6 +1339,32 @@
       }
     });
 
+      window.addEventListener('click', onClick);
+      window.addEventListener('dblclick', onDoubleClick);
+
+      var doubleClickTime = 0;
+      var threshold = 200;
+
+      function onClick() {
+          var t0 = new Date();
+          if (t0 - doubleClickTime > threshold) {
+              setTimeout(function () {
+                  if (t0 - doubleClickTime > threshold) {
+                      doOnClick();
+                  }
+              },threshold);
+          }
+      }
+
+      function doOnClick() {
+          console.log("execute onClick function");
+      }
+
+      function onDoubleClick() {
+          doubleClickTime = new Date();
+          console.log("execute onDoubleClick function");
+      }
+
 	/*
     setTimeout(function () {
       queue()
@@ -1349,6 +1384,8 @@
     }*/
 
       function clicked(d) {
+          doubleClickTime = new Date();
+
           if (active.node() === this) return reset();
           active.classed("active", false);
           active = d3.select(this).classed("active", true);
@@ -1364,12 +1401,39 @@
           map.removeLayer(basemap);
 
 
-
           svg.transition()
               .duration(900)
-              .call(zoom.translate(translate).scale(scale).event);
+              .call(zoom.translate(translate).scale(scale).event)
+              .each("end", function () {
+                  svg.selectAll(".settlement").each(function () {
+                      var element = d3.select(this);
+                      console.log(element);
+                      element.append("svg:text")
+                          .attr("class", "label")
+                          .attr("dy", "1.5em")
+                          .attr("transform", "rotate(+90)")
+                          .attr("font-size", "12px")
+                          .style("pointer-events", "none")
+                          .text(function (d) {
+                              return d.Settlement
+                          });
+                  });
+                  var distLabels = ugandaPath
+                      .enter().append("svg:text");
+                  if (distLabels.length > 0) {
+                      .attr("class", "label")
+                      .each(function (d) {
+                          d.properties.centroid = projection(d3.geo.centroid(d));
+                      })
+                      .attr("transform", function(d) { return "translate(" + d.properties.centroid + ")"; })
+                      //.attr("dy", ".30em")
+                      .style("font-size", "2px")
+                      .text(function (d) { return d.properties.dist});
 
-          }
+                  }
+
+              });
+      }
 
       function reset() {
           active.classed("active", false);
@@ -1378,8 +1442,14 @@
 
           svg.transition()
               .duration(900)
-              .call(zoom.translate([0, 0]).scale(1).event);
+              .call(zoom.translate([0, 0]).scale(1).event)
+              .each("start", function () {
+              svg.selectAll("text").each(function () {
+                  var element = d3.select(this);
+                  element.remove();
+              });
 
+          });
 
           //d3.selectAll(".label").style("opacity","0");
           basemap.addTo(map);
@@ -1407,17 +1477,8 @@
           g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
           svg.selectAll(".settlement").each(function(){
               var element = d3.select(this);
-              /*element.append("text")
-                  .attr("class", "label")
-                  .attr("dy", "1.5em")
-                  .attr("transform", "rotate(+90)")
-                  .attr("font-size", "12px")
-                  .style("pointer-events", "none")
-                  .text(function (d) { return d.Settlement})
-                  .transition().duration(900);*/
               var t = d3.transform(element.attr("transform"));
               element.attr("transform", "translate("+t.translate+")rotate(-90)scale("+ 1.1 / d3.event.scale +")");
-
 
           })
 
