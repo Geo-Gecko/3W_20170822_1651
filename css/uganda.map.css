@@ -269,7 +269,7 @@ p.custom-list-header  .glyphicon {
 div#district-list .d3-active {
   color: #fff;
 }
-
+/*
 .list-container>.col-md-12:first-child p.custom-list-header {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -279,7 +279,7 @@ div#district-list .d3-active {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-
+*/
 svg, g.map {
   z-index: 600!important;
   position: relative;
@@ -321,9 +321,9 @@ span.colorbox.four {
   background-color: #E08114;
 } 
 
-#sector-list p.child {
+/*#sector-list p.child {
   padding-left: 20px;
-}
+}*/
 
 .disabled {
   pointer-events: none;

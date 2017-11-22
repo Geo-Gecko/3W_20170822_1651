@@ -813,6 +813,8 @@
       }).done(function () {
         var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
         generatePdf(map, _selectedDataset, filters, lastModified, function () {
+
+            console.log(map, _selectedDataset, filters, lastModified);
           $("#d3-map-make-pdf").removeClass('disabled');
           spinner.stop();
         });
@@ -922,6 +924,7 @@
       });
 
       _selectedDataset = selectedDataset;
+
 
       // console.log(selectedDataset.length, global.selectedDistrict, global.selectedSettlement, global.selectedSector, global.selectedAgency);
       //     global.selectedDistrict = []; // name
@@ -1334,6 +1337,7 @@
       }
 
       function onDoubleClick() {
+          tooltip.classed("d3-hide", true);
           doubleClickTime = new Date();
           console.log("execute onDoubleClick function");
       }
@@ -1357,6 +1361,8 @@
     }*/
 
       function clicked(d) {
+          tooltip
+              .classed("d3-hide", false);
           doubleClickTime = new Date();
 
           if (active.node() === this) return reset();
@@ -1408,6 +1414,8 @@
       }
 
       function reset() {
+          tooltip
+              .classed("d3-hide", false);
           active.classed("active", false);
           active = d3.select(null);
 
