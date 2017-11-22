@@ -1115,11 +1115,8 @@
         var _sectorList = d3.select("#sector-list").selectAll("p")
           .data(sectorList);
         _sectorList.enter().append("p")
-          .attr("class", function(d){
-              return d.key.replace(/\s/g,''); 
-          })
           .text(function (d) {
-            //return d.key;
+            return d.key;
           })
           // .style("background", "transparent")
           .on("click", function (c) {
@@ -1133,34 +1130,10 @@
             // myFilterBySector(c, needRemove);
           });
         _sectorList //.transition().duration(duration)
-          .attr("class", function(d){
-              return d.key.replace(/\s/g,''); 
-          })
           .text(function (d) {
             return d.key;
           });
         _sectorList.exit().remove();
-      }
-      //Hack to indent child protection and SGBV
-      var p = $("p.Protection");
-      var c = $("p.CP");
-      if (p.length === 1) {
-
-        $("p.CP").insertBefore("p.SGBV");
-        $("p.CP").addClass("child");
-        $("p.SGBV").addClass("child");
-        $("p.Protection").addClass("disabled");
-
-      } else {
-        $("p.CP").insertBefore("p.SGBV");
-        $('<p class="Protection disabled">Protection</p>').insertBefore('p.CP');
-        $("p.CP").addClass("child");
-        $("p.SGBV").addClass("child");
-      }
-
-      if (c.length === 0 && p.length === 0) {
-        $('<p class="Protection disabled">Protection</p>').insertBefore('p.SGBV');
-        $("p.SGBV").addClass("child");
       }
 
       if (settlementList) {
