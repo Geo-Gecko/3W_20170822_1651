@@ -1,12 +1,10 @@
 Sector,Sector_ID
-CP,1
-SGBV,2
-Education,3
-WASH ,4
-Livelihoods,5
-Food Assistance,6
-Health and Nutrition,7
-"Shelter, Site  and NFIs",8
-Logistics,9
-Environment,10
-Protection,11
+Education,1
+WASH ,2
+Livelihoods & Environment,3
+Food Assistance,4
+Health and Nutrition,5
+"Shelter, Site  and NFIs",6
+Logistics,7
+Protection,8
+NO DATA,9

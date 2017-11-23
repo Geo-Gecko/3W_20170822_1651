@@ -16,6 +16,7 @@
   // }
 
   var _selectedDataset;
+  var dataset;
 
   queue()
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
@@ -48,6 +49,10 @@
   global.ipCount;
   global.opCount;
   global.currentEvent;
+
+  //console.log(global.agencyCount);
+  // console.log(global.selectedAgency);
+  // console.log(global.selectedSector);
   // global.needRefreshDistrict;
 
 //Function to refresh the counts when the user selects clear all
@@ -66,6 +71,9 @@
     global.selectedUn = [];
     global.selectedIp = [];
     global.selectedOp = [];
+
+      _selectedDataset = dataset;
+
   }
 
   function addLegend(domain, color) {
@@ -144,7 +152,7 @@
     var nameAbbKays = d3.keys(nameAbb[0]);
     var districtSettlementKays = d3.keys(districtSettlement[0]);
     var sectorKays = d3.keys(sector[0]);
-    var dataset = relationship.map(function (d) {
+    dataset = relationship.map(function (d) {
       var i;
       for (i = 0; i < nameAbb.length; i++) {
         if (nameAbb[i].Actor_ID === d.Actor_ID) {
@@ -173,8 +181,6 @@
       return d;
     });
 
-    _selectedDataset = dataset;
-
     //console.log(dataset);
 
 
@@ -183,15 +189,17 @@
       return d.District;
     }).sortKeys(d3.ascending).entries(districtSettlement);
     var sectorList = d3.nest().key(function (d) {
-      return d.Sector;
+        //console.log(d);
+            return d.Sector;
     }).sortKeys(d3.ascending).entries(sector);
     var settlementList = d3.nest().key(function (d) {
       return d.Settlement;
     }).sortKeys(d3.ascending).entries(districtSettlement);
     var agencyList = d3.nest().key(function (d) {
-      return d.Name;
+        // console.log(d);
+            return d.Name;
     }).sortKeys(d3.ascending).entries(nameAbb);
-
+//console.log(agencyList);
       var unAgencyList = nameAbb.filter(function(d) {  if (d.Actor_Type === "UN") {
           return d.Actor_Type; //return d.Actor_Type["UN"];
       }});
@@ -221,7 +229,7 @@
     global.districtCount = districtList.length;
     global.sectorCount = sectorList.length;
     global.settlementCount = settlementList.length;
-    global.agencyCount = agencyList.length;
+    global.agencyCount = agencyList.length; //to remove the count of NO DATA
     global.unCount = unAgencyList.length;
     global.ipCount = ipAgencyList.length;
     global.opCount = opAgencyList.length;
@@ -258,7 +266,7 @@
        document.documentElement.clientWidth ||
        document.body.clientWidth);
      d3.select(".list-container").style("height", h - 0 +"px")
-	 
+
    var map = new L.Map("d3-map-container", {center: [1.367, 32.305], zoom: 7, zoomControl:false});
    var _3w_attrib = 'Created by <a href="http://www.geogecko.com">Geo Gecko</a> and © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Powered by <a href="https://d3js.org/">d3</a>';
    var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw", {attribution: _3w_attrib});
@@ -272,7 +280,7 @@
       map.keyboard.disable();
       map.touchZoom.disable();
       map.dragging.disable();
-	 
+
     var wrapper = d3.select("#d3-map-wrapper");
     var width = wrapper.node().offsetWidth || 960;
     var height = wrapper.node().offsetHeight || 480; // < 480 ? h : wrapper.node().offsetHeight)  || 480;
@@ -396,7 +404,6 @@
 		.attr("style","z-index:600")
         .attr("style","pointer-events:all!important")
         .style("cursor", "pointer")
-        .style("stroke", "#fff")
         .each(function (d) {
           d.properties.centroid = projection(d3.geo.centroid(d)); // ugandaCentroid = d.properties.centroid;
           datasetNest.map(function (c) {
@@ -562,6 +569,9 @@
         .style("fill", function (d) {
           return d.properties._agencyList ? color(d.properties._agencyList.length) : "#ccc"; //#3CB371
         })
+        .style("stroke", function (d) {
+              return d.properties._agencyList ? "#fff" : "#f00"; //#3CB371
+          })
         .attr("class", function (d) {
           return "district district-" + d.properties.DNAME_06.replaceAll('[ ]', "_");
         });
@@ -677,7 +687,7 @@
         var mouse = d3.mouse(svg.node()).map(function (d) {
           return parseInt(d);
         });
-        var str = "<p><span>Settlement:</span> <b>" + d.Settlement + "</b></p>"
+        var str = "<p><span>Refugee site:</span> <b>" + d.Settlement + "</b></p>"
         tooltip
           .classed("d3-hide", false)
           .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1]) + "px")
@@ -769,6 +779,10 @@
     /*$(".custom-list-header").siblings(".custom-list").addClass('collapsed');
     $("#district-list.custom-list").removeClass('collapsed');
      */ global.selectedDistrict = [];
+        global.selectedSector = []; // ID
+        global.selectedSettlement = []; //undefined; //[]; // ID
+        global.selectedAgency = [];
+     //console.log(global.selectedDistrict);
       ugandaPath.style("opacity", function (a) {
         a.properties._selected = false;
         return 1;
@@ -779,10 +793,11 @@
       d3.select("#settlement-list").selectAll("p").style("background", "transparent");
       d3.select("#agency-list").selectAll("p").style("background", "transparent");
       updateLeftPanel(districtList, sectorList, settlementList, agencyList, dataset);
+        //console.log(dataset);
       // updateLeftPanel(districtList, [], [], [], dataset);
       refreshCounts();
     }
-    d3.select("#d3-map-refresh").on("click", refreshMap);
+    d3.select("#d3-map-refresh").on("click", refreshMap, reset);
 
     function makePdf() {
       if ($("#d3-map-make-pdf").hasClass('disabled')) {
@@ -806,17 +821,18 @@
       if (global.selectedAgency.length > 0) {
         filters.push({ "name": "Agency", "values": global.selectedAgency })
       }
-
+       //console.log(_selectedDataset);
       var $xhr = $.ajax({
         type: "HEAD",
         url : "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE",
       }).done(function () {
         var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
         generatePdf(map, _selectedDataset, filters, lastModified, function () {
+
           $("#d3-map-make-pdf").removeClass('disabled');
           spinner.stop();
         });
-      })      
+      })
     }
     d3.select("#d3-map-make-pdf").on("click", makePdf);
 
@@ -922,6 +938,7 @@
       });
 
       _selectedDataset = selectedDataset;
+
 
       // console.log(selectedDataset.length, global.selectedDistrict, global.selectedSettlement, global.selectedSector, global.selectedAgency);
       //     global.selectedDistrict = []; // name
@@ -1109,7 +1126,6 @@
           });
         _districtList.exit().remove();
       }
-
       if (sectorList) {
         d3.select("#sector-count").text(sectorList.length);
         var _sectorList = d3.select("#sector-list").selectAll("p")
@@ -1135,7 +1151,6 @@
           });
         _sectorList.exit().remove();
       }
-
       if (settlementList) {
         d3.select("#settlement-count").text(settlementList.length);
         var _settlementList = d3.select("#settlement-list").selectAll("p")
@@ -1330,12 +1345,13 @@
       }
 
       function doOnClick() {
-          console.log("execute onClick function");
+          //console.log("execute onClick function");
       }
 
       function onDoubleClick() {
+          tooltip.classed("d3-hide", true);
           doubleClickTime = new Date();
-          console.log("execute onDoubleClick function");
+          // console.log("execute onDoubleClick function");
       }
 
 	/*
@@ -1380,7 +1396,7 @@
               .each("end", function () {
                   svg.selectAll(".settlement").each(function () {
                       var element = d3.select(this);
-                      console.log(element);
+                      //console.log(element);
                       element.append("svg:text")
                           .attr("class", "label")
                           .attr("dy", "1.5em")
@@ -1408,9 +1424,9 @@
       }
 
       function reset() {
+
           active.classed("active", false);
           active = d3.select(null);
-
 
           svg.transition()
               .duration(900)
