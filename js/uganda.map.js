@@ -404,6 +404,7 @@
 		.attr("style","z-index:600")
         .attr("style","pointer-events:all!important")
         .style("cursor", "pointer")
+        .style("stroke", "#fff")
         .each(function (d) {
           d.properties.centroid = projection(d3.geo.centroid(d)); // ugandaCentroid = d.properties.centroid;
           datasetNest.map(function (c) {
@@ -569,9 +570,6 @@
         .style("fill", function (d) {
           return d.properties._agencyList ? color(d.properties._agencyList.length) : "#ccc"; //#3CB371
         })
-        .style("stroke", function (d) {
-              return d.properties._agencyList ? "#fff" : "#f00"; //#3CB371
-          })
         .attr("class", function (d) {
           return "district district-" + d.properties.DNAME_06.replaceAll('[ ]', "_");
         });
