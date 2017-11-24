@@ -1425,7 +1425,12 @@
                       .attr("transform", function(d) { return "translate(" + d.properties.centroid + ")"; })
                       //.attr("dy", ".30em")
                       .style("font-size", "2px")
-                      .text(function (d) { return d.properties.dist});
+                      .text(function (d) {
+                          var firstWords = [];
+                          var label = d.properties.dist.split(" ");
+                          //console.log(label);
+                          return label[0];});
+
 
                   
 
