@@ -147,6 +147,7 @@
     // console.log(ugandaGeoJson, ActorID, SettlementID, SectorID, AllID)
     ugandaGeoJson.features.map(function (d) {
       d.properties.DNAME_06 = d.properties.dist.toLowerCase().capitalize();
+      // console.log(d);
     });
     //need join all data
     var nameAbbKays = d3.keys(nameAbb[0]);
@@ -189,10 +190,10 @@
       return d.District;
     }).sortKeys(d3.ascending).entries(districtSettlement);
 
-    //append "district to each district name.
-    districtList.forEach(function(d){
-        d.key = d.key + " district";
-    });
+    //append " district" to each district name.
+    // districtList.forEach(function(d){
+    //     d.key = d.key + " district";
+    // });
     // console.log(districtList);
 
     var sectorList = d3.nest().key(function (d) {
@@ -789,6 +790,7 @@
         global.selectedAgency = [];
      //console.log(global.selectedDistrict);
       ugandaPath.style("opacity", function (a) {
+          //console.log(a);
         a.properties._selected = false;
         return 1;
       });
@@ -1115,6 +1117,8 @@
             // myFilterByDistrict(c, needRemove);
             ugandaPath.style("opacity", function (a) {
               if (a.properties.DNAME_06 === c.key) {
+                  // console.log(a);
+                  // console.log(c);
                 a.properties._selected = !needRemove;
                 return a.properties._selected ? 1 : opacity;
               }
