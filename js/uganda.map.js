@@ -188,6 +188,13 @@
     var districtList = d3.nest().key(function (d) {
       return d.District;
     }).sortKeys(d3.ascending).entries(districtSettlement);
+
+    //append "district to each district name.
+    districtList.forEach(function(d){
+        d.key = d.key + " district";
+    });
+    // console.log(districtList);
+
     var sectorList = d3.nest().key(function (d) {
         //console.log(d);
             return d.Sector;
