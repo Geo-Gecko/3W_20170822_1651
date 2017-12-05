@@ -22,7 +22,7 @@
     // .defer(d3.json, "./UgandaDistricts.geojson")//DNAME_06
     // This section creates a live link to the datasets when the map is loaded, so new information can be pulled in for the filters and reset.
         .defer(d3.json, "./data/UgandaDistricts.highlighted.geojson")
-        //.defer(d3.json, "./data/UgandaDistricts.geojson")//dist
+        .defer(d3.json, "./data/UgandaDistricts.highlighted.centroids.geojson")//dist
         .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T1.csv?GD_NONCE") //Actor_ID,Name,Abb,//Actor_Type
         .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T2.csv?GD_NONCE") //District,Settlement,Settlement_ID,Long,Lat
         .defer(d3.csv, "https://ugandarefugees.org/wp-content/uploads/Map5_T3.csv?GD_NONCE") //Sector,Sector_ID
@@ -138,7 +138,7 @@
     }
 
 //this function is the heart and soul of the d3 map, it calls the data and defines the relationship between the tables and the SVG map.
-    function ready(error, ugandaGeoJson, nameAbb, districtSettlement, sector, relationship) {
+    function ready(error, ugandaGeoJson, ugandaLabels, nameAbb, districtSettlement, sector, relationship) {
         //standard for if data is missing, the map shouldnt start.
         if (error) {
             throw error;
@@ -383,8 +383,10 @@
             .translate(t);
         //console.log(b);
         var ugandaPath;
+        var distLabels;
 
         var ugandaDistricts = g.append("g").attr("class", "uganda-districts");
+        var ugandaLabelsText = g.append("g").attr("class", "uganda-districts");
 
         /*  var nodeFontSize = 12;
 
@@ -408,6 +410,7 @@
             ugandaPath = ugandaDistricts
                 .selectAll('.district')
                 .data(ugandaGeoJson.features);
+
             ugandaPath
                 .enter()
                 .append("path")
@@ -429,6 +432,7 @@
                                 return a.Name;
                             }).entries(c.values);
                             d.properties._unAgencyList = d3.nest().key(function (a) {
+                                return a.Actor_Type;
                                 return a.Actor_Type;
                             }).entries(c.values);
                             d.properties._ipAgencyList = d3.nest().key(function (a) {
@@ -541,7 +545,7 @@
                                         tooltip.classed("d3-hide", true);
                                     });
 
-                                /*var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
+                               /* var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
                                 // d3.select(this).classed("d3-active", !needRemove).style("opacity", needRemove ? opacity : 1);
                                 // d.properties._selected = !needRemove;
                                 ugandaPath.style("opacity", function (a) {
@@ -552,19 +556,19 @@
                                   } else {
                                     return (a.properties._selected ? 1 : opacity);
                                   }
-                                });*/
+                                });
                                 // settlements.style("opacity", opacity);
                                 // d3.select(this).style("opacity", 1); //d3.selectAll(".district-" + d.properties.DNAME_06.replaceAll('[ ]', "_"))
                                 // d3.select("#district-list").selectAll("p").style("background", "transparent");
-                                /*d3.select(".district-list-" + d.properties.DNAME_06.replaceAll('[ ]', "_")).style("background",
+                                d3.select(".district-list-" + d.properties.DNAME_06.replaceAll('[ ]', "_")).style("background",
                                   "#E3784A");
                                 refreshCounts();
                                 global.currentEvent = "district";
                                 myFilter({
                                   "key": d.properties.DNAME_06
-                                }, global.currentEvent);*/
+                                }, global.currentEvent);
 
-                                /*settlements.style("opacity", 1);
+                                settlements.style("opacity", 1);
                                 if (global.selectedDistrict && global.selectedDistrict.length > 0) {
                                   global.selectedDistrict.map(function (dd) {
                                     d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
@@ -637,6 +641,24 @@
                       .attr("dy", ".30em")
                       .attr("font-size", nodeFontSize + "px")
                       .text(function (d) { return d.properties.dist});*/
+            /*ugandaPath.enter().append("text")
+                .attr("class", "label")
+                .each(function (d) {
+                    //console.log(d);
+                    d.properties.centroid = projection(d3.geo.centroid(d));
+                })
+                .attr("transform", function (d) {
+                    return "translate(" + d.properties.centroid + ")";
+                })
+                //.attr("dy", ".30em")
+                .style("color", "black")
+                .style("font-size", "2px")
+                // .style("opacity", 0)
+                .text(function (d) {
+                    var label = d.properties.dist.split(" ");
+                    //console.log(label);
+                    return label[0];
+                });*/
 
 
             ugandaPath.exit().remove();
@@ -644,7 +666,7 @@
 
         }
 
-        var ugandaNeighboursPath = g.append("g")
+        //var ugandaNeighboursPath = g.append("g")
         updateGeoPath(ugandaGeoJson);
 
         /*var ugandaDistrictPath = g.append("g")
@@ -794,6 +816,7 @@
             var scale1 = 1.1;
             refugeeSites1 //.transition().duration(duration)
                 .each(function (d) {
+                    //console.log(d);
                     d._coordinates = projection([d.Long, d.Lat]);
                 })
                 .attr("transform", function (d) {
@@ -845,10 +868,10 @@
                     d._coordinates = projection([d.Long, d.Lat]);
                 })
                 .attr("transform", function (d) {
-                    return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")scale(" + scale3 + ")";
+                    return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")rotate(-90)scale(" + scale3 + ")";
                 })
                 .select("path")
-                .attr("d", "M1.558-1.508c0,3.667,0,3.667,0,3.667C0.825,2.892,0.825,2.892,0.825,2.892c0,0.727,0,0.727,0,0.727c-1.466,0-1.466,0-1.466,0c0-0.727,0-0.727,0-0.727c-0.733-0.733-0.733-0.733-0.733-0.733c0-3.667,0-3.667,0-3.667c0.978-0.495,0.978-0.495,0.978-0.495c-0.287-0.165-0.489-0.47-0.489-0.831c0-0.538,0.434-0.978,0.978-0.978c0.538,0,0.978,0.44,0.978,0.978c0,0.361-0.202,0.66-0.489,0.831L1.558-1.508z M5.5-2.975c-5.506-4.4-5.506-4.4-5.506-4.4c-5.494,4.4-5.494,4.4-5.494,4.4c0,1.467,0,1.467,0,1.467c1.283-1.027,1.283-1.027,1.283-1.027c0,6.16,0,6.16,0,6.16c1.1,0,1.1,0,1.1,0c0-7.04,0-7.04,0-7.04C0-5.908,0-5.908,0-5.908c3.117,2.493,3.117,2.493,3.117,2.493c0,7.04,0,7.04,0,7.04c1.1,0,1.1,0,1.1,0c0-6.16,0-6.16,0-6.16C5.5-1.508,5.5-1.508,5.5-1.508V-2.975z")
+                .attr("d", "M-0.367-0.317c-3.667,0-3.667,0-3.667,0C-4.767-1.05-4.767-1.05-4.767-1.05c-0.727,0-0.727,0-0.727,0c0-1.466,0-1.466,0-1.466c0.727,0,0.727,0,0.727,0c0.733-0.733,0.733-0.733,0.733-0.733c3.667,0,3.667,0,3.667,0c0.495,0.978,0.495,0.978,0.495,0.978C0.293-2.558,0.598-2.76,0.959-2.76c0.538,0,0.978,0.434,0.978,0.978c0,0.538-0.44,0.978-0.978,0.978c-0.361,0-0.66-0.202-0.831-0.489L-0.367-0.317z M1.1,3.625c4.4-5.506,4.4-5.506,4.4-5.506C1.1-7.375,1.1-7.375,1.1-7.375c-1.467,0-1.467,0-1.467,0C0.66-6.092,0.66-6.092,0.66-6.092c-6.16,0-6.16,0-6.16,0c0,1.1,0,1.1,0,1.1c7.04,0,7.04,0,7.04,0c2.493,3.117,2.493,3.117,2.493,3.117C1.54,1.242,1.54,1.242,1.54,1.242c-7.04,0-7.04,0-7.04,0c0,1.1,0,1.1,0,1.1c6.16,0,6.16,0,6.16,0c-1.027,1.283-1.027,1.283-1.027,1.283H1.1z")
         }
 
         /*
@@ -887,15 +910,13 @@
             $("#district-list.custom-list").removeClass('collapsed');
              */
             global.selectedDistrict = [];
-            global.selectedSector = []; // ID
-            global.selectedSettlement = []; //undefined; //[]; // ID
-            global.selectedAgency = [];
             //console.log(global.selectedDistrict);
             ugandaPath.style("opacity", function (a) {
                 //console.log(a);
                 a.properties._selected = false;
                 return 1;
             });
+            d3.selectAll('.labels').style("opacity", 1);
             settlements.style("opacity", 1);
             d3.select("#district-list").selectAll("p").style("background", "transparent");
             d3.select("#sector-list").selectAll("p").style("background", "transparent");
@@ -1175,13 +1196,17 @@
 
 
         function updateLeftPanel(districtList, sectorList, settlementList, agencyList, dataset) {
-            // console.log(settlementList, districtList);
-            // console.log(global.currentEvent);
+            //console.log(settlementList, districtList);
+            //console.log(global.currentEvent);
             if (global.currentEvent !== "district") {
                 d3.selectAll(".district").style("opacity", opacity);
+                d3.selectAll(".labels").style("opacity", opacity);
                 d3.selectAll(".settlement").style("opacity", opacity);
+               // console.log(districtList);
                 districtList.map(function (a) {
+                    //console.log(a);
                     d3.select(".district-" + a.key.replaceAll('[ ]', "_")).style("opacity", 1);
+                    d3.select(".district-" + a.key.toLowerCase().replaceAll('[ ]', "-")).style("opacity", 1);
                     a.values.map(function (b) {
                         d3.select(".settlement-" + b.Settlement_ID).style("opacity", 1);
                     });
@@ -1190,6 +1215,59 @@
 
             // d3.select("#district-count").text(districtList.length);
             if (districtList) {
+                d3.select("#district-count").text(districtList.length);
+                var _districtList = d3.select("#district-list").selectAll("p")
+                    .data(districtList);
+                _districtList.enter().append("p")
+                    .text(function (d) {
+                        return d.key;
+                    })
+                    // .style("background", "transparent")
+                    .on("click", function (c) {
+                        // d3.select(this.parentNode).selectAll("p").style("background", "transparent");
+                        // d3.select(this).style("background", "#8cc4d3");
+                        settlements.style("opacity", opacity);
+                        d3.selectAll(".labels").style("opacity", opacity);
+                        var needRemove = $(d3.select(this).node()).hasClass("d3-active"); //d3.select(this).attr("class");//d3-active
+                        d3.select(this).classed("d3-active", !needRemove).style("background", needRemove ? "transparent" :
+                            "#E3784A");
+                        global.currentEvent = "district";
+                        myFilter(c, global.currentEvent, needRemove);
+                        // myFilterBySettlement(c, undefined);
+                        ugandaPath.style("opacity", function (a) {
+                            if (a.properties.DNAME_06 === c.key) {
+                                //console.log(a);
+                                //console.log(c);
+                                a.properties._selected = !needRemove;
+                                return a.properties._selected ? 1 : opacity;
+                            }
+                            return a.properties._selected ? 1 : opacity;
+                        });
+                        // settlements.style("opacity", function (a) {
+                        //   if (a.Settlement_ID === c.values[0].Settlement_ID) {
+                        //     a._selected = !needRemove;
+                        //     return a._selected ? 1 : opacity;
+                        //   }
+                        //   return a._selected ? 1 : opacity;
+                        // });
+                        // d3.select(".settlement").style("opacity", 0);
+                        // d3.select(".settlement-" + c.values[0].Settlement_ID).style("opacity", 1);
+                        global.selectedDistrict.map(function (a) {
+                            //console.log(a);
+                            d3.selectAll(".settlement-district-" + a.key.toLowerCase().replaceAll("[ ]", "-")).style("opacity", 1);
+                            d3.selectAll(".district-" + a.key.toLowerCase().replaceAll('[ ]', "-")).style("opacity", 1);
+                        });
+                    });
+                _districtList
+                    .attr("class", function (d) {
+                        return "district-list-" + d.key.replaceAll('[ ]', "_");
+                    })
+                    .text(function (d) {
+                        return d.key;
+                    });
+                _districtList.exit().remove();
+            }
+            /*if (districtList) {
                 var _districtList = d3.select("#district-list").selectAll("p")
                     .data(districtList);
                 _districtList.enter().append("p")
@@ -1203,12 +1281,15 @@
                         //   global.needRefreshDistrict = false;
                         // }
                         settlements.style("opacity", opacity);
+                        d3.selectAll('.labels').style("opacity", opacity);
                         if (global.selectedDistrict.length > 0) {
                             global.selectedDistrict.map(function (dd) {
-                                d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
-                                    "opacity", 1);
+                                //console.log(dd);
+                                d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style("opacity", 1);
+                                d3.select(".district-" + dd.key.toLowerCase().replaceAll('[ ]', "-")).style("opacity", 1);
                             });
                         }
+                        //console.log(c);
                         c.values.map(function (ddd) {
                             d3.select(".settlement-" + ddd.Settlement_ID).style('opacity', 1);
                         });
@@ -1224,13 +1305,14 @@
                         // myFilterByDistrict(c, needRemove);
                         ugandaPath.style("opacity", function (a) {
                             if (a.properties.DNAME_06 === c.key) {
-                                // console.log(a);
-                                // console.log(c);
+                                 //console.log(a);
+                                 //console.log(c);
                                 a.properties._selected = !needRemove;
                                 return a.properties._selected ? 1 : opacity;
                             }
                             return a.properties._selected ? 1 : opacity;
                         });
+                        //d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
                         // d3.select(".district-" + c.key.replaceAll('[ ]', "_")).style("opacity", 1);
                     });
                 _districtList //.transition().duration(duration)
@@ -1241,14 +1323,17 @@
                         return d.key;
                     });
                 _districtList.exit().remove();
-            }
+            }*/
             if (sectorList) {
                 d3.select("#sector-count").text(sectorList.length);
                 var _sectorList = d3.select("#sector-list").selectAll("p")
                     .data(sectorList);
                 _sectorList.enter().append("p")
+                    .attr("class", function(d){
+                        return d.key.replace(/\s/g,'');
+                    })
                     .text(function (d) {
-                        return d.key;
+                        //return d.key;
                     })
                     // .style("background", "transparent")
                     .on("click", function (c) {
@@ -1262,6 +1347,9 @@
                         // myFilterBySector(c, needRemove);
                     });
                 _sectorList //.transition().duration(duration)
+                    .attr("class", function(d){
+                        return d.key.replace(/\s/g,'');
+                    })
                     .text(function (d) {
                         return d.key;
                     });
@@ -1286,6 +1374,7 @@
                         myFilter(c, global.currentEvent, needRemove);
                         // myFilterBySettlement(c, undefined);
                         settlements.style("opacity", opacity);
+
                         // settlements.style("opacity", function (a) {
                         //   if (a.Settlement_ID === c.values[0].Settlement_ID) {
                         //     a._selected = !needRemove;
@@ -1296,6 +1385,7 @@
                         // d3.select(".settlement").style("opacity", 0);
                         // d3.select(".settlement-" + c.values[0].Settlement_ID).style("opacity", 1);
                         global.selectedSettlement.map(function (a) {
+                            //console.log(a);
                             d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
                         });
                     });
@@ -1510,10 +1600,10 @@
                 .duration(900)
                 .call(zoom.translate(translate).scale(scale).event)
                 .each("end", function () {
-                    svg.selectAll(".Tag1").each(function () {
+                    d3.selectAll(".settlement").each(function () {
                         var element = d3.select(this);
                         //console.log(element);
-                        element.append("svg:text")
+                        element.append("text")
                             .attr("class", "label")
                             .attr("dy", "1.5em")
                             .attr("transform", "rotate(+90)")
@@ -1521,41 +1611,79 @@
                             .style("color", "black")
                             .style("pointer-events", "none")
                             .text(function (d) {
+                                //console.log(d);
                                 return d.Settlement
                             });
                     });
-                    svg.selectAll(".Tag2").each(function () {
-                        var element = d3.select(this);
-                        //console.log(element);
-                        element.append("svg:text")
+
+                    distLabels = ugandaLabelsText.selectAll('.district')
+                        .data(ugandaLabels.features);
+                    distLabels.enter().append("text")
+                        .attr("class", function (d) {
+                            //console.log(d);
+                            return "labels district district-" + d.properties.dist.toLowerCase().replaceAll('[ ]', "-");
+                        })
+                        .each(function(d) {
+                            //console.log(d);
+                            d._coordinates = projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]);
+                        })
+                        .attr("transform", function (d) {
+                            return "translate(" + d._coordinates[0] + "," + d._coordinates[1] + ")";
+                        })
+                        .attr("font-size", "2px")
+                        .style("color", "black")
+                        .style("pointer-events", "none")
+                        .text(function (d) {
+                            var label = d.properties.dist.split(" ");
+                            //console.log(label);
+                            return label[0];
+                        });
+
+                    if (global.selectedDistrict.length > 0) {
+                        distLabels.style("opacity", opacity);
+                        global.selectedDistrict.map(function (a) {
+                            //console.log(a);
+                            d3.selectAll(".district-" + a.key.toLowerCase().replaceAll('[ ]', "-")).style("opacity", 1);
+                        });
+                    }
+
+                    //console.log(distLabels);
+
+
+
+
+                    /*d3.selectAll(".district").each(function () {
+                        var elementD = d3.select(this);
+                        console.log(elementD);
+                        elementD.append("text")
                             .attr("class", "label")
-                            .attr("dy", "1.5em")
-                            .attr("transform", "rotate(+90)")
-                            .attr("font-size", "12px")
+                            .attr("dx", function (d) {
+                                console.log(d);
+                                return "0em";//d.properties.centroid[1];
+                            })
+                            .attr("dy", function (d) {
+                                console.log(d);
+                                return "0em";//d.properties.centroid[0];
+                            })
+                            .attr("font-size", "18px")
                             .style("color", "black")
-                            .style("pointer-events", "none")
+                            // .style("pointer-events", "none")
                             .text(function (d) {
-                                return d.Settlement
+                                var label = d.properties.dist.split(" ");
+                                //console.log(label);
+                                return label[0];
                             });
-                    });
-                    svg.selectAll(".Tag3").each(function () {
-                        var element = d3.select(this);
-                        //console.log(element);
-                        element.append("svg:text")
-                            .attr("class", "label")
-                            .attr("dy", "1.5em")
-                            //.attr("transform", "rotate(+90)")
-                            .attr("font-size", "12px")
-                            .style("color", "black")
-                            .style("pointer-events", "none")
-                            .text(function (d) {
-                                return d.Settlement
-                            });
-                    });
-                    var distLabels = ugandaPath
-                        .enter().append("svg:text")
+                    });*/
+
+
+
+
+                    /*var distLabels = ugandaPath;
+                    distLabels
+                        .enter().append("text")
                         .attr("class", "label")
                         .each(function (d) {
+                            //console.log(d);
                             d.properties.centroid = projection(d3.geo.centroid(d));
                         })
                         .attr("transform", function (d) {
@@ -1569,7 +1697,7 @@
                             var label = d.properties.dist.split(" ");
                             //console.log(label);
                             return label[0];
-                        });
+                        });*/
 
 
                 });
@@ -1631,7 +1759,7 @@
                 var element = d3.select(this);//.select('path');
                 // console.log(element);
                 var t = d3.transform(element.attr("transform"));
-                element.attr("transform", "translate(" + t.translate + ")scale(" + 1.1 / d3.event.scale + ")");
+                element.attr("transform", "translate(" + t.translate + ")rotate(-90)scale(" + 1.1 / d3.event.scale + ")");
 
                 // var elementLabel = d3.select(this).select('label');
                 // elementLabel.style("font-size", "500px");
