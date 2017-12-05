@@ -1257,6 +1257,8 @@
                             d3.selectAll(".settlement-district-" + a.key.toLowerCase().replaceAll("[ ]", "-")).style("opacity", 1);
                             d3.selectAll(".district-" + a.key.toLowerCase().replaceAll('[ ]', "-")).style("opacity", 1);
                         });
+                        //console.log(global.selectedDistrict.length);
+                        if(global.selectedDistrict.length === 0){refreshCounts();}
                     });
                 _districtList
                     .attr("class", function (d) {
@@ -1345,6 +1347,7 @@
                         global.currentEvent = "sector";
                         myFilter(c, global.currentEvent, needRemove);
                         // myFilterBySector(c, needRemove);
+                        if(global.selectedSector.length === 0){refreshCounts();}
                     });
                 _sectorList //.transition().duration(duration)
                     .attr("class", function(d){
@@ -1388,6 +1391,7 @@
                             //console.log(a);
                             d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
                         });
+                        if(global.selectedSettlement.length === 0){refreshCounts();}
                     });
                 _settlementList
                     .attr("class", function (d) {
@@ -1421,6 +1425,7 @@
                         //   d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
                         //     "opacity", 1);
                         // });
+                        if(global.selectedAgency.length === 0){refreshCounts();}
                     });
                 _agencyList
                     .text(function (d) {
