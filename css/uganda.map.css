@@ -27,8 +27,14 @@ html {
     font-weight: bold;
     text-anchor: middle;
     cursor: default;
-}
 
+}
+.labels {
+    font-weight: bold;
+    text-anchor: middle;
+    cursor: default;
+
+}
 .top-panel {
     /*background-color: rgba(255,255,255,.9);*/
 }
