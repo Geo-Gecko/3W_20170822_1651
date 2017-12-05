@@ -1258,7 +1258,7 @@
                             d3.selectAll(".district-" + a.key.toLowerCase().replaceAll('[ ]', "-")).style("opacity", 1);
                         });
                         //console.log(global.selectedDistrict.length);
-                        if(global.selectedDistrict.length === 0){refreshCounts();}
+                        if(global.selectedDistrict.length === 0){refreshCounts(); refreshMap();}
                     });
                 _districtList
                     .attr("class", function (d) {
@@ -1391,7 +1391,7 @@
                             //console.log(a);
                             d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
                         });
-                        if(global.selectedSettlement.length === 0){refreshCounts();}
+                        if(global.selectedSettlement.length === 0){refreshCounts(); refreshMap();}
                     });
                 _settlementList
                     .attr("class", function (d) {
