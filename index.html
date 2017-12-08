@@ -27,8 +27,7 @@
     <div class="top-panel col-md-8 col-sm-8" style="top: 10px; left: 250px;">
         <div class="head" style="width: 200px; height: 90px;">
             <p id="d3-map-info">To Filter: Use Left Menu <br/>
-                For Info: Click Map Feature <br/>
-                To Zoom: DoubleClick Map Feature </p>
+                For Info: Click Map Feature </p>
         </div>
     </div>
 
@@ -100,8 +99,12 @@
             </div>
             <div class="list-container">
                 <div class="col-md-12">
-                    <p class="custom-list-header">Districts <i class="glyphicon glyphicon-chevron-down"></i></p>
-                    <div id="district-list" class="custom-list"></div>
+                    <p class="custom-list-header">Partners <i class="glyphicon glyphicon-chevron-down"></i></p>
+                    <div id="agency-list" class="custom-list" style="height: 250px;"></div>
+                </div>
+                <div class="col-md-12">
+                    <p class="custom-list-header">Sectors <i class="glyphicon glyphicon-chevron-down"></i></p>
+                    <div id="sector-list" class="custom-list"></div>
                 </div>
                 <div class="col-md-12">
                     <p class="custom-list-header">Refugee sites
@@ -112,12 +115,8 @@
                     <div id="settlement-list" class="custom-list"></div>
                 </div>
                 <div class="col-md-12">
-                    <p class="custom-list-header">Sectors <i class="glyphicon glyphicon-chevron-down"></i></p>
-                    <div id="sector-list" class="custom-list"></div>
-                </div>
-                <div class="col-md-12">
-                    <p class="custom-list-header">Partners <i class="glyphicon glyphicon-chevron-down"></i></p>
-                    <div id="agency-list" class="custom-list"></div>
+                    <p class="custom-list-header">Districts <i class="glyphicon glyphicon-chevron-down"></i></p>
+                    <div id="district-list" class="custom-list"></div>
                 </div>
             </div>
         </div>
@@ -151,12 +150,14 @@
             </div>
             <div id="d3-map-wrapper"></div>
         </div>
+        <div id="d3-map-container2"></div>
     </div>
 
 
 </div>
 
 <script src="./js/d3.v3.min.js"></script>
+<script src="./js/L.D3SvgOverlay.min.js"></script>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/topojson.v1.min.js"></script>
 <script src="./js/queue.v1.min.js"></script>
