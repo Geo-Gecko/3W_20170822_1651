@@ -20,6 +20,20 @@ function _printFilter(doc, filter, x, y) {
 	doc.text(x, y + 5, filter.name);
 }
 
+function redraw() {
+    console.log("Reloading...");
+
+    var mapTransform = $(".leaflet-pane").css("transform");
+    var tfMatrix = mapTransform.split("(")[1].split(")")[0].split(", ");
+    var toX = 0 - tfMatrix[4],
+        toY = 0 - tfMatrix[5];
+    console.log($(".leaflet-pane").css("transform-origin", 0 + "px " + 0 + "px"));
+    $(".leaflet-pane").css("transform-origin", toX + "px " + toY + "px");
+    console.log($(".leaflet-pane").css("transform-origin", 0 + "px " + 0 + "px"));
+    console.log("Done");
+    console.log(tfMatrix);
+}
+
 function makeRectangularCanvas(oldCanvas, callback) {
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
@@ -59,7 +73,9 @@ function _makeMapImage(map, callback) {
 			var drawing = new Image();
 			drawing.src = uri;
 			drawing.onload = function () {
-				context.drawImage(drawing, 0, 0);
+				context.drawImage(drawing, 145, 95);
+
+				redraw();
 
 				makeRectangularCanvas(canvas, function (canvas) {
 					var legend = document.querySelector('#legend > svg');

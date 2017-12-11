@@ -284,11 +284,11 @@
     // map.touchZoom.disable();
     // map.dragging.disable();
 
-        map.bounds = [],
+        /*map.bounds = [],
             map.setMaxBounds([
-               [6.5,22.2],
-               [-4.4,42.0]
-            ]);
+               [4.5,29.5],
+               [-1.5,34.5]
+            ]);*/
         map.options.maxZoom=12;
         map.options.minZoom=7;
         map.on("viewreset", function(d){console.log("viewreset")})
@@ -298,6 +298,15 @@
                 var element = d3.select(this);
                 element.remove();
             });
+            var mapTransform = $(".leaflet-pane").css("transform");
+            console.log(mapTransform);
+            var tfMatrix = mapTransform.split("(")[1].split(")")[0].split(", ");
+            var toX = 0 - tfMatrix[4],
+                toY = 0 - tfMatrix[5];
+            $(".leaflet-pane").css("transform-origin", toX + "px " + toY + "px");
+            mapTransform = $(".leaflet-pane").css("transform");
+            console.log(mapTransform);
+
         if (zoomlevel >= 10){
             d3.selectAll(".settlement").each(function () {
                 var element = d3.select(this);
@@ -794,6 +803,10 @@
 
 
         function makePdf() {
+            var lat_tmp = 1.367;
+            var lng_tmp = 32.305;
+            map.setView([lat_tmp, lng_tmp]);
+            map.setZoom(7);
             if ($("#d3-map-make-pdf").hasClass('disabled')) {
                 return;
             }
@@ -826,32 +839,20 @@
                 url: "https://ugandarefugees.org/wp-content/uploads/Map5_T4.csv?GD_NONCE",
             }).done(function () {
                 var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
-                generatePdf(map, _selectedDataset, filters, lastModified, function () {
+                basemap.on("load", setTimeout(function(){console.log("all visible tiles have been loaded...");
+                    generatePdf(map, _selectedDataset, filters, lastModified, function () {
 
-                    $("#d3-map-make-pdf").removeClass('disabled');
-                    spinner.stop();
-                });
+                        $("#d3-map-make-pdf").removeClass('disabled');
+                        spinner.stop();
+                    });
+
+                    }, 5000));
+
             })
         }
 
-        d3.select("#d3-map-make-pdf").on("click", redraw);
-        function redraw() {
-            var lat_tmp = 1.367;
-            var lng_tmp = 32.305;
-            console.log("Reloading...");
-            setTimeout(function () {
-                basemap.on("load", function(){console.log("all visible tiles have been loaded...")});
-            }, 5000);
-            map.setView([lat_tmp, lng_tmp]);
-            map.setZoom(7);
-            var mapTransform = $(".leaflet-pane").css("transform");
-            var tfMatrix = mapTransform.split("(")[1].split(")")[0].split(", ");
-            var toX = 0 - tfMatrix[4],
-                toY = 0 - tfMatrix[5];
-            $(".leaflet-pane").css("transform-origin", toX + "px " + toY + "px");
-            console.log("Done");
-            makePdf();
-        }
+        d3.select("#d3-map-make-pdf").on("click", makePdf);
+
 
 
     // function onlyUnique(value, index, self) {
