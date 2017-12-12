@@ -805,6 +805,7 @@
         function makePdf() {
             var lat_tmp = 1.367;
             var lng_tmp = 32.305;
+            map.setMaxBounds(null);
             map.setView([lat_tmp, lng_tmp], 7);
             if ($("#d3-map-make-pdf").hasClass('disabled')) {
                 return;
@@ -834,7 +835,10 @@
                 var lastModified = new Date($xhr.getResponseHeader("Last-Modified"));
                 basemap.on("load", setTimeout(function(){console.log("all visible tiles have been loaded...");
                     generatePdf(map, _selectedDataset, filters, lastModified, function () {
-
+                        map.setMaxBounds([
+                            [4.5,29.5],
+                            [-1.5,34.5]
+                        ]);
                         $("#d3-map-make-pdf").removeClass('disabled');
                         spinner.stop();
                     });
