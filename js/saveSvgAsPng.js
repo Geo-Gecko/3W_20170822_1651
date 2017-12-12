@@ -310,6 +310,11 @@
       }
 
       clone.setAttribute('style', '');
+      var g = clone.querySelector('g');
+      if (g) {
+        g.setAttribute('transform', '');
+      }
+
       clone.setAttribute("viewBox", [
         options.left || 0,
         options.top || 0,

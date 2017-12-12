@@ -803,13 +803,13 @@
 
 
         function makePdf() {
+            if ($("#d3-map-make-pdf").hasClass('disabled')) {
+                return;
+            }
             var lat_tmp = 1.367;
             var lng_tmp = 32.305;
             map.setMaxBounds(null);
             map.setView([lat_tmp, lng_tmp], 7);
-            if ($("#d3-map-make-pdf").hasClass('disabled')) {
-                return;
-            }
             $("#d3-map-make-pdf").addClass('disabled');
             var spinner = new Spinner({length: 3, radius: 4, width: 2}).spin(document.body);
             document.getElementById('d3-map-make-pdf').appendChild(spinner.el);
@@ -844,7 +844,6 @@
                     });
 
                     }, 5000));
-                    
             })
         }
 
