@@ -284,11 +284,11 @@
     // map.touchZoom.disable();
     // map.dragging.disable();
 
-        /*map.bounds = [],
+        map.bounds = [],
             map.setMaxBounds([
                [4.5,29.5],
                [-1.5,34.5]
-            ]);*/
+            ]);
         map.options.maxZoom=12;
         map.options.minZoom=7;
         map.on("viewreset", function(d){console.log("viewreset")})
