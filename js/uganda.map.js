@@ -50,10 +50,10 @@
 
 
   function refreshCounts() {
-      d3.select("#district-count").text(global.districtCount);
-      d3.select("#sector-count").text(global.sectorCount);
-      d3.select("#settlement-count").text(global.settlementCount);
-      d3.select("#agency-count").text(global.agencyCount);
+      d3.select("#districT-count").text(global.districtCount);
+      d3.select("#sectoR-count").text(global.sectorCount);
+      d3.select("#settlemenT-count").text(global.settlementCount);
+      d3.select("#agencY-count").text(global.agencyCount);
       d3.select("#agencyUN-count").text(global.unCount);
       d3.select("#agencyIP-count").text(global.ipCount);
       d3.select("#agencyOP-count").text(global.opCount);
@@ -225,9 +225,9 @@
         //console.log(ipAgencyList);
 
         global.districtCount = districtList.length;
-    global.sectorCount = sectorList.length;
-    global.settlementCount = settlementList.length;
-    global.agencyCount = agencyList.length; //to remove the count of NO DATA
+        global.sectorCount = sectorList.length;
+        global.settlementCount = settlementList.length;
+        global.agencyCount = agencyList.length; //to remove the count of NO DATA
         global.unCount = unAgencyList.length;
         global.ipCount = ipAgencyList.length;
         global.opCount = opAgencyList.length;
@@ -1121,15 +1121,13 @@
               });
               //console.log(global.selectedDistrict.length);
               if(global.selectedDistrict.length === 0){refreshCounts(); refreshMap();}
-              var disList = d3.select("#district-list").selectAll("p");
               var secList = d3.select("#sector-list").selectAll("p");
               var setList = d3.select("#settlement-list").selectAll("p");
               var ageList = d3.select("#agency-list").selectAll("p");
               //console.log(disList, secList, setList, ageList);
-              if (disList[0].length === 1) { disList.style("background", "#E3784A");}
-              if (secList[0].length === 1) { secList.style("background", "#E3784A");}
-              if (setList[0].length === 1) { setList.style("background", "#E3784A");}
-              if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
+              { secList.style("background", secList[0].length === 1 ? "#E3784A" : "transparent");}
+              { setList.style("background", setList[0].length === 1 ? "#E3784A" : "transparent");}
+              { ageList.style("background", ageList[0].length === 1 ? "#E3784A" : "transparent");}
           });
           _districtList
               .attr("class", function (d) {
@@ -1162,16 +1160,14 @@
                     global.currentEvent = "sector";
                     myFilter(c, global.currentEvent, needRemove);
                     // myFilterBySector(c, needRemove);
-                    if(global.selectedSector.length === 0){refreshCounts();}
+                    if(global.selectedSector.length === 0){refreshCounts(); refreshMap();}
                     var disList = d3.select("#district-list").selectAll("p");
-                    var secList = d3.select("#sector-list").selectAll("p");
                     var setList = d3.select("#settlement-list").selectAll("p");
                     var ageList = d3.select("#agency-list").selectAll("p");
                     //console.log(disList, secList, setList, ageList);
-                    if (disList[0].length === 1) { disList.style("background", "#E3784A");}
-                    if (secList[0].length === 1) { secList.style("background", "#E3784A");}
-                    if (setList[0].length === 1) { setList.style("background", "#E3784A");}
-                    if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
+                    { disList.style("background", disList[0].length === 1 ? "#E3784A" : "transparent");}
+                    { setList.style("background", setList[0].length === 1 ? "#E3784A" : "transparent");}
+                    { ageList.style("background", ageList[0].length === 1 ? "#E3784A" : "transparent");}
                 });
             _sectorList //.transition().duration(duration)
                 .attr("class", function(d){
@@ -1218,13 +1214,11 @@
                     if(global.selectedSettlement.length === 0){refreshCounts(); refreshMap();}
                     var disList = d3.select("#district-list").selectAll("p");
                     var secList = d3.select("#sector-list").selectAll("p");
-                    var setList = d3.select("#settlement-list").selectAll("p");
                     var ageList = d3.select("#agency-list").selectAll("p");
                     //console.log(disList, secList, setList, ageList);
-                    if (disList[0].length === 1) { disList.style("background", "#E3784A");}
-                    if (secList[0].length === 1) { secList.style("background", "#E3784A");}
-                    if (setList[0].length === 1) { setList.style("background", "#E3784A");}
-                    if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
+                    { disList.style("background", disList[0].length === 1 ? "#E3784A" : "transparent");}
+                    { secList.style("background", secList[0].length === 1 ? "#E3784A" : "transparent");}
+                    { ageList.style("background", ageList[0].length === 1 ? "#E3784A" : "transparent");}
                 });
             _settlementList
                 .attr("class", function (d) {
@@ -1258,16 +1252,14 @@
                     //   d3.selectAll(".settlement-district-" + dd.key.toLowerCase().replaceAll("[ ]", "-")).style(
                     //     "opacity", 1);
                     // });
-                    if(global.selectedAgency.length === 0){refreshCounts();}
+                    if(global.selectedAgency.length === 0){refreshCounts(); refreshMap();}
                     var disList = d3.select("#district-list").selectAll("p");
                     var secList = d3.select("#sector-list").selectAll("p");
                     var setList = d3.select("#settlement-list").selectAll("p");
-                    var ageList = d3.select("#agency-list").selectAll("p");
                     //console.log(disList, secList, setList, ageList);
-                    if (disList[0].length === 1) { disList.style("background", "#E3784A");}
-                    if (secList[0].length === 1) { secList.style("background", "#E3784A");}
-                    if (setList[0].length === 1) { setList.style("background", "#E3784A");}
-                    if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
+                    { disList.style("background", disList[0].length === 1 ? "#E3784A" : "transparent");}
+                    { secList.style("background", secList[0].length === 1 ? "#E3784A" : "transparent");}
+                    { setList.style("background", setList   [0].length === 1 ? "#E3784A" : "transparent");}
                 });
             _agencyList
                 .text(function (d) {
