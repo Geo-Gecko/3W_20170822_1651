@@ -286,26 +286,25 @@
 
         map.bounds = [],
             map.setMaxBounds([
-               [4.5,29.5],
-               [-1.5,34.5]
+               [5.5,28.0],
+               [-2.5,35.5]
             ]);
         map.options.maxZoom=12;
         map.options.minZoom=7;
-        map.on("viewreset", function(d){console.log("viewreset")})
         map.on("moveend", function(d){var zoomlevel = map.getZoom()
-            console.log(zoomlevel);
+            //console.log(zoomlevel);
             d3.selectAll(".label").each(function () {
                 var element = d3.select(this);
                 element.remove();
             });
-            var mapTransform = $(".leaflet-pane").css("transform");
-            console.log(mapTransform);
-            var tfMatrix = mapTransform.split("(")[1].split(")")[0].split(", ");
-            var toX = 0 - tfMatrix[4],
-                toY = 0 - tfMatrix[5];
-            $(".leaflet-pane").css("transform-origin", toX + "px " + toY + "px");
-            mapTransform = $(".leaflet-pane").css("transform");
-            console.log(mapTransform);
+            // var mapTransform = $(".leaflet-pane").css("transform");
+            // console.log(mapTransform);
+            // var tfMatrix = mapTransform.split("(")[1].split(")")[0].split(", ");
+            // var toX = 0 - tfMatrix[4],
+            //     toY = 0 - tfMatrix[5];
+            // $(".leaflet-pane").css("transform-origin", toX + "px " + toY + "px");
+            // mapTransform = $(".leaflet-pane").css("transform");
+            // console.log(mapTransform);
 
         if (zoomlevel >= 10){
             d3.selectAll(".settlement").each(function () {
@@ -1080,7 +1079,6 @@
           });
         });
       }
-
       if (districtList) {
         d3.select("#district-count").text(districtList.length);
         var _districtList = d3.select("#district-list").selectAll("p")
@@ -1123,6 +1121,15 @@
               });
               //console.log(global.selectedDistrict.length);
               if(global.selectedDistrict.length === 0){refreshCounts(); refreshMap();}
+              var disList = d3.select("#district-list").selectAll("p");
+              var secList = d3.select("#sector-list").selectAll("p");
+              var setList = d3.select("#settlement-list").selectAll("p");
+              var ageList = d3.select("#agency-list").selectAll("p");
+              //console.log(disList, secList, setList, ageList);
+              if (disList[0].length === 1) { disList.style("background", "#E3784A");}
+              if (secList[0].length === 1) { secList.style("background", "#E3784A");}
+              if (setList[0].length === 1) { setList.style("background", "#E3784A");}
+              if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
           });
           _districtList
               .attr("class", function (d) {
@@ -1156,6 +1163,15 @@
                     myFilter(c, global.currentEvent, needRemove);
                     // myFilterBySector(c, needRemove);
                     if(global.selectedSector.length === 0){refreshCounts();}
+                    var disList = d3.select("#district-list").selectAll("p");
+                    var secList = d3.select("#sector-list").selectAll("p");
+                    var setList = d3.select("#settlement-list").selectAll("p");
+                    var ageList = d3.select("#agency-list").selectAll("p");
+                    //console.log(disList, secList, setList, ageList);
+                    if (disList[0].length === 1) { disList.style("background", "#E3784A");}
+                    if (secList[0].length === 1) { secList.style("background", "#E3784A");}
+                    if (setList[0].length === 1) { setList.style("background", "#E3784A");}
+                    if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
                 });
             _sectorList //.transition().duration(duration)
                 .attr("class", function(d){
@@ -1200,6 +1216,15 @@
                         d3.select(".settlement-" + a.values[0].Settlement_ID).style("opacity", 1);
                     });
                     if(global.selectedSettlement.length === 0){refreshCounts(); refreshMap();}
+                    var disList = d3.select("#district-list").selectAll("p");
+                    var secList = d3.select("#sector-list").selectAll("p");
+                    var setList = d3.select("#settlement-list").selectAll("p");
+                    var ageList = d3.select("#agency-list").selectAll("p");
+                    //console.log(disList, secList, setList, ageList);
+                    if (disList[0].length === 1) { disList.style("background", "#E3784A");}
+                    if (secList[0].length === 1) { secList.style("background", "#E3784A");}
+                    if (setList[0].length === 1) { setList.style("background", "#E3784A");}
+                    if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
                 });
             _settlementList
                 .attr("class", function (d) {
@@ -1234,6 +1259,15 @@
                     //     "opacity", 1);
                     // });
                     if(global.selectedAgency.length === 0){refreshCounts();}
+                    var disList = d3.select("#district-list").selectAll("p");
+                    var secList = d3.select("#sector-list").selectAll("p");
+                    var setList = d3.select("#settlement-list").selectAll("p");
+                    var ageList = d3.select("#agency-list").selectAll("p");
+                    //console.log(disList, secList, setList, ageList);
+                    if (disList[0].length === 1) { disList.style("background", "#E3784A");}
+                    if (secList[0].length === 1) { secList.style("background", "#E3784A");}
+                    if (setList[0].length === 1) { setList.style("background", "#E3784A");}
+                    if (ageList[0].length === 1) { ageList.style("background", "#E3784A");}
                 });
             _agencyList
                 .text(function (d) {
@@ -1330,6 +1364,10 @@
                     return d.key;
                 });
             _opAgencyList.exit().remove();
+        }
+
+        function singularity() {
+
         }
     }
 
