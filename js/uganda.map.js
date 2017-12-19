@@ -191,7 +191,8 @@
       return d.Settlement;
     }).sortKeys(d3.ascending).entries(districtSettlement);
     var agencyList = d3.nest().key(function (d) {
-      return d.Name;
+        // console.log(d);
+      return d.Name + " (" + d.Abb + ")";
     }).sortKeys(d3.ascending).entries(nameAbb);
         var unAgencyList = nameAbb.filter(function (d) {
             if (d.Actor_Type === "UN") {
@@ -272,12 +273,17 @@
         zoom: 7,
         zoomControl: false
       });
+
+        L.control.zoom({
+            position:'topright'
+        }).addTo(map);
+
         var _3w_attrib = 'Created by <a href="http://www.geogecko.com">Geo Gecko</a> and © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Powered by <a href="https://d3js.org/">d3</a>';
         var basemap = L.tileLayer("https://api.mapbox.com/styles/v1/gecko/cj27rw7wy001w2rmzx0qdl0ek/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Vja28iLCJhIjoidktzSXNiVSJ9.NyDfX4V8ETtONgPKIeQmvw", {attribution: _3w_attrib});
 
         basemap.addTo(map);
     //temporarily disable the zoom
-    // map.scrollWheelZoom.disable();
+    //map.scrollWheelZoom.disable();
     // map.doubleClickZoom.disable();
     // map.boxZoom.disable();
     // map.keyboard.disable();
@@ -355,7 +361,12 @@
       .append("div")
       .attr("class", "d3-tooltip d3-hide");
     var datasetNest = d3.nest().key(function (d) {
+        //console.log(d);
       return d.District;
+    }).entries(dataset);
+    var settlementNest = d3.nest().key(function (d) {
+        //console.log(d);
+        return d.Settlement;
     }).entries(dataset);
 
 
@@ -496,7 +507,7 @@
                 //console.log(tooltipList);
                 //console.log(d.properties);
 
-                str = str + "<table style='width:100%'><tr><th>Settlements:</th> <th>" + d.properties._settlementList.length + "</th></tr>" +
+                str = str + "<table style='width:100%'><tr><th>Refugee Sites:</th> <th>" + d.properties._settlementList.length + "</th></tr>" +
                     "<tr><th>Sectors:</th> <th>" + d.properties._sectorList.length + "</th></tr>" +
                     "<tr><th>Partners:</th> <th>" + d.properties._agencyList.length + "</th></tr><th><br/></th><div><tr> <th style='text-align: right;'>" + tooltipList + "</th></tr></table></div>";
                 //console.log(d.properties._agencyList);
@@ -512,13 +523,15 @@
                 .classed("d3-hide", false)
                 .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
                         1] -
-                    box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: scroll;");
+                    box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: auto;");
             tooltip
                 .on("mouseover", function () {
                   tooltip.classed("d3-hide", false);
+                    map.scrollWheelZoom.disable();
                 })
                 .on("mouseout", function () {
                   tooltip.classed("d3-hide", true);
+                    map.scrollWheelZoom.enable();
                 });
         })
         .style("fill", function (d) {
@@ -575,7 +588,7 @@
       settlements.enter().append('g')
         .attr("class", function (d) {
           return "settlement settlement-" + d.Settlement_ID + " settlement-district-" + d.District.toLowerCase().replaceAll(
-            "[ ]", "-") + " Tag" + d.Tag;;
+            "[ ]", "-") + " Tag" + d.Tag;
         })
         /*.append('path')
         .attr("z-index", "601")
@@ -588,7 +601,34 @@
           d.latLng = [+d.Lat, +d.Long];
           d._coordinates = proj.latLngToLayerPoint(d.latLng); //projection([d.Long, d.Lat]);
         })*/
-        .on("mousemove", function (d) {
+          .each(function (d) {
+              //console.log(d);
+              settlementNest.map(function (c) {
+                  //console.log(c);
+                  if(c.key === d.Settlement ) {
+                      d._sectorList = d3.nest().key(function (a) {
+                          return a.Sector;
+                      }).entries(c.values);
+                      d._settlementList = d3.nest().key(function (a) {
+                          return a.Settlement;
+                      }).entries(c.values);
+                      d._agencyList = d3.nest().key(function (a) {
+                          return a.Name;
+                      }).entries(c.values);
+                      d._unAgencyList = d3.nest().key(function (a) {
+                          return a.Actor_Type;
+                          //return a.Actor_Type;
+                      }).entries(c.values);
+                      d._ipAgencyList = d3.nest().key(function (a) {
+                          return a.Actor_Type;
+                      }).entries(c.values);
+                      d._opAgencyList = d3.nest().key(function (a) {
+                          return a.Actor_Type;
+                      }).entries(c.values);
+                  }
+              });
+          })
+        /*.on("mousemove", function (d) {
           var svg = d3.select(this.parentNode.parentNode.parentNode);
           var mouse = d3.mouse(svg.node()).map(function (d) {
             return parseInt(d);
@@ -602,14 +642,7 @@
             .classed("d3-hide", false)
             .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] + 15) + "px")
             .html(str);
-        })
-        .on("mouseover", function (d) {
-          //d3.select(this).style("fill", "#aaa");
-        })
-        .on("mouseout", function (d) {
-          //d3.select(this).style("fill", "#fff");
-          tooltip.classed("d3-hide", true);
-        });
+        })*/
         /*.on("click", function (d) {
           d3.select(".settlement-list-" + d.Settlement_ID).style("background", "#E3784A");
           // var needRemove = $(d3.select(this).node()).hasClass("d3-active");
@@ -642,6 +675,62 @@
         var refugeeSites2 = d3.selectAll('.Tag2');*/
         //console.log(refugeeSites2);
         //refugeeSites2.attr("class", function (d) {console.log(d);})
+
+    .on("click", function (d) {
+        //console.log(d);
+            var svg = d3.select(this.parentNode.parentNode.parentNode);
+            var mouse = d3.mouse(svg.node()).map(function (d) {
+                return parseInt(d);
+            });
+            var str = "<tr><button type='button' class='close' onclick='$(this).parent().hide();'>×</button></tr>" +
+                "<th><br/></th><tr><th>Refugee Site:</th> <th style='right: 0;'>" + d.Settlement + "</th></tr><br>"
+                "<th><br/></th><tr><th>District:</th> <th style='right: 0;'>" + d.District + "</th></tr>"
+            if (d._settlementList && d._sectorList && d._agencyList) {
+
+                //console.log(d.properties._agencyList);
+                var agencyListAbb = d3.values(d._agencyList).map(function (d) {
+                    return d.values.map(function (v) {
+                        return v.Abb;
+                    });
+                });
+
+                //console.log(agencyListAbb);
+                var tooltipList = "";
+                var i = 0;
+                while (i < agencyListAbb.length) {
+                    //console.log(d.properties._agencyList[i].key);
+                    tooltipList = tooltipList + ("<p>" + agencyListAbb[i][0] + "</p>");
+                    i++
+                }
+                //console.log(tooltipList);
+                //console.log(d.properties);
+
+                str = str + "<table style='width:100%'><tr><th>Sectors:</th> <th>" + d._sectorList.length + "</th></tr>" +
+                    "<tr><th>Partners:</th> <th>" + d._agencyList.length + "</th></tr><th><br/></th><div><tr> <th style='text-align: right;'>" + tooltipList + "</th></tr></table></div>";
+                //console.log(d.properties._agencyList);
+            }
+            tooltip.html(str);
+
+            var box = tooltip.node().getBoundingClientRect() || {
+                height: 0
+            };
+
+
+            tooltip
+                .classed("d3-hide", false)
+                .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
+                        1] -
+                    box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: auto;");
+            tooltip
+                .on("mouseover", function () {
+                    tooltip.classed("d3-hide", false);
+                    map.scrollWheelZoom.disable();
+                })
+                .on("mouseout", function () {
+                    tooltip.classed("d3-hide", true);
+                    map.scrollWheelZoom.enable();
+                });
+        });
 
 
         {//visualizing the settlements
@@ -1377,7 +1466,7 @@
 
 
 
-  } // ready
+    } // ready
 
 
 

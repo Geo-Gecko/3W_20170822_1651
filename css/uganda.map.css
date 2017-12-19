@@ -225,7 +225,7 @@ p.custom-list-header .glyphicon {
 }
 
 .custom-list {
-    text-align: center;
+    text-align: left;
     height: 80px;
     margin: 0;
     padding: 0px;
