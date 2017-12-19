@@ -192,7 +192,7 @@
     }).sortKeys(d3.ascending).entries(districtSettlement);
     var agencyList = d3.nest().key(function (d) {
         // console.log(d);
-      return d.Name + " (" + d.Abb + ")";
+      return d.Name;
     }).sortKeys(d3.ascending).entries(nameAbb);
         var unAgencyList = nameAbb.filter(function (d) {
             if (d.Actor_Type === "UN") {
@@ -284,7 +284,7 @@
         basemap.addTo(map);
     //temporarily disable the zoom
     //map.scrollWheelZoom.disable();
-    // map.doubleClickZoom.disable();
+     map.doubleClickZoom.disable();
     // map.boxZoom.disable();
     // map.keyboard.disable();
     // map.touchZoom.disable();

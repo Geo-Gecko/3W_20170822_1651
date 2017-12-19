@@ -233,7 +233,7 @@ p.custom-list-header .glyphicon {
     bottom: 20px;
     left: 20px;
     right: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: rgb(245, 245, 245);
     color: #52595e;
     border-right: 1px solid #dfe9f1;
