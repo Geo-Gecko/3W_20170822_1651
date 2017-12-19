@@ -521,12 +521,13 @@
 
             tooltip
                 .classed("d3-hide", false)
-                .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
-                        1] -
+                .style("cursor", "pointer")
+                .attr("style", "left:" + (mouse[0] - 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] - 5 : mouse[1] - 5 -
                     box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: auto;");
             tooltip
                 .on("mouseover", function () {
                   tooltip.classed("d3-hide", false);
+                    tooltip.style("cursor", "pointer");
                     map.scrollWheelZoom.disable();
                 })
                 .on("mouseout", function () {
@@ -718,12 +719,12 @@
 
             tooltip
                 .classed("d3-hide", false)
-                .attr("style", "left:" + (mouse[0] + 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] : mouse[
-                        1] -
+                .attr("style", "left:" + (mouse[0] - 15) + "px;top:" + (mouse[1] < height / 2 ? mouse[1] - 5 : mouse[1] - 5 -
                     box.height) + "px; min-width: 200px; max-width: 200px; height: 150px; overflow-y: auto;");
             tooltip
                 .on("mouseover", function () {
                     tooltip.classed("d3-hide", false);
+                    tooltip.style("cursor", "pointer");
                     map.scrollWheelZoom.disable();
                 })
                 .on("mouseout", function () {
